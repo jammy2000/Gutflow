@@ -358,12 +358,12 @@ const SUSPICIOUS_PATTERNS = [
 
 const BASE_THRESHOLD = 10;
 
-function calcCategoryStacking(yellows) {
-  const groups = {};
+function calcCategoryStacking(yellows: any[]) {
+  const groups: Record<string, any[]> = {};
   for (const item of yellows) {
-    const cat = item.category || "unknown";
-    if (!groups[cat]) groups[cat] = [];
-    groups[cat].push(item);
+    const cat = (item as any).category || "unknown";
+    if (!(groups as any)[cat]) (groups as any)[cat] = [];
+    (groups as any)[cat].push(item);
   }
   let totalLoad = 0;
   const breakdown = [];
@@ -384,7 +384,7 @@ function calcCategoryStacking(yellows) {
   return { totalLoad: Math.round(totalLoad * 10) / 10, breakdown };
 }
 
-function analyzeFodmapStacking(rawIngredients) {
+function analyzeFodmapStacking(rawIngredients: any[]) {
   const ingredients = rawIngredients
     .map((i) => i.trim().toLowerCase())
     .filter(Boolean);
@@ -669,7 +669,7 @@ function SynergyCard({ breakdown }) {
                     marginBottom: 12,
                   }}
                 >
-                  {b.items.map((item, i) => (
+                  {b.items.map((item: any, i: number) => (
                     <div
                       key={item.name}
                       style={{ display: "flex", alignItems: "center", gap: 6 }}

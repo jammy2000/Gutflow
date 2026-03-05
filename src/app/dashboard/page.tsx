@@ -142,7 +142,7 @@ export default function DashboardPage() {
                     <h1 style={{ fontSize: 32, fontWeight: 900, color: T.text, margin: "0 0 12px" }}>
                         Your IBS Recovery Journey
                     </h1>
-                    <p style={{ fontSize: 15, color: T.muted, max: 480, lineHeight: 1.7, margin: "0 auto", maxWidth: 480 }}>
+                    <p style={{ fontSize: 15, color: T.muted, lineHeight: 1.7, margin: "0 auto", maxWidth: 480 }}>
                         The Low FODMAP diet is a 3-phase clinical protocol. GutFlow guides you through each step — from full elimination to your personalized long-term diet.
                     </p>
                 </div>
