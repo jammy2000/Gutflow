@@ -8,16 +8,6 @@ import { CartSummary } from "@/components/budget/CartSummary";
 import { useRouter, useParams, notFound } from "next/navigation";
 import { supabase, MealPlan } from "@/lib/supabase";
 
-"use client";
-
-import { useState, useEffect } from "react";
-import Link from "next/link";
-import { BudgetBar } from "@/components/budget/BudgetBar";
-import { DayCard } from "@/components/plan/DayCard";
-import { CartSummary } from "@/components/budget/CartSummary";
-import { useRouter, useParams } from "next/navigation";
-import { supabase, MealPlan } from "@/lib/supabase";
-
 const CATEGORY_ICONS: Record<string, string> = {
     "Greens": "🥬",
     "Proteins": "🥩",

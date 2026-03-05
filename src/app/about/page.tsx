@@ -44,101 +44,90 @@ export default function AboutPage() {
                 }}
             >
                 <Link href="/" style={{ color: T.text, textDecoration: "none", fontWeight: 600, fontSize: "14px" }}>
-                    ? Back to Analyzer
+                    &larr; Back to Flow
                 </Link>
                 <div style={{ fontSize: "20px", fontWeight: 800, background: T.primary, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
                     About GutFlow
                 </div>
+                <div style={{ width: "100px" }} />
             </nav>
 
-            <div style={{ maxWidth: "800px", margin: "0 auto", width: "100%", padding: "60px 20px" }}>
-                {/* 2. Hero Section */}
-                <section style={{ textAlign: "center", marginBottom: "80px" }}>
-                    <h1 style={{ fontSize: "48px", fontWeight: 900, marginBottom: "24px", letterSpacing: "-1px" }}>
-                        Our <span style={{ background: T.primary, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Mission</span>
-                    </h1>
-                    <p style={{ fontSize: "20px", color: T.muted, lineHeight: 1.6 }}>
-                        Eating Low-FODMAP shouldn't feel like solving a puzzle. GutFlow is here to make it simple — just scan, check, and eat without the second-guessing. We've got your gut covered. ??
-                    </p>
-                </section>
+            {/* 2. Hero Section */}
+            <section
+                style={{
+                    padding: "80px 20px 40px",
+                    textAlign: "center",
+                    maxWidth: "800px",
+                    margin: "0 auto",
+                }}
+            >
+                <h1 style={{ fontSize: "48px", fontWeight: 900, marginBottom: "20px", letterSpacing: "-1px" }}>
+                    Engineered for <br />
+                    <span style={{ background: T.primary, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
+                        Digestive Peace.
+                    </span>
+                </h1>
+                <p style={{ fontSize: "18px", color: T.muted, lineHeight: 1.6, maxWidth: "600px", margin: "0 auto" }}>
+                    GutFlow is the world&apos;s first autonomous meal planning engine that strictly adheres to the Monash University Low FODMAP protocols, directly integrated with live supermarket inventory.
+                </p>
+            </section>
 
-                {/* 3. The Stacking Engine */}
-                <section style={{ marginBottom: "80px" }}>
-                    <h2 style={{ fontSize: "28px", fontWeight: 800, marginBottom: "24px", textAlign: "center" }}>The Stacking Engine</h2>
-                    <div style={{ background: T.glass, border: `1px solid ${T.border}`, borderRadius: "20px", padding: "32px", backdropFilter: "blur(12px)" }}>
-                        <p style={{ marginBottom: "20px", lineHeight: 1.7 }}>
-                            Unlike simple "safe or unsafe" lists, GutFlow uses a sophisticated **Stacking Engine** that calculates cumulative risks. We account for:
+            {/* 3. Core Principles */}
+            <section style={{ maxWidth: "1000px", margin: "40px auto", padding: "0 20px" }}>
+                <h2 style={{ fontSize: "24px", fontWeight: 800, marginBottom: "30px", borderBottom: `1px solid ${T.border}`, paddingBottom: "10px" }}>
+                    Core Architecture
+                </h2>
+
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "20px" }}>
+                    {/* Block A */}
+                    <div style={{ background: T.glass, border: `1px solid ${T.border}`, borderRadius: "16px", padding: "24px" }}>
+                        <div style={{ fontSize: "24px", marginBottom: "16px" }}>âš›</div>
+                        <h3 style={{ fontSize: "18px", fontWeight: 700, marginBottom: "10px" }}>Zero-Compromise Ingredients</h3>
+                        <p style={{ color: T.muted, fontSize: "14px", lineHeight: 1.6 }}>
+                            We don&apos;t just filter by tags. Our engine cross-references live grocery data against medical-grade IBS safelists before it ever reaches your cart.
                         </p>
-                        <ul style={{ listStyle: "none", padding: 0, display: "grid", gap: "16px" }}>
-                            {[
-                                { title: "Synergy Multipliers", desc: "How ingredients in the same category amplify their total load." },
-                                { title: "Portion Intelligence", desc: "Identifying items that are safe only in specific quantities." },
-                                { title: "Hidden Risk Detection", desc: "Highlighting additives like 'natural flavors' or 'inulin' often missed by humans." },
-                            ].map((item, i) => (
-                                <li key={i} style={{ display: "flex", gap: "16px", alignItems: "flex-start" }}>
-                                    <span style={{ fontSize: "20px" }}>??</span>
-                                    <div>
-                                        <strong style={{ display: "block", fontSize: "16px", marginBottom: "4px" }}>{item.title}</strong>
-                                        <span style={{ fontSize: "14px", color: T.muted }}>{item.desc}</span>
-                                    </div>
-                                </li>
-                            ))}
-                        </ul>
                     </div>
-                </section>
 
-                {/* 4. Medical Basis */}
-                <section style={{ marginBottom: "80px", textAlign: "center" }}>
-                    <h2 style={{ fontSize: "28px", fontWeight: 800, marginBottom: "24px" }}>Medical Basis</h2>
-                    <p style={{ color: T.muted, lineHeight: 1.7 }}>
-                        Our analysis engine is built upon public research and guidelines pioneered by **Monash University**. We continually update our database to reflect the latest consensus in gastroenterology and nutritional science.
-                    </p>
-                </section>
-
-                {/* 5. Detailed Medical Disclaimer */}
-                <section style={{ marginBottom: "80px" }}>
-                    <div
-                        style={{
-                            background: "rgba(234, 179, 8, 0.05)",
-                            border: `1px solid rgba(234, 179, 8, 0.2)`,
-                            borderRadius: "20px",
-                            padding: "40px",
-                            boxShadow: "0 0 40px rgba(234, 179, 8, 0.1)",
-                        }}
-                    >
-                        <h3 style={{ fontSize: "20px", fontWeight: 800, color: T.warning, marginBottom: "20px", display: "flex", alignItems: "center", gap: "10px" }}>
-                            ?? MEDICAL DISCLAIMER
-                        </h3>
-                        <div style={{ fontSize: "14px", lineHeight: 1.8, color: "rgba(255,255,255,0.8)" }}>
-                            <p style={{ marginBottom: "16px" }}>
-                                GutFlow is a informational tool and DOES NOT provide medical advice, diagnosis, or treatment. The information provided by this application is for general educational purposes only.
-                            </p>
-                            <p style={{ marginBottom: "16px" }}>
-                                Always seek the advice of your physician or other qualified health provider with any questions you may have regarding a medical condition. Never disregard professional medical advice or delay in seeking it because of something you have read on this application.
-                            </p>
-                            <p>
-                                The Low-FODMAP diet is complex and should ideally be undertaken under the supervision of a registered dietitian specialized in gastrointestinal health.
-                            </p>
-                        </div>
+                    {/* Block B */}
+                    <div style={{ background: T.glass, border: `1px solid ${T.border}`, borderRadius: "16px", padding: "24px" }}>
+                        <div style={{ fontSize: "24px", marginBottom: "16px" }}>$</div>
+                        <h3 style={{ fontSize: "18px", fontWeight: 700, marginBottom: "10px" }}>Dynamic Budgeting</h3>
+                        <p style={{ color: T.muted, fontSize: "14px", lineHeight: 1.6 }}>
+                            Eating for health shouldn&apos;t break the bank. GutFlow actively monitors cart totals and redistributes ingredients to guarantee you hit your sub-$100 targets.
+                        </p>
                     </div>
-                </section>
 
-                {/* 6. Contact & Support */}
-                <section style={{ textAlign: "center" }}>
-                    <h3 style={{ fontSize: "20px", fontWeight: 800, marginBottom: "24px" }}>Connect With Us</h3>
-                    <div style={{ display: "flex", justifyContent: "center", gap: "24px" }}>
-                        <a href="mailto:support@GutFlow.com" style={{ color: T.muted, textDecoration: "none", fontSize: "14px", fontWeight: 600 }}>Email Support</a>
-                        <a href="#" style={{ color: T.muted, textDecoration: "none", fontSize: "14px", fontWeight: 600 }}>Twitter / X</a>
-                        <a href="#" style={{ color: T.muted, textDecoration: "none", fontSize: "14px", fontWeight: 600 }}>Documentation</a>
+                    {/* Block C */}
+                    <div style={{ background: T.glass, border: `1px solid ${T.border}`, borderRadius: "16px", padding: "24px" }}>
+                        <div style={{ fontSize: "24px", marginBottom: "16px" }}>AI</div>
+                        <h3 style={{ fontSize: "18px", fontWeight: 700, marginBottom: "10px" }}>AI-Driven Context</h3>
+                        <p style={{ color: T.muted, fontSize: "14px", lineHeight: 1.6 }}>
+                            Powered by massive LLMs, GutFlow understands the nuance between &quot;Natural Flavors&quot; and &quot;Garlic Powder&quot;, catching hidden triggers that human eyes miss.
+                        </p>
                     </div>
-                </section>
-            </div>
+                </div>
+            </section>
 
-            {/* 7. Footer */}
-            <footer style={{ marginTop: "auto", padding: "40px 20px", textAlign: "center", borderTop: `1px solid ${T.border}`, fontSize: "12px", color: T.muted }}>
-                <p>© 2026 GutFlow. Not affiliated with Monash University.</p>
-                <p style={{ marginTop: "8px" }}>Always consult a doctor before starting the Low-FODMAP protocol.</p>
-            </footer>
+            {/* 4. Footer CTA */}
+            <section style={{ textAlign: "center", marginTop: "60px", padding: "40px 20px" }}>
+                <h2 style={{ fontSize: "32px", fontWeight: 800, marginBottom: "20px" }}>Ready to heal your gut?</h2>
+                <Link
+                    href="/"
+                    style={{
+                        display: "inline-block",
+                        padding: "16px 32px",
+                        background: T.primary,
+                        color: "#fff",
+                        textDecoration: "none",
+                        fontWeight: 700,
+                        borderRadius: "12px",
+                        boxShadow: T.glow,
+                        transition: "all 0.2s ease",
+                    }}
+                >
+                    Start the Analyzer
+                </Link>
+            </section>
         </main>
     );
 }
