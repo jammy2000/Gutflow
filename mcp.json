@@ -1,0 +1,10 @@
+{
+    "mcpServers": {
+        "stitch": {
+            "httpUrl": "https://stitch.googleapis.com/mcp",
+            "headers": {
+                "Authorization": "Bearer ${STITCH_API_KEY}"
+            }
+        }
+    }
+}

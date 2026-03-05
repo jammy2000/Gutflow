@@ -1,0 +1,129 @@
+# GutFlow — 에이전트 지시 프롬프트 모음
+
+> **공통 컨텍스트** (매 프롬프트 앞에 붙이세요):  
+> 프로젝트: GutFlow — Low FODMAP 식단 플랜 + 장보기 자동화 Next.js 앱  
+> 스택: Next.js 15 (App Router) / TypeScript / Supabase / Tailwind  
+> Supabase 프로젝트 ID: `hqzfdiogmjizaeaurwkc`  
+> Supabase 테이블: `meal_plans`, `shopping_lists`, `shopping_items`, `audit_log`, `price_cache`, `food_analysis_logs`  
+> 클라이언트: `src/lib/supabase.ts` (singleton, 모든 타입 정의 포함)
+
+---
+
+## TASK 1 — 온보딩 → 플랜 생성 → DB 저장 흐름 연결 ⭐ 먼저 할 것
+
+```
+GutFlow 프로젝트입니다 (Next.js 15, Supabase).
+
+현재 상태:
+- /onboarding/page.tsx: 사용자가 budget, people, diet_type, retailer, zip_code 입력
+- /generating/page.tsx: 하드코딩된 더미 플랜 데이터를 보여줌 (실제 저장 없음)
+- /plan/[id]/page.tsx: plan ID로 데이터를 불러와야 하지만 더미 데이터만 있음
+
+할 일:
+1. /onboarding/page.tsx에서 완료 시 폼 데이터를 localStorage 또는 URL params로 /generating 페이지에 전달
+2. /generating/page.tsx에서:
+   a. 전달받은 사용자 입력을 읽기
+   b. `src/lib/supabase.ts`의 supabase 클라이언트로 meal_plans 테이블에 INSERT
+   c. 생성된 plan ID를 받아 /plan/[id]로 redirect
+3. /plan/[id]/page.tsx에서 supabase.from('meal_plans').select().eq('id', id).single()로 실제 데이터 조회
+
+참고 파일:
+- src/lib/supabase.ts (MealPlan 타입과 supabase client 있음)
+- src/app/onboarding/page.tsx
+- src/app/generating/page.tsx
+- src/app/plan/[id]/page.tsx
+
+더미 데이터는 제거하고, 실제 Supabase INSERT/SELECT로 교체해주세요.
+완료 기준: 온보딩 완료 후 /plan/[실제UUID] 주소로 이동하고 DB에 레코드 생김.
+```
+
+---
+
+## TASK 2 — Claude API로 실제 식단 생성
+
+> **TASK 1 완료 후 진행하세요.**
+
+```
+GutFlow 프로젝트입니다 (Next.js 15, Supabase).
+
+현재 /generating/page.tsx는 더미 플랜을 보여줍니다.
+TASK 1이 완료되어 meal_plans 테이블에 INSERT는 됩니다.
+
+할 일:
+1. src/app/api/generate-plan/route.ts 생성 (POST)
+   - 요청 body: { meal_plan_id, budget_usd, people, duration_days, diet_type }
+   - Anthropic Claude API (claude-3-haiku 또는 claude-3-5-sonnet) 호출
+   - 프롬프트: Low FODMAP 안전 식재료만 사용한 N일 식단 플랜 생성
+   - 응답 JSON을 meal_plans 테이블의 JSON 컬럼(또는 별도 컬럼)에 UPDATE
+2. /generating/page.tsx에서 이 API를 호출하도록 수정
+3. .env.local에 ANTHROPIC_API_KEY= 추가 필요 (사용자가 직접 입력)
+
+Claude API: npm install @anthropic-ai/sdk
+모델: claude-3-haiku-20240307 (비용 절약)
+
+Low FODMAP 안전 식재료 예시 (프롬프트에 포함):
+쌀, 닭가슴살, 연어, 당근, 시금치, 호박, 두부(단단한), 블루베리, 딸기, 바나나(덜 익은), 오렌지
+
+완료 기준: /generating에서 실제 Claude 응답으로 생성된 식단이 meal_plans에 저장됨.
+```
+
+---
+
+## TASK 3 — 장바구니 쇼핑 리스트 DB 저장
+
+> **TASK 1 완료 후 진행하세요.**
+
+```
+GutFlow 프로젝트입니다 (Next.js 15, Supabase).
+
+현재 /cart/[id]/page.tsx는 하드코딩된 장바구니 아이템을 보여줍니다.
+
+할 일:
+1. 식단 플랜에서 필요한 장보기 목록을 shopping_lists + shopping_items 테이블에 저장
+   - shopping_lists: meal_plan_id, retailer, subtotal, tax_buffer(8.5%), est_total
+   - shopping_items: name, total_quantity, unit, price_per_unit, total_price, fodmap_tier
+2. /cart/[id]/page.tsx에서 실제 DB 조회로 교체
+   supabase.from('shopping_lists').select('*, shopping_items(*)').eq('meal_plan_id', id)
+3. BudgetBar 컴포넌트(src/components/budget/BudgetBar.tsx)가 실제 est_total을 받도록 수정
+
+참고 파일:
+- src/lib/supabase.ts (ShoppingList, ShoppingItem 타입 있음)
+- src/app/cart/[id]/page.tsx
+- src/components/budget/BudgetBar.tsx
+- src/components/budget/CartSummary.tsx
+
+완료 기준: /cart/[실제plan-uuid]에서 DB에서 불러온 실제 장바구니 항목 표시.
+```
+
+---
+
+## TASK 4 — E2E 테스트 실행 확인
+
+> **TASK 1~3 완료 후 진행하세요.**
+
+```
+GutFlow 프로젝트입니다 (Next.js 15, Playwright E2E 테스트).
+
+할 일:
+1. npm run dev로 개발 서버 실행 확인
+2. npx playwright test tests/e2e/meal_plan.spec.ts --reporter=line 실행
+3. 실패하는 테스트 항목 수정
+   - 더미 데이터 의존성 → 실제 Supabase 데이터로 교체됐을 것
+   - selector가 맞지 않으면 실제 DOM에 맞게 수정
+4. 모든 테스트 통과 후 결과 보고
+
+참고 파일: tests/e2e/meal_plan.spec.ts
+
+완료 기준: playwright test 전체 PASS (또는 skip 없이 통과 항목 목록 보고).
+```
+
+---
+
+## 순서 요약
+
+```
+TASK 1 (온보딩→DB) → TASK 2 (Claude AI) → TASK 3 (장바구니) → TASK 4 (테스트)
+```
+
+> 💡 **토큰 절약 팁**: 새 에이전트 대화 시작 시 위 "공통 컨텍스트"를 프롬프트 맨 앞에 붙이고,  
+> 해당 TASK 프롬프트만 붙여넣기 하세요. 한 대화 = 한 TASK.

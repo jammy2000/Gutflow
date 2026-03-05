@@ -1,0 +1,16 @@
+[
+  "tests/unit/test_budget_engine.py::TestBudgetOK::test_b1_no_adjustment_when_within_budget",
+  "tests/unit/test_budget_engine.py::TestBudgetOK::test_b7_tax_included_in_total",
+  "tests/unit/test_budget_engine.py::TestBufferConsistency::test_5pct_buffer_applied_consistently",
+  "tests/unit/test_budget_engine.py::TestTier1BrandSwap::test_b2_tier1_reduces_cost",
+  "tests/unit/test_budget_engine.py::TestTier2IngredientSwap::test_b3_tier2_swaps_salmon_to_chicken",
+  "tests/unit/test_budget_engine.py::TestTier2IngredientSwap::test_no_mutation_on_original_items",
+  "tests/unit/test_budget_engine.py::TestTier4DayReduction::test_b5_tier4_requires_user_input",
+  "tests/unit/test_budget_engine.py::TestTier4DayReduction::test_b6_impossible_budget_shows_status",
+  "tests/unit/test_retailers.py::TestBestPriceLogic::test_deterministic_results",
+  "tests/unit/test_retailers.py::TestBestPriceLogic::test_picks_cheaper_in_stock_retailer",
+  "tests/unit/test_retailers.py::TestBestPriceLogic::test_salmon_kroger_oos_falls_back_to_walmart",
+  "tests/unit/test_retailers.py::TestProductSchema::test_kroger_returns_product_result",
+  "tests/unit/test_retailers.py::TestProductSchema::test_missing_product_returns_none",
+  "tests/unit/test_retailers.py::TestProductSchema::test_walmart_returns_product_result"
+]
