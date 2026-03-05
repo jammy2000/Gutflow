@@ -15,6 +15,14 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "GutFlow - Smart Low-FODMAP Meal Planner",
   description: "AI-powered Low-FODMAP diet planner with barcode scanner, market data, and budget optimization.",
+  manifest: "/manifest.json",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "black-translucent",
+    title: "GutFlow",
+  },
+  themeColor: "#0A0F1E",
+  viewport: "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0",
 };
 
 export default function RootLayout({
