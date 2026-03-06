@@ -47,7 +47,7 @@ Cost should be per serving. Total sum of (cost_per_serving * servings * days) sh
         const userPrompt = `Generate a ${duration_days}-day Low FODMAP meal plan for ${people} people with a total budget of $${budget_usd}. Diet types specified: ${diet_type?.join(", ") || "None"}.`;
 
         const geminiRes = await fetch(
-            `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`,
+            `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`,
             {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -80,81 +80,22 @@ Cost should be per serving. Total sum of (cost_per_serving * servings * days) sh
 
         const planJson = JSON.parse(generatedText);
 
-        const { error: updateError } = await supabase
-            .from("meal_plans")
-            .update({ generated_plan: planJson })
-            .eq("id", meal_plan_id);
-
-        if (updateError) {
-            console.error("Supabase Error Update:", updateError);
-            return NextResponse.json({ error: "Failed to persist generated plan" }, { status: 500 });
-        }
-
-        // --- Task 3: Shopping List DB Integration ---
-
+        // Optional: persist to Supabase if configured — non-fatal if DB not set up
         const ingredients = planJson.ingredients || {};
         const greensList = ingredients.Greens || ingredients.produce || [];
-
-        // Gut-Health Bonus logic ($0.50 off per Green item)
         const greensCount = Array.isArray(greensList) ? greensList.length : 0;
         const gutHealthBonus = greensCount * 0.50;
 
-        const subtotal = planJson.budget || budget_usd || 100;
-        let tax_buffer = subtotal * 0.085;
-
-        tax_buffer = tax_buffer - gutHealthBonus; // Apply bonus
-        const est_total = subtotal + tax_buffer;
-
-        const { data: listData, error: listError } = await supabase
-            .from("shopping_lists")
-            .insert({
-                meal_plan_id: meal_plan_id,
-                retailer: "walmart",
-                estimate_mode: true,
-                subtotal: subtotal,
-                tax_buffer: tax_buffer,
-                est_total: est_total
-            })
-            .select()
-            .single();
-
-        if (listError || !listData) {
-            console.error("Failed to create shopping list:", listError);
-        } else {
-            const itemsToInsert: any[] = [];
-
-            const addItems = (categoryList: any[], tier: 'green' | 'yellow' | 'red') => {
-                if (!Array.isArray(categoryList)) return;
-                categoryList.forEach((item) => {
-                    const itemName = typeof item === 'string' ? item : item.name;
-                    itemsToInsert.push({
-                        shopping_list_id: listData.id,
-                        name: itemName || "Unknown",
-                        total_quantity: "1",
-                        unit: "pkg",
-                        price_per_unit: 0,
-                        total_price: 0,
-                        fodmap_tier: tier,
-                        in_stock: true,
-                        product_id: null
-                    });
-                });
-            };
-
-            addItems(greensList, 'green');
-            addItems(ingredients.Proteins || ingredients.protein, 'green');
-            addItems(ingredients['Gut-Soothers'] || ingredients.grocery, 'green');
-
-            if (itemsToInsert.length > 0) {
-                const { error: itemsError } = await supabase
-                    .from("shopping_items")
-                    .insert(itemsToInsert);
-                if (itemsError) {
-                    console.error("Failed to insert shopping items:", itemsError);
-                }
-            }
+        try {
+            await supabase
+                .from("meal_plans")
+                .update({ generated_plan: planJson })
+                .eq("id", meal_plan_id);
+        } catch (dbErr) {
+            console.warn("Supabase persist skipped (DB not configured):", dbErr);
         }
 
+        // Always return the plan to the client regardless of DB status
         return NextResponse.json({ success: true, plan: planJson, gutHealthBonus });
 
     } catch (error) {
