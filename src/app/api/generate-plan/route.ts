@@ -23,10 +23,10 @@ Diet phase: ${diet_type?.join(", ") || "elimination"}.
 
 Rules:
 - ALL ingredients must be Low FODMAP safe
-- Approved: rice, chicken breast, salmon, carrots, spinach, pumpkin, firm tofu, blueberries, strawberries, oranges, lactose-free milk, gluten-free oats, potatoes, eggs, olive oil
-- AVOID: onion, garlic, wheat, high-lactose dairy, apples, beans, lentils
+- Approved: rice, chicken breast, salmon, carrots, spinach, pumpkin, firm tofu, blueberries, strawberries, oranges, lactose-free milk, gluten-free oats, potatoes, eggs, olive oil, zucchini, cucumber, bell peppers (red/yellow only), canned tuna, cheddar cheese (small amounts)
+- AVOID: onion, garlic, wheat, high-lactose dairy, apples, beans, lentils, cauliflower, mushrooms, avocado
 
-Respond ONLY with valid JSON matching this exact schema (no markdown, no explanation):
+Respond ONLY with valid JSON (no markdown, no explanation):
 {
   "budget": number,
   "days": [
@@ -34,22 +34,44 @@ Respond ONLY with valid JSON matching this exact schema (no markdown, no explana
       "day": number,
       "label": string,
       "meals": {
-        "breakfast": { "recipe": string, "cost": number, "fodmapTier": "green", "cookTime": number },
-        "lunch": { "recipe": string, "cost": number, "fodmapTier": "green", "cookTime": number },
-        "dinner": { "recipe": string, "cost": number, "fodmapTier": "green", "cookTime": number }
+        "breakfast": {
+          "recipe": string,
+          "cost": number,
+          "fodmapTier": "green",
+          "cookTime": number,
+          "ingredients": ["ingredient with quantity, e.g. 1/2 cup gluten-free oats"],
+          "steps": ["Step 1 instruction", "Step 2 instruction"]
+        },
+        "lunch": {
+          "recipe": string,
+          "cost": number,
+          "fodmapTier": "green",
+          "cookTime": number,
+          "ingredients": ["ingredient with quantity"],
+          "steps": ["Step 1 instruction"]
+        },
+        "dinner": {
+          "recipe": string,
+          "cost": number,
+          "fodmapTier": "green",
+          "cookTime": number,
+          "ingredients": ["ingredient with quantity"],
+          "steps": ["Step 1 instruction"]
+        }
       }
     }
   ],
   "ingredients": {
-    "Greens": [{ "name": string, "digestion_difficulty": "easy" }],
-    "Proteins": [{ "name": string, "digestion_difficulty": "easy" }],
-    "Gut-Soothers": [{ "name": string, "digestion_difficulty": "easy" }]
+    "Greens": [{ "name": string, "digestion_difficulty": "easy", "avg_price_walmart": number, "avg_price_kroger": number }],
+    "Proteins": [{ "name": string, "digestion_difficulty": "easy", "avg_price_walmart": number, "avg_price_kroger": number }],
+    "Gut-Soothers": [{ "name": string, "digestion_difficulty": "easy", "avg_price_walmart": number, "avg_price_kroger": number }]
   }
-}`;
+}
+avg_price_walmart and avg_price_kroger should be realistic USD prices per standard unit (e.g. bag, lb, can).`;
 
     const message = await client.messages.create({
       model: "claude-3-haiku-20240307",
-      max_tokens: 2048,
+      max_tokens: 4096,
       messages: [{ role: "user", content: prompt }],
     });
 
@@ -58,7 +80,6 @@ Respond ONLY with valid JSON matching this exact schema (no markdown, no explana
       return NextResponse.json({ error: "No content generated" }, { status: 500 });
     }
 
-    // Strip markdown fences if Claude wraps it
     const cleaned = generatedText.replace(/^```(?:json)?\n?/i, "").replace(/\n?```$/i, "").trim();
     const planJson = JSON.parse(cleaned);
 
