@@ -57,7 +57,7 @@ function GeneratingContent() {
                 if (!res.ok) {
                     const errText = await res.text();
                     console.error("API error:", errText);
-                    setErrorMsg("식단 생성에 실패했습니다. Vercel에 GEMINI_API_KEY 가 설정되었는지 확인해주세요.");
+                    setErrorMsg(`API 오류 (${res.status}): ${errText.slice(0, 300)}`);
                     setApiDone(true);
                     return;
                 }

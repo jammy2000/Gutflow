@@ -68,7 +68,8 @@ Cost should be per serving. Total sum of (cost_per_serving * servings * days) sh
         if (!geminiRes.ok) {
             const errorText = await geminiRes.text();
             console.error("Gemini API Error:", errorText);
-            return NextResponse.json({ error: "Failed to generate plan securely" }, { status: 502 });
+            // Return the actual error so we can diagnose it
+            return NextResponse.json({ error: errorText }, { status: 502 });
         }
 
         const data = await geminiRes.json();
