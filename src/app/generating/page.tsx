@@ -2,12 +2,11 @@
 
 import { useState, useEffect, Suspense, useRef } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { supabase } from "@/lib/supabase";
 
 const STEPS = [
     { icon: "🧠", message: "Generating FODMAP-safe recipes…" },
-    { icon: "💰", message: "Checking Walmart prices…" },
-    { icon: "⚖️", message: "Optimizing for your budget…" },
+    { icon: "💰", message: "Optimizing for your budget…" },
+    { icon: "⚖️", message: "Personalizing your meal plan…" },
     { icon: "✅", message: "Plan ready!" },
 ];
 
@@ -16,17 +15,6 @@ const SAMPLE_RECIPES = [
     { name: "Quinoa Veggie Stir-fry", time: 20, cost: 3.8, tag: "🟢 SAFE" },
     { name: "Chicken & Rice Bowl", time: 30, cost: 5.1, tag: "🟢 SAFE" },
 ];
-
-const T = {
-    bg: "#F7F8FA",
-    card: "#fff",
-    border: "#E8ECF0",
-    text: "#1A1D23",
-    muted: "#8B95A1",
-    primary: "#6B21A8",
-    primaryDark: "#1D4ED8",
-    green: "#10B981",
-};
 
 function GeneratingContent() {
     const router = useRouter();
@@ -37,109 +25,86 @@ function GeneratingContent() {
     const [apiDone, setApiDone] = useState(false);
     const [recipeIdx, setRecipeIdx] = useState(0);
     const [revealed, setRevealed] = useState(false);
-    const [planId, setPlanId] = useState<string | null>(null);
-    const hasInserted = useRef(false);
+    const [errorMsg, setErrorMsg] = useState<string | null>(null);
+    const hasStarted = useRef(false);
+
+    // Read params from URL (passed from dashboard)
+    const budget = params.get("budget") || "100";
+    const people = params.get("people") || "1";
+    const phase = params.get("phase") || "elimination";
 
     useEffect(() => {
-        // Insert DB record once, then call AI API
-        async function createPlan() {
-            if (hasInserted.current) return;
-            hasInserted.current = true;
+        if (hasStarted.current) return;
+        hasStarted.current = true;
 
-            const dietParam = params.get("diet") || "none";
-            const dietArray = dietParam !== "none" ? [dietParam] : [];
-            const budget = parseInt(params.get("budget") || "100", 10);
-            const people = parseInt(params.get("people") || "1", 10);
-            const duration = parseInt(params.get("duration") || "7", 10);
-
-            let newPlanId = "demo";
-
-            // 1. Create Supabase Record
-            const { data, error } = await supabase
-                .from("meal_plans")
-                .insert({
-                    duration_days: duration,
-                    people: people,
-                    diet_type: dietArray,
-                    retailer: "walmart",
-                    fulfillment_mode: "pickup",
-                    budget_usd: budget,
-                    estimate_mode: true,
-                    status: "draft",
-                })
-                .select()
-                .single();
-
-            if (error) {
-                console.error("Error creating plan:", error);
-                setPlanId("demo");
-                setApiDone(true); // fall back to demo
-                return;
-            } else if (data) {
-                newPlanId = data.id;
-                setPlanId(newPlanId);
-            }
-
-            // 2. Call Gemini API
+        async function generatePlan() {
             try {
+                // Store params in sessionStorage so /results can read them
+                sessionStorage.setItem("gutflow_params", JSON.stringify({ budget, people, phase }));
+
                 const res = await fetch("/api/generate-plan", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
-                        meal_plan_id: newPlanId,
-                        budget_usd: budget,
-                        people: people,
-                        duration_days: duration,
-                        diet_type: dietArray
-                    })
+                        meal_plan_id: "local",
+                        budget_usd: parseInt(budget, 10),
+                        people: parseInt(people, 10),
+                        duration_days: 3,
+                        diet_type: [phase],
+                    }),
                 });
+
                 if (!res.ok) {
-                    console.error("Failed to generate AI plan:", await res.text());
+                    const errText = await res.text();
+                    console.error("API error:", errText);
+                    setErrorMsg("식단 생성에 실패했습니다. Vercel에 GEMINI_API_KEY 가 설정되었는지 확인해주세요.");
+                    setApiDone(true);
+                    return;
                 }
+
+                const data = await res.json();
+                // Save result to sessionStorage so results page can use it
+                sessionStorage.setItem("gutflow_plan", JSON.stringify(data));
+                setApiDone(true);
             } catch (err) {
-                console.error("Network error calling AI API:", err);
-            } finally {
+                console.error("Fetch error:", err);
+                setErrorMsg("네트워크 오류가 발생했습니다. 다시 시도해 주세요.");
                 setApiDone(true);
             }
         }
-        createPlan();
-    }, [params]);
+
+        generatePlan();
+    }, [budget, people, phase]);
 
     useEffect(() => {
-        // Progress through steps
         const timings = [2000, 4500, 7000, 9500];
         const timers = timings.map((t, i) =>
             setTimeout(() => {
                 setCurrentStep(i);
                 if (i === 2) setRevealed(true);
-                if (i === STEPS.length - 1) {
-                    setAnimationDone(true);
-                }
+                if (i === STEPS.length - 1) setAnimationDone(true);
             }, t)
         );
-
-        // Cycle sample recipe card
         const recipeTimer = setInterval(() => {
             setRecipeIdx((prev) => (prev + 1) % SAMPLE_RECIPES.length);
         }, 3000);
-
         return () => {
             timers.forEach(clearTimeout);
             clearInterval(recipeTimer);
         };
     }, []);
 
+    // When both done, route to results page
     useEffect(() => {
-        // Wait until both the minimum animation time has passed AND the API has finished processing
-        if (animationDone && apiDone && planId) {
-            const redirectTimer = setTimeout(() => {
-                router.push(`/plan/${planId}`);
-            }, 1000); // short grace period after both complete
-            return () => clearTimeout(redirectTimer);
+        if (animationDone && apiDone && !errorMsg) {
+            setTimeout(() => {
+                router.push("/plan-result");
+            }, 800);
         }
-    }, [animationDone, apiDone, planId, router]);
+    }, [animationDone, apiDone, errorMsg, router]);
 
     const recipe = SAMPLE_RECIPES[recipeIdx];
+    const bothDone = animationDone && apiDone;
 
     return (
         <main
@@ -169,156 +134,158 @@ function GeneratingContent() {
                 GutFlow
             </div>
 
-            {/* Step list */}
-            <div style={{ width: "100%", maxWidth: 400, marginBottom: 40 }}>
-                {STEPS.map((step, i) => {
-                    const isCurrent = i === currentStep;
-                    const isDone = i < currentStep || (animationDone && apiDone); // step is done if we passed it, or everything is finished
-                    const isPending = i > currentStep && !(animationDone && apiDone);
-
-                    return (
-                        <div
-                            key={i}
-                            style={{
-                                display: "flex",
-                                alignItems: "center",
-                                gap: 16,
-                                padding: "14px 0",
-                                borderBottom: i < STEPS.length - 1 ? "1px solid rgba(255,255,255,0.06)" : "none",
-                                opacity: isPending ? 0.35 : 1,
-                                transition: "opacity 0.4s",
-                            }}
-                        >
-                            {/* Icon / spinner */}
-                            <div
-                                style={{
-                                    width: 40,
-                                    height: 40,
-                                    borderRadius: "50%",
-                                    background: isDone
-                                        ? "rgba(16,185,129,0.2)"
-                                        : isCurrent
-                                            ? "rgba(167,139,250,0.2)"
-                                            : "rgba(255,255,255,0.05)",
-                                    border: `2px solid ${isDone ? "#10B981" : isCurrent ? "#A78BFA" : "rgba(255,255,255,0.1)"}`,
-                                    display: "flex",
-                                    alignItems: "center",
-                                    justifyContent: "center",
-                                    fontSize: 18,
-                                    flexShrink: 0,
-                                    transition: "all 0.4s",
-                                }}
-                            >
-                                {isDone ? "✓" : step.icon}
-                            </div>
-
-                            <div style={{ flex: 1 }}>
-                                <div
-                                    style={{
-                                        fontSize: 15,
-                                        fontWeight: isCurrent ? 700 : 500,
-                                        color: isDone ? "#10B981" : isCurrent ? "#fff" : "rgba(255,255,255,0.5)",
-                                        transition: "color 0.4s",
-                                    }}
-                                >
-                                    {step.message}
-                                </div>
-                            </div>
-
-                            {/* Pulse dot for current */}
-                            {isCurrent && !done && (
-                                <div
-                                    style={{
-                                        width: 8,
-                                        height: 8,
-                                        borderRadius: "50%",
-                                        background: "#A78BFA",
-                                        animation: "pulse 1.2s ease-in-out infinite",
-                                    }}
-                                />
-                            )}
-                        </div>
-                    );
-                })}
-            </div>
-
-            {/* Sample recipe card (skeleton → reveal) */}
-            <div
-                style={{
-                    width: "100%",
-                    maxWidth: 400,
-                    background: "rgba(255,255,255,0.06)",
-                    border: "1px solid rgba(255,255,255,0.1)",
-                    borderRadius: 20,
-                    padding: 24,
-                    backdropFilter: "blur(12px)",
-                    transition: "opacity 0.8s",
-                    opacity: revealed ? 1 : 0.4,
-                }}
-            >
-                <div style={{ fontSize: 11, fontWeight: 700, color: "rgba(255,255,255,0.4)", letterSpacing: 1, marginBottom: 8 }}>
-                    SAMPLE RECIPE PREVIEW
-                </div>
-
-                {revealed ? (
-                    <div
-                        style={{
-                            animation: "fadeIn 0.5s ease",
-                        }}
-                    >
-                        <div style={{ fontSize: 18, fontWeight: 800, marginBottom: 6 }}>{recipe.name}</div>
-                        <div style={{ display: "flex", gap: 12, fontSize: 13, color: "rgba(255,255,255,0.6)" }}>
-                            <span>⏱ {recipe.time} min</span>
-                            <span>💰 ${recipe.cost.toFixed(2)}/serving</span>
-                            <span>{recipe.tag}</span>
-                        </div>
-                    </div>
-                ) : (
-                    <div>
-                        <div style={{ height: 20, borderRadius: 4, background: "rgba(255,255,255,0.1)", marginBottom: 10 }} />
-                        <div style={{ display: "flex", gap: 12 }}>
-                            {[80, 100, 70].map((w, i) => (
-                                <div
-                                    key={i}
-                                    style={{ height: 14, width: w, borderRadius: 4, background: "rgba(255,255,255,0.07)" }}
-                                />
-                            ))}
-                        </div>
-                    </div>
-                )}
-            </div>
-
-            {/* Estimated time */}
-            {!(animationDone && apiDone) && (
-                <div style={{ marginTop: 24, fontSize: 13, color: "rgba(255,255,255,0.3)" }}>
-                    Estimated time: 8-15 seconds
-                </div>
-            )}
-
-            {animationDone && apiDone && (
+            {errorMsg ? (
+                /* ───── Error state ───── */
                 <div
                     style={{
-                        marginTop: 24,
-                        fontSize: 15,
-                        fontWeight: 700,
-                        color: "#10B981",
-                        animation: "fadeIn 0.4s ease",
+                        background: "rgba(239,68,68,0.1)",
+                        border: "1px solid rgba(239,68,68,0.4)",
+                        borderRadius: 20,
+                        padding: "28px 24px",
+                        maxWidth: 400,
+                        textAlign: "center",
                     }}
                 >
-                    Redirecting to your plan…
+                    <div style={{ fontSize: 40, marginBottom: 16 }}>⚠️</div>
+                    <div style={{ fontSize: 15, fontWeight: 700, marginBottom: 8 }}>
+                        생성 실패
+                    </div>
+                    <div style={{ fontSize: 13, color: "rgba(255,255,255,0.6)", marginBottom: 24, lineHeight: 1.6 }}>
+                        {errorMsg}
+                    </div>
+                    <button
+                        onClick={() => router.back()}
+                        style={{
+                            background: "rgba(255,255,255,0.1)",
+                            border: "1px solid rgba(255,255,255,0.2)",
+                            borderRadius: 12,
+                            padding: "12px 24px",
+                            color: "#fff",
+                            fontSize: 14,
+                            fontWeight: 700,
+                            cursor: "pointer",
+                        }}
+                    >
+                        ← 돌아가기
+                    </button>
                 </div>
+            ) : (
+                <>
+                    {/* Step list */}
+                    <div style={{ width: "100%", maxWidth: 400, marginBottom: 40 }}>
+                        {STEPS.map((step, i) => {
+                            const isCurrent = i === currentStep;
+                            const isDone = i < currentStep || bothDone;
+                            const isPending = i > currentStep && !bothDone;
+
+                            return (
+                                <div
+                                    key={i}
+                                    style={{
+                                        display: "flex",
+                                        alignItems: "center",
+                                        gap: 16,
+                                        padding: "14px 0",
+                                        borderBottom: i < STEPS.length - 1 ? "1px solid rgba(255,255,255,0.06)" : "none",
+                                        opacity: isPending ? 0.35 : 1,
+                                        transition: "opacity 0.4s",
+                                    }}
+                                >
+                                    <div
+                                        style={{
+                                            width: 40,
+                                            height: 40,
+                                            borderRadius: "50%",
+                                            background: isDone
+                                                ? "rgba(16,185,129,0.2)"
+                                                : isCurrent
+                                                    ? "rgba(167,139,250,0.2)"
+                                                    : "rgba(255,255,255,0.05)",
+                                            display: "flex",
+                                            alignItems: "center",
+                                            justifyContent: "center",
+                                            fontSize: 18,
+                                            flexShrink: 0,
+                                            transition: "background 0.4s",
+                                        }}
+                                    >
+                                        {isDone ? "✓" : step.icon}
+                                    </div>
+                                    <div>
+                                        <div
+                                            style={{
+                                                fontSize: 14,
+                                                fontWeight: isCurrent ? 700 : 500,
+                                                color: isDone
+                                                    ? "#10B981"
+                                                    : isCurrent
+                                                        ? "#A78BFA"
+                                                        : "rgba(255,255,255,0.5)",
+                                                transition: "color 0.4s",
+                                            }}
+                                        >
+                                            {step.message}
+                                        </div>
+                                    </div>
+                                </div>
+                            );
+                        })}
+                    </div>
+
+                    {/* Recipe preview card */}
+                    <div
+                        style={{
+                            width: "100%",
+                            maxWidth: 400,
+                            background: "rgba(255,255,255,0.06)",
+                            border: "1px solid rgba(255,255,255,0.1)",
+                            borderRadius: 20,
+                            padding: 24,
+                            backdropFilter: "blur(12px)",
+                            transition: "opacity 0.8s",
+                            opacity: revealed ? 1 : 0.4,
+                        }}
+                    >
+                        <div style={{ fontSize: 11, fontWeight: 700, color: "rgba(255,255,255,0.4)", letterSpacing: 1, marginBottom: 8 }}>
+                            SAMPLE RECIPE PREVIEW
+                        </div>
+                        {revealed ? (
+                            <div style={{ animation: "fadeIn 0.5s ease" }}>
+                                <div style={{ fontSize: 18, fontWeight: 800, marginBottom: 6 }}>{recipe.name}</div>
+                                <div style={{ display: "flex", gap: 12, fontSize: 13, color: "rgba(255,255,255,0.6)" }}>
+                                    <span>⏱ {recipe.time} min</span>
+                                    <span>💰 ${recipe.cost.toFixed(2)}/serving</span>
+                                    <span>{recipe.tag}</span>
+                                </div>
+                            </div>
+                        ) : (
+                            <div>
+                                <div style={{ height: 20, borderRadius: 4, background: "rgba(255,255,255,0.1)", marginBottom: 10 }} />
+                                <div style={{ display: "flex", gap: 12 }}>
+                                    {[80, 100, 70].map((w, i) => (
+                                        <div key={i} style={{ height: 14, width: w, borderRadius: 4, background: "rgba(255,255,255,0.07)" }} />
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+                    </div>
+
+                    {!bothDone && (
+                        <div style={{ marginTop: 24, fontSize: 13, color: "rgba(255,255,255,0.3)" }}>
+                            Estimated time: 8-15 seconds
+                        </div>
+                    )}
+                    {bothDone && (
+                        <div style={{ marginTop: 24, fontSize: 15, fontWeight: 700, color: "#10B981", animation: "fadeIn 0.4s ease" }}>
+                            식단 완성! 결과 화면으로 이동합니다…
+                        </div>
+                    )}
+                </>
             )}
 
             <style>{`
-        @keyframes pulse {
-          0%, 100% { opacity: 1; transform: scale(1); }
-          50% { opacity: 0.5; transform: scale(0.8); }
-        }
-        @keyframes fadeIn {
-          from { opacity: 0; transform: translateY(6px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-      `}</style>
+                @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+            `}</style>
         </main>
     );
 }
@@ -328,7 +295,7 @@ export default function GeneratingPage() {
         <Suspense
             fallback={
                 <div style={{ minHeight: "100vh", background: "#0F0C29", display: "flex", alignItems: "center", justifyContent: "center", color: "#fff" }}>
-                    AI가 당신의 식도를 위한 재료를 선별 중입니다...
+                    준비 중...
                 </div>
             }
         >
