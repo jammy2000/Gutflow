@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { supabase } from "@/lib/supabase";
+import Anthropic from "@anthropic-ai/sdk";
 
 export async function POST(req: Request) {
     try {
@@ -10,18 +10,23 @@ export async function POST(req: Request) {
             return NextResponse.json({ error: "Missing meal_plan_id" }, { status: 400 });
         }
 
-        const apiKey = process.env.GEMINI_API_KEY;
+        const apiKey = process.env.ANTHROPIC_API_KEY;
         if (!apiKey) {
-            return NextResponse.json({ error: "Missing GEMINI_API_KEY" }, { status: 500 });
+            return NextResponse.json({ error: "Missing ANTHROPIC_API_KEY" }, { status: 500 });
         }
 
-        const systemInstruction = `You are an expert culinary nutrition AI specializing in Low FODMAP diets.
-Your task is to generate a comprehensive, delicious, and budget-conscious meal plan.
-Diet Restrictions: Low FODMAP only. 
-Approved ingredients (examples, but stick strictly universally safe): Rice, chicken breast, salmon, carrots, spinach, pumpkin, firm tofu, blueberries, strawberries, unripe bananas, oranges, lactose-free milk, gluten-free oats.
-AVOID: onion, garlic, wheat, high-lactose dairy, apples, beans.
+        const client = new Anthropic({ apiKey });
 
-You MUST respond in valid JSON format only, matching this exact schema:
+        const prompt = `You are an expert culinary nutrition AI specializing in Low FODMAP diets.
+Generate a ${duration_days}-day Low FODMAP meal plan for ${people} people with a total budget of $${budget_usd}.
+Diet phase: ${diet_type?.join(", ") || "elimination"}.
+
+Rules:
+- ALL ingredients must be Low FODMAP safe
+- Approved: rice, chicken breast, salmon, carrots, spinach, pumpkin, firm tofu, blueberries, strawberries, oranges, lactose-free milk, gluten-free oats, potatoes, eggs, olive oil
+- AVOID: onion, garlic, wheat, high-lactose dairy, apples, beans, lentils
+
+Respond ONLY with valid JSON matching this exact schema (no markdown, no explanation):
 {
   "budget": number,
   "days": [
@@ -36,71 +41,37 @@ You MUST respond in valid JSON format only, matching this exact schema:
     }
   ],
   "ingredients": {
-    "Greens": [{ "name": string, "digestion_difficulty": "easy" | "moderate" | "hard" }],
-    "Proteins": [{ "name": string, "digestion_difficulty": "easy" | "moderate" | "hard" }],
-    "Gut-Soothers": [{ "name": string, "digestion_difficulty": "easy" | "moderate" | "hard" }]
+    "Greens": [{ "name": string, "digestion_difficulty": "easy" }],
+    "Proteins": [{ "name": string, "digestion_difficulty": "easy" }],
+    "Gut-Soothers": [{ "name": string, "digestion_difficulty": "easy" }]
   }
-}
-Cost should be per serving. Total sum of (cost_per_serving * servings * days) should roughly equal the budget.
-`;
+}`;
 
-        const userPrompt = `Generate a ${duration_days}-day Low FODMAP meal plan for ${people} people with a total budget of $${budget_usd}. Diet types specified: ${diet_type?.join(", ") || "None"}.`;
+        const message = await client.messages.create({
+            model: "claude-3-5-haiku-20241022",
+            max_tokens: 2048,
+            messages: [{ role: "user", content: prompt }],
+        });
 
-        const geminiRes = await fetch(
-            `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`,
-            {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    system_instruction: {
-                        parts: [{ text: systemInstruction }]
-                    },
-                    contents: [{
-                        parts: [{ text: userPrompt }]
-                    }],
-                    generationConfig: {
-                        responseMimeType: "application/json",
-                    }
-                })
-            }
-        );
-
-        if (!geminiRes.ok) {
-            const errorText = await geminiRes.text();
-            console.error("Gemini API Error:", errorText);
-            // Return the actual error so we can diagnose it
-            return NextResponse.json({ error: errorText }, { status: 502 });
-        }
-
-        const data = await geminiRes.json();
-        const generatedText = data.candidates?.[0]?.content?.parts?.[0]?.text;
-
+        const generatedText = message.content[0].type === "text" ? message.content[0].text : null;
         if (!generatedText) {
             return NextResponse.json({ error: "No content generated" }, { status: 500 });
         }
 
-        const planJson = JSON.parse(generatedText);
+        // Strip markdown fences if Claude wraps it
+        const cleaned = generatedText.replace(/^```(?:json)?\n?/i, "").replace(/\n?```$/i, "").trim();
+        const planJson = JSON.parse(cleaned);
 
-        // Optional: persist to Supabase if configured — non-fatal if DB not set up
         const ingredients = planJson.ingredients || {};
-        const greensList = ingredients.Greens || ingredients.produce || [];
+        const greensList = ingredients.Greens || [];
         const greensCount = Array.isArray(greensList) ? greensList.length : 0;
         const gutHealthBonus = greensCount * 0.50;
 
-        try {
-            await supabase
-                .from("meal_plans")
-                .update({ generated_plan: planJson })
-                .eq("id", meal_plan_id);
-        } catch (dbErr) {
-            console.warn("Supabase persist skipped (DB not configured):", dbErr);
-        }
-
-        // Always return the plan to the client regardless of DB status
         return NextResponse.json({ success: true, plan: planJson, gutHealthBonus });
 
     } catch (error) {
         console.error("Generate Plan Error:", error);
-        return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
+        const msg = error instanceof Error ? error.message : String(error);
+        return NextResponse.json({ error: msg }, { status: 500 });
     }
 }
