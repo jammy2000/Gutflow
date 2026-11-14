@@ -24,14 +24,42 @@ MD_COLS = ["의과일반의 인원수", "의과인턴 인원수", "의과레지�
 IM_CODE = "01"  # 심평원 진료과목코드: 내과
 
 
+REGION_ORDER = ["서울", "인천", "부천", "일산", "김포"]
+GG_CITIES_WITH_GU = ["부천", "고양", "수원", "성남", "안양", "안산", "용인", "화성"]
+
+
 def hira_sgg_to_key(sido: str, sggnm: str):
-    """심평원 시군구코드명 -> (시도명, 시군구명) in 행안부 표기."""
+    """심평원 시군구코드명 -> (시도명, 시군구명) in 행안부 표기. 서울·인천·경기만."""
     if sido == "서울":
         return "서울특별시", sggnm
     if sido == "인천":
         return "인천광역시", re.sub(r"^인천", "", sggnm)
-    if sggnm.startswith("부천"):
-        return "경기도", "부천시 " + sggnm[2:]
+    if sido == "경기":
+        for c in GG_CITIES_WITH_GU:
+            if sggnm.startswith(c) and sggnm.endswith("구") and len(sggnm) > len(c) + 1:
+                return "경기도", f"{c}시 {sggnm[len(c):]}"
+        return "경기도", sggnm
+    return None
+
+
+def geo_sgg_name(sggnm: str) -> str:
+    """경계 파일의 '고양시일산동구' -> '고양시 일산동구'."""
+    return re.sub(r"^(\S+시)(\S+구)$", r"\1 \2", sggnm)
+
+
+def region_of(sido: str, sgg: str):
+    """분석 권역. 해당 없으면 None."""
+    if sido == "서울특별시":
+        return "서울"
+    if sido == "인천광역시":
+        return "인천"
+    if sido == "경기도" and sgg:
+        if sgg.startswith("부천시 "):
+            return "부천"
+        if sgg in ("고양시 일산동구", "고양시 일산서구"):
+            return "일산"
+        if sgg == "김포시":
+            return "김포"
     return None
 
 
@@ -67,7 +95,8 @@ def main():
     keys = [hira_sgg_to_key(s, g) for s, g in zip(h["시도코드명"], h["시군구코드명"])]
     h["시도"] = [k[0] if k else None for k in keys]
     h["시군구"] = [k[1] if k else None for k in keys]
-    h = h[h["시도"].notna()].copy()
+    h["권역"] = [region_of(s, g) for s, g in zip(h["시도"], h["시군구"])]
+    h = h[h["권역"].notna()].copy()
     for c in MD_COLS + ["총의사수"]:
         h[c] = pd.to_numeric(h[c], errors="coerce").fillna(0).astype(int)
     h["의과의사수"] = h[MD_COLS].sum(axis=1)
@@ -91,10 +120,8 @@ def main():
     polys, meta = [], []
     for f in gj["features"]:
         p = f["properties"]
-        sggnm = p["sggnm"]
-        if sggnm.startswith("부천시") and " " not in sggnm:
-            sggnm = "부천시 " + sggnm[3:]
-        if p["sidonm"] in ("서울특별시", "인천광역시") or sggnm.startswith("부천시"):
+        sggnm = geo_sgg_name(p["sggnm"])
+        if region_of(p["sidonm"], sggnm):
             polys.append(shape(f["geometry"]))
             meta.append({"code": p["adm_cd2"], "sido": p["sidonm"], "sgg": sggnm,
                          "dong": p["adm_nm"].split(" ")[-1]})
@@ -147,17 +174,16 @@ def main():
     sgg_pop = pop[pop["level"] == "sgg"].copy()
     sgg_pop["sido"] = sgg_pop["name"].str.split(" ").str[0]
     sgg_pop["sgg"] = sgg_pop["name"].str.split(" ", n=1).str[1]
-    sgg_pop = sgg_pop[(sgg_pop["pop"] > 0) & (sgg_pop["sido"].isin(["서울특별시", "인천광역시"])
-                      | sgg_pop["sgg"].str.startswith("부천시 ", na=False))]
+    sgg_pop["권역"] = [region_of(s, g) for s, g in zip(sgg_pop["sido"], sgg_pop["sgg"])]
+    sgg_pop = sgg_pop[(sgg_pop["pop"] > 0) & sgg_pop["권역"].notna()]
     g_sgg = h.groupby(["시도", "시군구"]).apply(agg, include_groups=False).reset_index()
     sgg = sgg_pop.rename(columns={"sido": "시도", "sgg": "시군구", "pop": "인구", "code": "행정기관코드"})
-    sgg = sgg[["시도", "시군구", "행정기관코드", "인구"]].merge(g_sgg, on=["시도", "시군구"], how="left")
+    sgg = sgg[["권역", "시도", "시군구", "행정기관코드", "인구"]].merge(g_sgg, on=["시도", "시군구"], how="left")
     sgg[count_cols] = sgg[count_cols].fillna(0).astype(int)
-    sgg["권역"] = sgg["시도"].map({"서울특별시": "서울", "인천광역시": "인천"}).fillna("부천")
     sgg = add_rates(sgg)
 
     # 시 단위 요약
-    city = sgg.groupby("권역")[["인구"] + count_cols].sum().reindex(["서울", "인천", "부천"]).reset_index()
+    city = sgg.groupby("권역")[["인구"] + count_cols].sum().reindex(REGION_ORDER).reset_index()
     city = add_rates(city)
 
     # 동 단위
@@ -174,7 +200,7 @@ def main():
     dong["행정동"] = dong["행정동코드"].map(lambda c: code2meta[c]["dong"])
     dong = dong.merge(g_dong, left_on="행정동코드", right_index=True, how="left")
     dong[count_cols] = dong[count_cols].fillna(0).astype(int)
-    dong["권역"] = dong["시도"].map({"서울특별시": "서울", "인천광역시": "인천"}).fillna("부천")
+    dong["권역"] = [region_of(s, g) for s, g in zip(dong["시도"], dong["시군구"])]
     dong = add_rates(dong)
 
     # ---------------- 검증 로그 ----------------
@@ -196,7 +222,7 @@ def main():
     rate_cols = ["의사/만명(전체기관)", "의원 의사/만명", "의원/만명", "의원 1곳당 인구",
                  "내과전문의/만명(전체기관)", "내과전문의/만명(의원)", "내과전문의(의원) 1명당 인구"]
     city = city[["권역", "인구"] + count_cols + rate_cols]
-    rank = {"서울": 0, "인천": 1, "부천": 2}
+    rank = {r: i for i, r in enumerate(REGION_ORDER)}
     sgg = (sgg.assign(_r=sgg["권역"].map(rank)).sort_values(["_r", "시군구"])
            [order_sgg + count_cols + rate_cols])
     dong = (dong.assign(_r=dong["권역"].map(rank)).sort_values(["_r", "시군구", "행정동코드"])

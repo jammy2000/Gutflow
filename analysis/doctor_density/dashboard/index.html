@@ -20,7 +20,7 @@
 
 .mx-mapsec { display: flex; flex-direction: column; gap: var(--cds-gap-sm); }
 .mx-controls { display: flex; flex-wrap: wrap; gap: var(--cds-gap-sm) var(--cds-gap-md); align-items: center; }
-.mx-seg { display: inline-flex; border: 1px solid var(--color-border-line); border-radius: var(--cds-radius); overflow: hidden; }
+.mx-seg { display: inline-flex; flex-wrap: wrap; max-width: 100%; border: 1px solid var(--color-border-line); border-radius: var(--cds-radius); overflow: hidden; }
 .mx-segbtn { appearance: none; background: transparent; color: var(--color-fg); border: 0; border-right: 1px solid var(--color-border-line); padding: 6px 14px; font: inherit; font-size: var(--cds-font-size-body); cursor: pointer; }
 .mx-segbtn:last-child { border-right: 0; }
 .mx-segbtn[aria-pressed="true"] { background: var(--color-fg); color: var(--color-bg); }
@@ -78,9 +78,9 @@
 
 <div class="mx">
   <header id="overview">
-    <h1 class="mx-title">서울·인천·부천 의원·내과 지도</h1>
-    <p class="mx-lede">인구 1만 명당 의원은 서울 <b data-draw="cnum" class="dash-skeleton" data-source="city" data-field="clinics_per10k" data-where="region=서울">—</b>곳, 부천 <b data-draw="cnum" class="dash-skeleton" data-source="city" data-field="clinics_per10k" data-where="region=부천">—</b>곳, 인천 <b data-draw="cnum" class="dash-skeleton" data-source="city" data-field="clinics_per10k" data-where="region=인천">—</b>곳입니다. 의원에서 일하는 내과전문의는 1만 명당 서울 <b data-draw="cnum" class="dash-skeleton" data-source="city" data-field="im_clinic_per10k" data-where="region=서울">—</b>명, 부천 <b data-draw="cnum" class="dash-skeleton" data-source="city" data-field="im_clinic_per10k" data-where="region=부천">—</b>명, 인천 <b data-draw="cnum" class="dash-skeleton" data-source="city" data-field="im_clinic_per10k" data-where="region=인천">—</b>명입니다.</p>
-    <p class="mx-asof">의료기관 2026.9.30 · 주민등록인구 2026.10 · 행정동 경계 2026.10.1 기준</p>
+    <h1 class="mx-title">서울·인천·부천·일산·김포 의원·내과 지도</h1>
+    <p class="mx-lede">인구 1만 명당 의원은 서울 <b data-draw="cnum" class="dash-skeleton" data-source="city" data-field="clinics_per10k" data-where="region=서울">—</b>곳, 부천 <b data-draw="cnum" class="dash-skeleton" data-source="city" data-field="clinics_per10k" data-where="region=부천">—</b>곳, 일산 <b data-draw="cnum" class="dash-skeleton" data-source="city" data-field="clinics_per10k" data-where="region=일산">—</b>곳, 인천 <b data-draw="cnum" class="dash-skeleton" data-source="city" data-field="clinics_per10k" data-where="region=인천">—</b>곳, 김포 <b data-draw="cnum" class="dash-skeleton" data-source="city" data-field="clinics_per10k" data-where="region=김포">—</b>곳입니다. 의원에서 일하는 내과전문의는 1만 명당 서울 <b data-draw="cnum" class="dash-skeleton" data-source="city" data-field="im_clinic_per10k" data-where="region=서울">—</b>명, 부천 <b data-draw="cnum" class="dash-skeleton" data-source="city" data-field="im_clinic_per10k" data-where="region=부천">—</b>명, 일산 <b data-draw="cnum" class="dash-skeleton" data-source="city" data-field="im_clinic_per10k" data-where="region=일산">—</b>명, 인천 <b data-draw="cnum" class="dash-skeleton" data-source="city" data-field="im_clinic_per10k" data-where="region=인천">—</b>명, 김포 <b data-draw="cnum" class="dash-skeleton" data-source="city" data-field="im_clinic_per10k" data-where="region=김포">—</b>명입니다.</p>
+    <p class="mx-asof">의료기관 2026.9.30 · 주민등록인구 2026.10 · 행정동 경계 2026.10.1 기준 · 일산은 고양시 일산동구·일산서구</p>
   </header>
 
   <section class="mx-cards" id="city-cards" aria-label="시별 요약">
@@ -117,6 +117,28 @@
         <dt>전체 의사 / 1만 명 (병원 포함)</dt><dd><span data-draw="cnum" data-source="city" data-field="md_all_per10k" data-where="region=부천">—</span></dd>
       </dl>
     </div>
+    <div class="mx-card" id="card-ilsan">
+      <h3>일산</h3>
+      <div class="mx-big"><span class="mx-bignum dash-skeleton" data-draw="cnum" data-source="city" data-field="clinics_per10k" data-where="region=일산">—</span><span class="mx-bigunit">의원 / 인구 1만 명</span></div>
+      <dl class="mx-dl">
+        <dt>주민등록인구</dt><dd><span data-draw="cnum" data-source="city" data-field="pop" data-where="region=일산">—</span>명</dd>
+        <dt>의원</dt><dd><span data-draw="cnum" data-source="city" data-field="clinics" data-where="region=일산">—</span>곳</dd>
+        <dt>의원 1곳당 인구</dt><dd><span data-draw="cnum" data-source="city" data-field="pop_per_clinic" data-where="region=일산">—</span>명</dd>
+        <dt>의원 근무 내과전문의</dt><dd><span data-draw="cnum" data-source="city" data-field="im_clinic" data-where="region=일산">—</span>명</dd>
+        <dt>전체 의사 / 1만 명 (병원 포함)</dt><dd><span data-draw="cnum" data-source="city" data-field="md_all_per10k" data-where="region=일산">—</span></dd>
+      </dl>
+    </div>
+    <div class="mx-card" id="card-gimpo">
+      <h3>김포</h3>
+      <div class="mx-big"><span class="mx-bignum dash-skeleton" data-draw="cnum" data-source="city" data-field="clinics_per10k" data-where="region=김포">—</span><span class="mx-bigunit">의원 / 인구 1만 명</span></div>
+      <dl class="mx-dl">
+        <dt>주민등록인구</dt><dd><span data-draw="cnum" data-source="city" data-field="pop" data-where="region=김포">—</span>명</dd>
+        <dt>의원</dt><dd><span data-draw="cnum" data-source="city" data-field="clinics" data-where="region=김포">—</span>곳</dd>
+        <dt>의원 1곳당 인구</dt><dd><span data-draw="cnum" data-source="city" data-field="pop_per_clinic" data-where="region=김포">—</span>명</dd>
+        <dt>의원 근무 내과전문의</dt><dd><span data-draw="cnum" data-source="city" data-field="im_clinic" data-where="region=김포">—</span>명</dd>
+        <dt>전체 의사 / 1만 명 (병원 포함)</dt><dd><span data-draw="cnum" data-source="city" data-field="md_all_per10k" data-where="region=김포">—</span></dd>
+      </dl>
+    </div>
   </section>
 
   <section class="mx-mapsec" id="map-section">
@@ -130,9 +152,13 @@
         <button type="button" class="mx-segbtn" id="mx-r-seoul" data-region="서울" aria-pressed="false">서울</button>
         <button type="button" class="mx-segbtn" id="mx-r-incheon" data-region="인천" aria-pressed="false">인천</button>
         <button type="button" class="mx-segbtn" id="mx-r-bucheon" data-region="부천" aria-pressed="false">부천</button>
+        <button type="button" class="mx-segbtn" id="mx-r-ilsan" data-region="일산" aria-pressed="false">일산</button>
+        <button type="button" class="mx-segbtn" id="mx-r-gimpo" data-region="김포" aria-pressed="false">김포</button>
       </div>
       <label class="mx-ctl" for="mx-metric">지도 색
         <select class="dash-select" id="mx-metric" aria-label="지도에 칠할 지표">
+          <option value="ratio">생활권 경쟁도: 내과전문의 1명당 40세 이상 (반경 1.5km)</option>
+          <option value="growth_pct">2년 인구 증감률 (%)</option>
           <option value="clinics_per10k">의원 수 (인구 1만 명당)</option>
           <option value="pop_per_clinic">의원 1곳당 인구</option>
           <option value="im_clinic_per10k">의원 근무 내과전문의 (1만 명당)</option>
@@ -144,6 +170,39 @@
     </div>
     <div class="mx-map" id="dong-map" data-draw="map" data-source="shapes dong gu"></div>
     <p class="mx-sub">옹진군 섬 지역은 지도 범위에서 빠지고, 전체 보기에서는 강화군도 가장자리에서 잘립니다. 인천을 고르거나 아래 표에서 확인하세요.</p>
+  </section>
+
+  <section class="mx-tablesec" id="candidates-section">
+    <div class="mx-tablehead">
+      <h2 class="mx-h2" id="cand-heading">내과 개원 후보지</h2>
+      <div class="mx-filters">
+        <label class="mx-check" for="mx-robust"><input type="checkbox" id="mx-robust"> 반경을 바꿔도 유지되는 곳만</label>
+        <label class="mx-check" for="mx-grow"><input type="checkbox" id="mx-grow"> 인구 증가(+3% 이상)·신설 동만</label>
+      </div>
+    </div>
+    <p class="mx-sub">각 동의 상권 중심(동 안 약국·의원이 모인 곳)에서 반경 1.5km 생활권을 잡고, 그 안의 40세 이상 인구를 의원 내과전문의 수로 나눴습니다. 클수록 경쟁이 덜합니다. 분석 지역 평균은 내과전문의 1명당 40세 이상 <b data-draw="bench" data-source="bench">—</b>명입니다. 동 인구 1만 명, 생활권 40세 이상 1만5천 명 이상인 동만 올렸고, 위의 지역 선택을 따릅니다.</p>
+    <div class="mx-tablewrap">
+      <table class="mx-table" id="cand-table" data-source="dong" data-row-key="code">
+        <thead><tr>
+          <th data-field="rank" data-sort="rank" class="num" tabindex="0">순위</th>
+          <th data-field="gu" data-sort="gu" tabindex="0">구</th>
+          <th data-field="dong" data-sort="dong" tabindex="0">행정동</th>
+          <th data-field="pop" data-sort="pop" class="num" tabindex="0">인구</th>
+          <th data-field="growth_pct" data-sort="growth_pct" class="num" tabindex="0">2년 증감(%)</th>
+          <th data-field="catch40" data-sort="catch40" class="num" tabindex="0">생활권 40세+</th>
+          <th data-field="catch_im" data-sort="catch_im" class="num" tabindex="0">생활권 의원 내과전문의</th>
+          <th data-field="ratio" data-sort="ratio" class="num" tabindex="0">내과 1명당 40세+</th>
+          <th data-field="vs_avg" data-sort="vs_avg" class="num" tabindex="0">평균 대비(배)</th>
+          <th data-field="robust" data-sort="robust" tabindex="0">반경 유지</th>
+          <th data-field="catch_fm" data-sort="catch_fm" class="num" tabindex="0">가정의학과</th>
+          <th data-field="catch_hosp_im" data-sort="catch_hosp_im" class="num" tabindex="0">병원급 내과</th>
+          <th data-field="clinics_1km" data-sort="clinics_1km" class="num" tabindex="0">1km 의원</th>
+          <th data-field="memo" data-sort="memo" tabindex="0">메모</th>
+        </tr></thead>
+        <tbody data-draw="candrows"></tbody>
+      </table>
+    </div>
+    <p class="mx-sub">반경 유지: 반경 1km·1.5km·2km 모두에서 평균의 1.3배 이상. 가정의학과·병원급 내과는 같은 생활권의 참고 수치로 점수에는 넣지 않았습니다. 임대료, 유동인구, 상가 공실, 약국 위치는 반영되지 않았으니 현장 확인 전 1차 선별용으로 보세요.</p>
   </section>
 
   <section class="mx-tablesec" id="dong-table-section">
@@ -169,6 +228,8 @@
           <th data-field="clinic_md_per10k" data-sort="clinic_md_per10k" class="num" tabindex="0">의원 의사/1만 명</th>
           <th data-field="md_all_per10k" data-sort="md_all_per10k" class="num" tabindex="0">전체 의사/1만 명</th>
           <th data-field="im_all_per10k" data-sort="im_all_per10k" class="num" tabindex="0">전체 내과/1만 명</th>
+          <th data-field="ratio" data-sort="ratio" class="num" tabindex="0">생활권 내과 1명당 40세+</th>
+          <th data-field="growth_pct" data-sort="growth_pct" class="num" tabindex="0">2년 증감(%)</th>
         </tr></thead>
         <tbody data-draw="dongrows"></tbody>
       </table>
@@ -210,26 +271,34 @@
       <li>인구는 주민등록 총인구(외국인 제외)입니다. 직장·상업 지역(서울 중구·종로·강남·서초, 여의도, 인천 구월1동 등)은 낮 시간 유동인구가 반영되지 않아 수치가 크게 나옵니다.</li>
       <li>대학병원이 있는 곳은 전체 의사 수가 크게 부풀려집니다. 동네 의원 간 경쟁 정도는 '의원' 기준 지표로 보는 것이 맞습니다.</li>
       <li>인구 5천 명 미만인 동은 의원 한두 곳 차이로도 비율이 크게 흔들립니다.</li>
-      <li>기관은 좌표로 행정동에 배정했습니다. 25,014곳 중 17곳은 경계 밖에 찍혀 같은 구의 가장 가까운 동으로 넣었고, 동별 합계는 구별 합계와 일치합니다.</li>
-      <li>인천은 2026년 7월 개편(제물포구·영종구·서해구·검단구)을, 부천은 2024년 부활한 3개 구를 반영했습니다.</li>
+      <li>기관은 좌표로 행정동에 배정했습니다. 26,361곳 중 17곳은 경계 밖에 찍혀 같은 구의 가장 가까운 동으로 넣었고, 동별 합계는 구별 합계와 일치합니다.</li>
+      <li>인천은 2026년 7월 개편(제물포구·영종구·서해구·검단구)을, 부천은 2024년 부활한 3개 구를 반영했습니다. 일산은 고양시 일산동구·일산서구, 김포는 김포시 전체입니다.</li>
+      <li>개원 후보지 생활권: 동 안 약국·의원 위치 중 가운데에 있는 실제 점포를 중심으로 반경 1.5km 원을 그립니다. 40세 이상 인구는 각 동 안에 고르게 산다고 보고 원과 겹친 면적만큼 더하며, 서울·인천·경기 전체 동과 의원을 넣어 시 경계 너머도 계산합니다.</li>
+      <li>한강 남북, 영종도·강화도·옹진 섬은 서로 다른 생활권으로 보고 건너편 인구와 의원은 넣지 않았습니다.</li>
+      <li>2년 인구 증감은 2024년 10월 대비입니다. 그사이 나뉘거나 새로 생긴 동은 '신설 동'으로 표시됩니다.</li>
     </ul>
   </details>
 </div>
 
 <script>
-window.mx = window.mx || { region: '', metric: 'clinics_per10k', sort: { dong: null, gu: null }, minPop: true, q: '', selected: null, pinned: null };
+window.mx = window.mx || { region: '', metric: 'ratio', sort: { dong: null, gu: null, cand: null }, minPop: true, q: '', selected: null, pinned: null, robustOnly: false, growOnly: false };
+if (!('cand' in window.mx.sort)) window.mx.sort.cand = null;
 
-window.mxDec = { clinics_per10k: 1, clinic_md_per10k: 1, md_all_per10k: 1, im_clinic_per10k: 2, im_all_per10k: 2 };
-window.mxText = { gu: 1, dong: 1, region: 1, code: 1, gu_code: 1 };
+window.mxDec = { clinics_per10k: 1, clinic_md_per10k: 1, md_all_per10k: 1, im_clinic_per10k: 2, im_all_per10k: 2, growth_pct: 1, vs_avg: 2 };
+window.mxText = { gu: 1, dong: 1, region: 1, code: 1, gu_code: 1, memo: 1, robust: 1, eligible: 1 };
+window.mxLocale = d3.formatLocale({ decimal: '.', thousands: ',', grouping: [3], currency: ['', ''], minus: '-' });
 window.mxFmt = (field, v) => {
   if (v === null || v === undefined || v === '') return '—';
   if (window.mxText[field]) return String(v);
   const n = +v;
   if (!isFinite(n)) return '—';
   const dec = window.mxDec[field];
-  return dec ? d3.format(',.' + dec + 'f')(n) : d3.format(',')(Math.round(n));
+  const f = window.mxLocale.format;
+  return dec ? f(',.' + dec + 'f')(n) : f(',')(Math.round(n));
 };
 window.mxMetricName = {
+  ratio: '생활권 내과전문의 1명당 40세 이상 (1.5km)',
+  growth_pct: '2년 인구 증감률 (%)',
   clinics_per10k: '의원 수 (인구 1만 명당)',
   pop_per_clinic: '의원 1곳당 인구',
   im_clinic_per10k: '의원 근무 내과전문의 (1만 명당)',
@@ -245,9 +314,9 @@ window.mxCmp = (a, b, dir) => {
   if (typeof a === 'string' || typeof b === 'string') return String(a).localeCompare(String(b), 'ko') * dir;
   return (a - b) * dir;
 };
-window.mxSortOf = (table) => window.mx.sort[table] || { key: window.mx.metric, dir: -1 };
+window.mxSortOf = (table) => window.mx.sort[table] || (table === 'cand' ? { key: 'ratio', dir: -1 } : { key: window.mx.metric, dir: -1 });
 window.mxSyncHeaders = () => {
-  ['dong', 'gu'].forEach((t) => {
+  ['dong', 'gu', 'cand'].forEach((t) => {
     const s = window.mxSortOf(t);
     document.querySelectorAll('#' + t + '-table th[data-sort]').forEach((th) => {
       if (th.dataset.sort === s.key) th.setAttribute('aria-sort', s.dir < 0 ? 'descending' : 'ascending');
@@ -255,7 +324,7 @@ window.mxSyncHeaders = () => {
     });
   });
 };
-window.mxRedraw = () => { dash.draw('map'); dash.draw('dongrows'); dash.draw('gurows'); };
+window.mxRedraw = () => { dash.draw('map'); dash.draw('dongrows'); dash.draw('gurows'); dash.draw('candrows'); };
 
 (() => {
   const mx = window.mx;
@@ -279,18 +348,22 @@ window.mxRedraw = () => { dash.draw('map'); dash.draw('dongrows'); dash.draw('gu
 
   const cb = document.getElementById('mx-minpop');
   if (cb) { mx.minPop = cb.checked; cb.addEventListener('change', () => { mx.minPop = cb.checked; dash.draw('dongrows'); }); }
+  const rb = document.getElementById('mx-robust');
+  if (rb) { mx.robustOnly = rb.checked; rb.addEventListener('change', () => { mx.robustOnly = rb.checked; dash.draw('candrows'); }); }
+  const gr = document.getElementById('mx-grow');
+  if (gr) { mx.growOnly = gr.checked; gr.addEventListener('change', () => { mx.growOnly = gr.checked; dash.draw('candrows'); }); }
   const q = document.getElementById('mx-search');
   if (q) { mx.q = q.value.trim(); q.addEventListener('input', () => { mx.q = q.value.trim(); dash.draw('dongrows'); }); }
 
-  ['dong', 'gu'].forEach((t) => {
+  ['dong', 'gu', 'cand'].forEach((t) => {
     document.querySelectorAll('#' + t + '-table th[data-sort]').forEach((th) => {
       const go = () => {
         const cur = window.mxSortOf(t);
         const key = th.dataset.sort;
-        const text = key === 'gu' || key === 'dong';
+        const text = key === 'gu' || key === 'dong' || key === 'memo' || key === 'robust' || key === 'rank';
         mx.sort[t] = { key, dir: cur.key === key ? -cur.dir : (text ? 1 : -1) };
         window.mxSyncHeaders();
-        dash.draw(t === 'dong' ? 'dongrows' : 'gurows');
+        dash.draw(t === 'dong' ? 'dongrows' : (t === 'gu' ? 'gurows' : 'candrows'));
       };
       th.addEventListener('click', go);
       th.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); } });
@@ -301,6 +374,21 @@ window.mxRedraw = () => { dash.draw('map'); dash.draw('dongrows'); dash.draw('gu
 </script>
 
 <script>
+dash.calc('bench', {
+  inputs: ['dong'],
+  title: '분석 지역 평균: 의원 내과전문의 1명당 40세 이상 인구',
+  description: '분석 지역 모든 행정동의 40세 이상 인구 합 ÷ 의원 근무 내과전문의 합',
+  fn: (dong) => {
+    const p = d3.sum(dong, (r) => +r.pop40 || 0);
+    const m = d3.sum(dong, (r) => +r.im_clinic || 0);
+    return m ? Math.round(p / m) : null;
+  },
+});
+dash.draw('bench', (el) => {
+  const b = dash.data('bench');
+  el.textContent = b.status === 'ok' && b.data !== null ? window.mxFmt('pop', b.data) : '—';
+});
+
 dash.draw('cnum', (el) => {
   const d = dash.data(el.dataset.source);
   if (d.status !== 'ok') {
@@ -435,6 +523,8 @@ dash.draw('map', {
         row('의원 의사 / 1만 명', window.mxFmt('clinic_md_per10k', r.clinic_md_per10k), metric === 'clinic_md_per10k'),
         row('전체 의사 / 1만 명', window.mxFmt('md_all_per10k', r.md_all_per10k), metric === 'md_all_per10k'),
         row('전체 내과 / 1만 명', window.mxFmt('im_all_per10k', r.im_all_per10k), metric === 'im_all_per10k'),
+        row('생활권 내과 1명당 40세+', r.ratio == null ? '생활권에 내과 없음' : window.mxFmt('ratio', r.ratio) + '명', metric === 'ratio'),
+        row('2년 인구 증감', r.growth_pct == null ? '신설 동' : window.mxFmt('growth_pct', r.growth_pct) + '%', metric === 'growth_pct'),
       ];
       if (r.pop < 5000) {
         const wn = document.createElement('div'); wn.className = 'mx-tip-w'; wn.textContent = '인구가 적어 비율이 크게 흔들릴 수 있습니다.';
@@ -509,7 +599,8 @@ dash.draw('map', {
 
     // 범례
     const title = document.createElement('div');
-    title.textContent = window.mxMetricName[metric] + (metric === 'pop_per_clinic' ? ' · 진할수록 의원이 적음' : ' · 진할수록 많음');
+    const hint = { pop_per_clinic: ' · 진할수록 의원이 적음', ratio: ' · 진할수록 내과 경쟁이 덜함', growth_pct: ' · 진할수록 인구 증가' };
+    title.textContent = window.mxMetricName[metric] + (hint[metric] || ' · 진할수록 많음');
     const box = document.createElement('div');
     box.className = 'mx-lg-items';
     const fmt = (v) => window.mxFmt(metric, v);
@@ -527,7 +618,7 @@ dash.draw('map', {
     if (rows.some((r) => inRegion(r) && (r[metric] === null || r[metric] === undefined))) {
       const it = document.createElement('span'); it.className = 'mx-lg';
       const sw = document.createElement('i'); sw.style.background = 'repeating-linear-gradient(45deg, var(--color-bg) 0 3px, var(--color-fg-muted) 3px 4px)';
-      const tx = document.createElement('span'); tx.textContent = '의원 없음';
+      const tx = document.createElement('span'); tx.textContent = { ratio: '생활권에 내과 없음', growth_pct: '신설 동' }[metric] || '의원 없음';
       it.append(sw, tx);
       box.appendChild(it);
     }
@@ -543,7 +634,8 @@ dash.draw('map', {
 
 <script>
 (() => {
-  const DONG_COLS = ['gu', 'dong', 'pop', 'clinics', 'clinics_per10k', 'pop_per_clinic', 'im_clinic', 'im_clinic_per10k', 'clinic_md_per10k', 'md_all_per10k', 'im_all_per10k'];
+  const DONG_COLS = ['gu', 'dong', 'pop', 'clinics', 'clinics_per10k', 'pop_per_clinic', 'im_clinic', 'im_clinic_per10k', 'clinic_md_per10k', 'md_all_per10k', 'im_all_per10k', 'ratio', 'growth_pct'];
+  const CAND_COLS = ['rank', 'gu', 'dong', 'pop', 'growth_pct', 'catch40', 'catch_im', 'ratio', 'vs_avg', 'robust', 'catch_fm', 'catch_hosp_im', 'clinics_1km', 'memo'];
   const GU_COLS = ['gu', 'pop', 'clinics', 'clinics_per10k', 'pop_per_clinic', 'im_clinic', 'im_clinic_per10k', 'clinic_md_per10k', 'md_all', 'md_all_per10k', 'im_all', 'im_all_per10k'];
 
   const fill = (tbody, rows, cols, onClick, isSel) => {
@@ -574,6 +666,27 @@ dash.draw('map', {
       .slice()
       .sort((a, b) => window.mxCmp(a[s.key], b[s.key], s.dir));
     fill(tbody, rows, DONG_COLS, (ev, r) => {
+      mx.selected = String(r.code); mx.pinned = String(r.code);
+      d3.select(tbody).selectAll('tr').classed('sel', (d) => String(d.code) === mx.selected);
+      dash.draw('map');
+      const map = document.getElementById('dong-map');
+      if (map && map.scrollIntoView) map.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+    }, (r) => String(r.code) === mx.selected);
+  });
+
+  dash.draw('candrows', (tbody) => {
+    const mx = window.mx;
+    const D = dash.data('dong');
+    if (D.status !== 'ok') { d3.select(tbody).selectAll('tr').remove(); return; }
+    const s = window.mxSortOf('cand');
+    const rows = D.data
+      .filter((r) => r.eligible === '후보'
+        && (!mx.region || r.region === mx.region)
+        && (!mx.robustOnly || r.robust === '○')
+        && (!mx.growOnly || r.growth_pct === null || r.growth_pct === undefined || r.growth_pct >= 3))
+      .slice()
+      .sort((a, b) => window.mxCmp(a[s.key], b[s.key], s.dir));
+    fill(tbody, rows, CAND_COLS, (ev, r) => {
       mx.selected = String(r.code); mx.pinned = String(r.code);
       d3.select(tbody).selectAll('tr').classed('sel', (d) => String(d.code) === mx.selected);
       dash.draw('map');

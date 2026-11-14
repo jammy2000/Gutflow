@@ -45,8 +45,10 @@ meta = [
      "type": "code", "lang": "python"},
     {"label": "export_map_data.py", "value": Path(__file__).read_text(encoding="utf-8"),
      "type": "code", "lang": "python"},
+    {"label": "site_search.py", "value": (here / "site_search.py").read_text(encoding="utf-8"),
+     "type": "code", "lang": "python"},
     {"label": "의료기관 자료", "value": "건강보험심사평가원 「전국 병의원 및 약국 현황」 2026.9.30 기준 (공공데이터포털 15051059)"},
-    {"label": "인구 자료", "value": "행정안전부 주민등록 인구 및 세대현황 2026.10 (행정동, 총인구)"},
+    {"label": "인구 자료", "value": "행정안전부 주민등록 인구 및 세대현황 2026.10·2024.10, 연령별 인구현황 2026.10 (행정동, 총인구)"},
     {"label": "행정동 경계", "value": "vuski/admdongkor ver20261001"},
 ]
 
@@ -75,12 +77,42 @@ gu = pd.read_csv(res / "by_gu.csv", dtype={"행정기관코드": str}).rename(
     columns={"권역": "region", "시군구": "gu", "행정기관코드": "code"})
 dong = pd.read_csv(res / "by_dong.csv", dtype={"행정동코드": str}).rename(
     columns={"권역": "region", "시군구": "gu", "행정동": "dong", "행정동코드": "code"})
-gu["gu"] = gu["gu"].str.replace("부천시 ", "부천 ", regex=False)
-dong["gu"] = dong["gu"].str.replace("부천시 ", "부천 ", regex=False)
+for df in (gu, dong):
+    df["gu"] = df["gu"].str.replace("부천시 ", "부천 ", regex=False).str.replace("고양시 ", "", regex=False)
 dong["gu_code"] = dong["code"].str[:5] + "00000"
 
+# 개원 후보지 지표 (site_search.py 결과)
+SITE = {
+    "40세 이상": "pop40",
+    "2년 인구 증감률": "growth_pct",
+    "생활권 40세 이상": "catch40",
+    "생활권 의원 내과전문의": "catch_im",
+    "내과전문의 1명당 생활권 40세+": "ratio",
+    "전체 평균 대비": "vs_avg",
+    "1km 비율": "ratio_1km",
+    "2km 비율": "ratio_2km",
+    "생활권 의원 가정의학과 전문의": "catch_fm",
+    "생활권 병원급 내과전문의": "catch_hosp_im",
+    "1km 안 의원 수": "clinics_1km",
+    "후보 순위(전체)": "rank",
+    "후보 순위(권역)": "rank_region",
+    "메모": "memo",
+}
+site_path = res / "site_candidates.csv"
+if site_path.exists():
+    site = pd.read_csv(site_path, dtype={"행정동코드": str}).set_index("행정동코드")
+    for k, v in SITE.items():
+        dong[v] = dong["code"].map(site[k])
+    dong["growth_pct"] = dong["growth_pct"] * 100
+    dong["eligible"] = dong["code"].map(site["후보 기준 충족"]).fillna(False).map(lambda b: "후보" if b else "")
+    dong["robust"] = dong["code"].map(site["반경 바꿔도 유지"]).fillna(False).map(lambda b: "○" if b else "")
+    dong["memo"] = dong["memo"].fillna("")
+    ROUND.update({"growth_pct": 1, "vs_avg": 2, "ratio": 0, "ratio_1km": 0, "ratio_2km": 0, "catch40": 0,
+                  "pop40": 0, "rank": 0, "rank_region": 0})
+
 for name, df, keep in [("city", city, ["region"]), ("gu", gu, ["code", "region", "gu"]),
-                       ("dong", dong, ["code", "gu_code", "region", "gu", "dong"])]:
+                       ("dong", dong, ["code", "gu_code", "region", "gu", "dong"]
+                        + ([v for v in SITE.values()] + ["eligible", "robust"] if site_path.exists() else []))]:
     payload = {"rows": to_rows(df, keep), "meta": meta}
     (out / f"{name}.json").write_text(json.dumps(payload, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
 
