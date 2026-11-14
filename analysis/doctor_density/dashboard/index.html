@@ -1,0 +1,604 @@
+<meta name="dash-one-writer">
+<style>
+.mx { display: flex; flex-direction: column; gap: var(--cds-gap-xl); color: var(--color-fg); font-family: var(--font-anthropic-sans); }
+.mx-title { font-family: var(--font-anthropic-serif); font-weight: 400; font-size: var(--cds-font-size-title); margin: 0; text-wrap: balance; }
+.mx-lede { margin: var(--cds-gap-sm) 0 0; max-width: 72ch; line-height: 1.65; font-size: var(--cds-font-size-body); }
+.mx-lede b { font-weight: var(--cds-font-weight-medium); font-variant-numeric: tabular-nums; }
+.mx-asof { margin: var(--cds-gap-xs) 0 0; color: var(--color-fg-muted); font-size: var(--cds-font-size-caption); }
+.mx-h2 { margin: 0; font-size: var(--cds-font-size-heading); font-weight: var(--cds-font-weight-medium); text-wrap: balance; }
+.mx-sub { margin: var(--cds-gap-xs) 0 0; color: var(--color-fg-muted); font-size: var(--cds-font-size-caption); line-height: 1.5; }
+
+.mx-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: var(--cds-gap-md); }
+.mx-card { background: var(--color-panel); border: 1px solid var(--color-border-line); border-radius: var(--cds-radius); padding: var(--cds-pad-lg); min-width: 0; display: flex; flex-direction: column; gap: var(--cds-gap-sm); }
+.mx-card h3 { margin: 0; font-size: var(--cds-font-size-body); font-weight: var(--cds-font-weight-medium); }
+.mx-big { display: flex; align-items: baseline; gap: 6px; flex-wrap: wrap; }
+.mx-bignum { font-family: var(--font-anthropic-serif); font-weight: 400; font-size: var(--cds-font-size-title); font-variant-numeric: tabular-nums; line-height: 1.1; }
+.mx-bigunit { color: var(--color-fg-muted); font-size: var(--cds-font-size-caption); }
+.mx-dl { display: grid; grid-template-columns: 1fr auto; gap: 5px var(--cds-gap-md); margin: 0; font-size: var(--cds-font-size-caption); }
+.mx-dl dt { color: var(--color-fg-muted); }
+.mx-dl dd { margin: 0; text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+.mx-mapsec { display: flex; flex-direction: column; gap: var(--cds-gap-sm); }
+.mx-controls { display: flex; flex-wrap: wrap; gap: var(--cds-gap-sm) var(--cds-gap-md); align-items: center; }
+.mx-seg { display: inline-flex; border: 1px solid var(--color-border-line); border-radius: var(--cds-radius); overflow: hidden; }
+.mx-segbtn { appearance: none; background: transparent; color: var(--color-fg); border: 0; border-right: 1px solid var(--color-border-line); padding: 6px 14px; font: inherit; font-size: var(--cds-font-size-body); cursor: pointer; }
+.mx-segbtn:last-child { border-right: 0; }
+.mx-segbtn[aria-pressed="true"] { background: var(--color-fg); color: var(--color-bg); }
+.mx-segbtn:focus-visible { outline: 2px solid var(--color-fg); outline-offset: -3px; }
+.mx-ctl { display: inline-flex; align-items: center; gap: var(--cds-gap-sm); font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); min-width: 0; }
+.mx-ctl .dash-select { max-width: 100%; }
+
+.mx-map { position: relative; min-height: 340px; }
+.mx-mapwrap { position: relative; }
+.mx-mapwrap svg { display: block; width: 100%; height: auto; touch-action: manipulation; }
+.mx-dong { stroke: var(--color-bg); stroke-width: 0.5; cursor: pointer; }
+.mx-dong.out { opacity: 0.35; cursor: default; }
+.mx-gu { fill: none; stroke: var(--color-fg); stroke-opacity: 0.55; stroke-width: 1; pointer-events: none; }
+.mx-selpath { fill: none; stroke: var(--color-fg); stroke-width: 2.4; pointer-events: none; }
+.mx-label { font-size: 11px; fill: var(--color-fg); paint-order: stroke; stroke: var(--color-bg); stroke-width: 3px; stroke-linejoin: round; text-anchor: middle; dominant-baseline: middle; pointer-events: none; font-family: var(--font-anthropic-sans); }
+.mx-hatchline { stroke: var(--color-fg-muted); stroke-width: 1.2; }
+.mx-hatchbg { fill: var(--color-bg); }
+.mx-tip { position: absolute; z-index: 3; pointer-events: none; background: var(--cds-surface-popover); border: 1px solid var(--cds-border); box-shadow: var(--cds-shadow-popover); border-radius: var(--cds-radius); padding: 8px 10px; font-size: var(--cds-font-size-caption); width: 220px; max-width: calc(100% - 16px); display: flex; flex-direction: column; gap: 3px; }
+.mx-tip-t { font-size: var(--cds-font-size-body); font-weight: var(--cds-font-weight-medium); }
+.mx-tip-g { color: var(--cds-text-secondary); margin-bottom: 2px; }
+.mx-tip-r { display: flex; justify-content: space-between; gap: 12px; font-variant-numeric: tabular-nums; }
+.mx-tip-r span:first-child { color: var(--cds-text-secondary); }
+.mx-tip-r.on span:last-child { font-weight: var(--cds-font-weight-medium); }
+.mx-tip-w { color: var(--color-warn); margin-top: 2px; }
+.mx-legend { display: flex; flex-direction: column; gap: 6px; font-size: var(--cds-font-size-caption); color: var(--cds-text-secondary); }
+.mx-lg-items { display: flex; flex-wrap: wrap; gap: 4px 12px; }
+.mx-lg { display: inline-flex; align-items: center; gap: 5px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.mx-lg i { display: inline-block; width: 14px; height: 14px; border-radius: 3px; border: 1px solid var(--color-border-line); }
+.mx-msg { color: var(--color-fg-muted); font-size: var(--cds-font-size-caption); padding: var(--cds-pad-md) 0; }
+
+.mx-tablesec { display: flex; flex-direction: column; gap: var(--cds-gap-sm); }
+.mx-tablehead { display: flex; flex-wrap: wrap; gap: var(--cds-gap-sm) var(--cds-gap-md); align-items: center; justify-content: space-between; }
+.mx-filters { display: flex; flex-wrap: wrap; gap: var(--cds-gap-sm) var(--cds-gap-md); align-items: center; font-size: var(--cds-font-size-caption); }
+.mx-check { display: inline-flex; align-items: center; gap: 6px; color: var(--color-fg); cursor: pointer; }
+.mx-search { font: inherit; font-size: var(--cds-font-size-caption); padding: 6px 10px; border: 1px solid var(--color-border-line); border-radius: var(--cds-radius); background: var(--color-bg); color: var(--color-fg); width: 170px; max-width: 100%; }
+.mx-tablewrap { overflow: auto; max-height: 560px; border: 1px solid var(--color-border-line); border-radius: var(--cds-radius); }
+.mx-tablewrap.short { max-height: none; }
+.mx-table { border-collapse: collapse; width: 100%; font-size: var(--cds-font-size-caption); font-variant-numeric: tabular-nums; }
+.mx-table th { position: sticky; top: 0; z-index: 1; background: var(--color-panel); text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--color-border-line); white-space: nowrap; font-weight: var(--cds-font-weight-medium); cursor: pointer; user-select: none; }
+.mx-table th:focus-visible { outline: 2px solid var(--color-fg); outline-offset: -2px; }
+.mx-table th.num, .mx-table td.num { text-align: right; }
+.mx-table th[aria-sort="descending"]::after { content: " ↓"; }
+.mx-table th[aria-sort="ascending"]::after { content: " ↑"; }
+.mx-table td { padding: 6px 10px; border-bottom: 1px solid var(--color-border-line); white-space: nowrap; }
+.mx-table td.hl { font-weight: var(--cds-font-weight-medium); }
+.mx-table tbody tr { cursor: pointer; }
+.mx-table tbody tr:hover { background: var(--color-panel); }
+.mx-table tbody tr.sel { background: var(--color-panel); box-shadow: inset 3px 0 0 var(--color-fg); }
+[data-dash-source-state="refreshing"] { opacity: 0.5; }
+
+.mx-notes { font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); line-height: 1.6; }
+.mx-notes summary { cursor: pointer; color: var(--color-fg); font-size: var(--cds-font-size-body); }
+.mx-notes ul { margin: var(--cds-gap-sm) 0 0; padding-left: 1.2em; display: flex; flex-direction: column; gap: 4px; max-width: 80ch; }
+</style>
+
+<div class="mx">
+  <header id="overview">
+    <h1 class="mx-title">서울·인천·부천 의원·내과 지도</h1>
+    <p class="mx-lede">인구 1만 명당 의원은 서울 <b data-draw="cnum" class="dash-skeleton" data-source="city" data-field="clinics_per10k" data-where="region=서울">—</b>곳, 부천 <b data-draw="cnum" class="dash-skeleton" data-source="city" data-field="clinics_per10k" data-where="region=부천">—</b>곳, 인천 <b data-draw="cnum" class="dash-skeleton" data-source="city" data-field="clinics_per10k" data-where="region=인천">—</b>곳입니다. 의원에서 일하는 내과전문의는 1만 명당 서울 <b data-draw="cnum" class="dash-skeleton" data-source="city" data-field="im_clinic_per10k" data-where="region=서울">—</b>명, 부천 <b data-draw="cnum" class="dash-skeleton" data-source="city" data-field="im_clinic_per10k" data-where="region=부천">—</b>명, 인천 <b data-draw="cnum" class="dash-skeleton" data-source="city" data-field="im_clinic_per10k" data-where="region=인천">—</b>명입니다.</p>
+    <p class="mx-asof">의료기관 2026.9.30 · 주민등록인구 2026.10 · 행정동 경계 2026.10.1 기준</p>
+  </header>
+
+  <section class="mx-cards" id="city-cards" aria-label="시별 요약">
+    <div class="mx-card" id="card-seoul">
+      <h3>서울</h3>
+      <div class="mx-big"><span class="mx-bignum dash-skeleton" data-draw="cnum" data-source="city" data-field="clinics_per10k" data-where="region=서울">—</span><span class="mx-bigunit">의원 / 인구 1만 명</span></div>
+      <dl class="mx-dl">
+        <dt>주민등록인구</dt><dd><span data-draw="cnum" data-source="city" data-field="pop" data-where="region=서울">—</span>명</dd>
+        <dt>의원</dt><dd><span data-draw="cnum" data-source="city" data-field="clinics" data-where="region=서울">—</span>곳</dd>
+        <dt>의원 1곳당 인구</dt><dd><span data-draw="cnum" data-source="city" data-field="pop_per_clinic" data-where="region=서울">—</span>명</dd>
+        <dt>의원 근무 내과전문의</dt><dd><span data-draw="cnum" data-source="city" data-field="im_clinic" data-where="region=서울">—</span>명</dd>
+        <dt>전체 의사 / 1만 명 (병원 포함)</dt><dd><span data-draw="cnum" data-source="city" data-field="md_all_per10k" data-where="region=서울">—</span></dd>
+      </dl>
+    </div>
+    <div class="mx-card" id="card-incheon">
+      <h3>인천</h3>
+      <div class="mx-big"><span class="mx-bignum dash-skeleton" data-draw="cnum" data-source="city" data-field="clinics_per10k" data-where="region=인천">—</span><span class="mx-bigunit">의원 / 인구 1만 명</span></div>
+      <dl class="mx-dl">
+        <dt>주민등록인구</dt><dd><span data-draw="cnum" data-source="city" data-field="pop" data-where="region=인천">—</span>명</dd>
+        <dt>의원</dt><dd><span data-draw="cnum" data-source="city" data-field="clinics" data-where="region=인천">—</span>곳</dd>
+        <dt>의원 1곳당 인구</dt><dd><span data-draw="cnum" data-source="city" data-field="pop_per_clinic" data-where="region=인천">—</span>명</dd>
+        <dt>의원 근무 내과전문의</dt><dd><span data-draw="cnum" data-source="city" data-field="im_clinic" data-where="region=인천">—</span>명</dd>
+        <dt>전체 의사 / 1만 명 (병원 포함)</dt><dd><span data-draw="cnum" data-source="city" data-field="md_all_per10k" data-where="region=인천">—</span></dd>
+      </dl>
+    </div>
+    <div class="mx-card" id="card-bucheon">
+      <h3>부천</h3>
+      <div class="mx-big"><span class="mx-bignum dash-skeleton" data-draw="cnum" data-source="city" data-field="clinics_per10k" data-where="region=부천">—</span><span class="mx-bigunit">의원 / 인구 1만 명</span></div>
+      <dl class="mx-dl">
+        <dt>주민등록인구</dt><dd><span data-draw="cnum" data-source="city" data-field="pop" data-where="region=부천">—</span>명</dd>
+        <dt>의원</dt><dd><span data-draw="cnum" data-source="city" data-field="clinics" data-where="region=부천">—</span>곳</dd>
+        <dt>의원 1곳당 인구</dt><dd><span data-draw="cnum" data-source="city" data-field="pop_per_clinic" data-where="region=부천">—</span>명</dd>
+        <dt>의원 근무 내과전문의</dt><dd><span data-draw="cnum" data-source="city" data-field="im_clinic" data-where="region=부천">—</span>명</dd>
+        <dt>전체 의사 / 1만 명 (병원 포함)</dt><dd><span data-draw="cnum" data-source="city" data-field="md_all_per10k" data-where="region=부천">—</span></dd>
+      </dl>
+    </div>
+  </section>
+
+  <section class="mx-mapsec" id="map-section">
+    <div>
+      <h2 class="mx-h2" id="map-heading">행정동별 지도</h2>
+      <p class="mx-sub">동을 가리키거나 누르면 수치가 보입니다. 색은 보이는 지역의 동을 7개 등급(분위수)으로 나눈 것입니다. 회색은 선택한 지역 밖입니다.</p>
+    </div>
+    <div class="mx-controls">
+      <div class="mx-seg" role="group" aria-label="지역 선택" id="region-tabs">
+        <button type="button" class="mx-segbtn" id="mx-r-all" data-region="" aria-pressed="true">전체</button>
+        <button type="button" class="mx-segbtn" id="mx-r-seoul" data-region="서울" aria-pressed="false">서울</button>
+        <button type="button" class="mx-segbtn" id="mx-r-incheon" data-region="인천" aria-pressed="false">인천</button>
+        <button type="button" class="mx-segbtn" id="mx-r-bucheon" data-region="부천" aria-pressed="false">부천</button>
+      </div>
+      <label class="mx-ctl" for="mx-metric">지도 색
+        <select class="dash-select" id="mx-metric" aria-label="지도에 칠할 지표">
+          <option value="clinics_per10k">의원 수 (인구 1만 명당)</option>
+          <option value="pop_per_clinic">의원 1곳당 인구</option>
+          <option value="im_clinic_per10k">의원 근무 내과전문의 (1만 명당)</option>
+          <option value="clinic_md_per10k">의원 근무 의사 (1만 명당)</option>
+          <option value="md_all_per10k">전체 의사 (1만 명당, 병원 포함)</option>
+          <option value="im_all_per10k">전체 내과전문의 (1만 명당, 병원 포함)</option>
+        </select>
+      </label>
+    </div>
+    <div class="mx-map" id="dong-map" data-draw="map" data-source="shapes dong gu"></div>
+    <p class="mx-sub">옹진군 섬 지역은 지도 범위에서 빠지고, 전체 보기에서는 강화군도 가장자리에서 잘립니다. 인천을 고르거나 아래 표에서 확인하세요.</p>
+  </section>
+
+  <section class="mx-tablesec" id="dong-table-section">
+    <div class="mx-tablehead">
+      <h2 class="mx-h2" id="dong-table-heading">행정동 순위</h2>
+      <div class="mx-filters">
+        <label class="mx-check" for="mx-minpop"><input type="checkbox" id="mx-minpop" checked> 인구 5천 명 이상만</label>
+        <input type="search" class="mx-search" id="mx-search" placeholder="동·구 이름 찾기" aria-label="동 또는 구 이름으로 찾기">
+      </div>
+    </div>
+    <p class="mx-sub">위의 지역 선택을 따릅니다. 머리글을 누르면 정렬되고, 행을 누르면 지도에 표시됩니다.</p>
+    <div class="mx-tablewrap">
+      <table class="mx-table" id="dong-table" data-source="dong" data-row-key="code">
+        <thead><tr>
+          <th data-field="gu" data-sort="gu" tabindex="0">구</th>
+          <th data-field="dong" data-sort="dong" tabindex="0">행정동</th>
+          <th data-field="pop" data-sort="pop" class="num" tabindex="0">인구</th>
+          <th data-field="clinics" data-sort="clinics" class="num" tabindex="0">의원</th>
+          <th data-field="clinics_per10k" data-sort="clinics_per10k" class="num" tabindex="0">의원/1만 명</th>
+          <th data-field="pop_per_clinic" data-sort="pop_per_clinic" class="num" tabindex="0">의원 1곳당 인구</th>
+          <th data-field="im_clinic" data-sort="im_clinic" class="num" tabindex="0">의원 내과전문의</th>
+          <th data-field="im_clinic_per10k" data-sort="im_clinic_per10k" class="num" tabindex="0">의원 내과/1만 명</th>
+          <th data-field="clinic_md_per10k" data-sort="clinic_md_per10k" class="num" tabindex="0">의원 의사/1만 명</th>
+          <th data-field="md_all_per10k" data-sort="md_all_per10k" class="num" tabindex="0">전체 의사/1만 명</th>
+          <th data-field="im_all_per10k" data-sort="im_all_per10k" class="num" tabindex="0">전체 내과/1만 명</th>
+        </tr></thead>
+        <tbody data-draw="dongrows"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="mx-tablesec" id="gu-table-section">
+    <div class="mx-tablehead">
+      <h2 class="mx-h2" id="gu-table-heading">구별 비교</h2>
+    </div>
+    <p class="mx-sub">행을 누르면 위 행정동 순위가 그 구로 좁혀집니다.</p>
+    <div class="mx-tablewrap short">
+      <table class="mx-table" id="gu-table" data-source="gu" data-row-key="code">
+        <thead><tr>
+          <th data-field="gu" data-sort="gu" tabindex="0">구</th>
+          <th data-field="pop" data-sort="pop" class="num" tabindex="0">인구</th>
+          <th data-field="clinics" data-sort="clinics" class="num" tabindex="0">의원</th>
+          <th data-field="clinics_per10k" data-sort="clinics_per10k" class="num" tabindex="0">의원/1만 명</th>
+          <th data-field="pop_per_clinic" data-sort="pop_per_clinic" class="num" tabindex="0">의원 1곳당 인구</th>
+          <th data-field="im_clinic" data-sort="im_clinic" class="num" tabindex="0">의원 내과전문의</th>
+          <th data-field="im_clinic_per10k" data-sort="im_clinic_per10k" class="num" tabindex="0">의원 내과/1만 명</th>
+          <th data-field="clinic_md_per10k" data-sort="clinic_md_per10k" class="num" tabindex="0">의원 의사/1만 명</th>
+          <th data-field="md_all" data-sort="md_all" class="num" tabindex="0">전체 의사</th>
+          <th data-field="md_all_per10k" data-sort="md_all_per10k" class="num" tabindex="0">전체 의사/1만 명</th>
+          <th data-field="im_all" data-sort="im_all" class="num" tabindex="0">전체 내과전문의</th>
+          <th data-field="im_all_per10k" data-sort="im_all_per10k" class="num" tabindex="0">전체 내과/1만 명</th>
+        </tr></thead>
+        <tbody data-draw="gurows"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <details class="mx-notes" id="notes">
+    <summary>지표 정의와 해석할 때 주의할 점</summary>
+    <ul>
+      <li>의사: 의과 일반의·인턴·레지던트·전문의 합계입니다. 치과의사와 한의사는 빠져 있습니다.</li>
+      <li>의원: 종별이 '의원'인 곳입니다. 치과의원과 한의원은 빠져 있고 진료과는 가리지 않습니다.</li>
+      <li>내과전문의: 심평원 진료과목 '내과'의 과목별 전문의 수입니다. 소화기·순환기 같은 분과도 모두 포함됩니다. '의원 근무'는 의원에서 일하는 사람만, '전체'는 병원까지 더한 수입니다.</li>
+      <li>인구는 주민등록 총인구(외국인 제외)입니다. 직장·상업 지역(서울 중구·종로·강남·서초, 여의도, 인천 구월1동 등)은 낮 시간 유동인구가 반영되지 않아 수치가 크게 나옵니다.</li>
+      <li>대학병원이 있는 곳은 전체 의사 수가 크게 부풀려집니다. 동네 의원 간 경쟁 정도는 '의원' 기준 지표로 보는 것이 맞습니다.</li>
+      <li>인구 5천 명 미만인 동은 의원 한두 곳 차이로도 비율이 크게 흔들립니다.</li>
+      <li>기관은 좌표로 행정동에 배정했습니다. 25,014곳 중 17곳은 경계 밖에 찍혀 같은 구의 가장 가까운 동으로 넣었고, 동별 합계는 구별 합계와 일치합니다.</li>
+      <li>인천은 2026년 7월 개편(제물포구·영종구·서해구·검단구)을, 부천은 2024년 부활한 3개 구를 반영했습니다.</li>
+    </ul>
+  </details>
+</div>
+
+<script>
+window.mx = window.mx || { region: '', metric: 'clinics_per10k', sort: { dong: null, gu: null }, minPop: true, q: '', selected: null, pinned: null };
+
+window.mxDec = { clinics_per10k: 1, clinic_md_per10k: 1, md_all_per10k: 1, im_clinic_per10k: 2, im_all_per10k: 2 };
+window.mxText = { gu: 1, dong: 1, region: 1, code: 1, gu_code: 1 };
+window.mxFmt = (field, v) => {
+  if (v === null || v === undefined || v === '') return '—';
+  if (window.mxText[field]) return String(v);
+  const n = +v;
+  if (!isFinite(n)) return '—';
+  const dec = window.mxDec[field];
+  return dec ? d3.format(',.' + dec + 'f')(n) : d3.format(',')(Math.round(n));
+};
+window.mxMetricName = {
+  clinics_per10k: '의원 수 (인구 1만 명당)',
+  pop_per_clinic: '의원 1곳당 인구',
+  im_clinic_per10k: '의원 근무 내과전문의 (1만 명당)',
+  clinic_md_per10k: '의원 근무 의사 (1만 명당)',
+  md_all_per10k: '전체 의사 (1만 명당, 병원 포함)',
+  im_all_per10k: '전체 내과전문의 (1만 명당, 병원 포함)',
+};
+window.mxCmp = (a, b, dir) => {
+  const na = a === null || a === undefined, nb = b === null || b === undefined;
+  if (na && nb) return 0;
+  if (na) return 1;
+  if (nb) return -1;
+  if (typeof a === 'string' || typeof b === 'string') return String(a).localeCompare(String(b), 'ko') * dir;
+  return (a - b) * dir;
+};
+window.mxSortOf = (table) => window.mx.sort[table] || { key: window.mx.metric, dir: -1 };
+window.mxSyncHeaders = () => {
+  ['dong', 'gu'].forEach((t) => {
+    const s = window.mxSortOf(t);
+    document.querySelectorAll('#' + t + '-table th[data-sort]').forEach((th) => {
+      if (th.dataset.sort === s.key) th.setAttribute('aria-sort', s.dir < 0 ? 'descending' : 'ascending');
+      else th.removeAttribute('aria-sort');
+    });
+  });
+};
+window.mxRedraw = () => { dash.draw('map'); dash.draw('dongrows'); dash.draw('gurows'); };
+
+(() => {
+  const mx = window.mx;
+  const sel = document.getElementById('mx-metric');
+  if (sel && window.mxMetricName[sel.value]) mx.metric = sel.value;
+  if (sel) sel.addEventListener('change', () => {
+    mx.metric = sel.value;
+    mx.sort.dong = null; mx.sort.gu = null;
+    window.mxSyncHeaders();
+    window.mxRedraw();
+  });
+
+  document.querySelectorAll('.mx-segbtn').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      mx.region = btn.dataset.region || '';
+      mx.selected = null; mx.pinned = null;
+      document.querySelectorAll('.mx-segbtn').forEach((b) => b.setAttribute('aria-pressed', String(b === btn)));
+      window.mxRedraw();
+    });
+  });
+
+  const cb = document.getElementById('mx-minpop');
+  if (cb) { mx.minPop = cb.checked; cb.addEventListener('change', () => { mx.minPop = cb.checked; dash.draw('dongrows'); }); }
+  const q = document.getElementById('mx-search');
+  if (q) { mx.q = q.value.trim(); q.addEventListener('input', () => { mx.q = q.value.trim(); dash.draw('dongrows'); }); }
+
+  ['dong', 'gu'].forEach((t) => {
+    document.querySelectorAll('#' + t + '-table th[data-sort]').forEach((th) => {
+      const go = () => {
+        const cur = window.mxSortOf(t);
+        const key = th.dataset.sort;
+        const text = key === 'gu' || key === 'dong';
+        mx.sort[t] = { key, dir: cur.key === key ? -cur.dir : (text ? 1 : -1) };
+        window.mxSyncHeaders();
+        dash.draw(t === 'dong' ? 'dongrows' : 'gurows');
+      };
+      th.addEventListener('click', go);
+      th.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); } });
+    });
+  });
+  window.mxSyncHeaders();
+})();
+</script>
+
+<script>
+dash.draw('cnum', (el) => {
+  const d = dash.data(el.dataset.source);
+  if (d.status !== 'ok') {
+    el.textContent = '—';
+    if (d.status !== 'loading') el.classList.remove('dash-skeleton');
+    return;
+  }
+  el.classList.remove('dash-skeleton');
+  const [k, v] = (el.dataset.where || '').split('=').map(decodeURIComponent);
+  const row = d.data.find((r) => String(r[k]) === v);
+  el.textContent = row ? window.mxFmt(el.dataset.field, row[el.dataset.field]) : '—';
+});
+</script>
+
+<script>
+dash.draw('map', {
+  mount(el) {
+    const wrap = document.createElement('div');
+    wrap.className = 'mx-mapwrap';
+    const svg = d3.select(wrap).append('svg').attr('role', 'img');
+    const defs = svg.append('defs');
+    const pat = defs.append('pattern').attr('id', 'mx-hatch').attr('patternUnits', 'userSpaceOnUse').attr('width', 6).attr('height', 6).attr('patternTransform', 'rotate(45)');
+    pat.append('rect').attr('class', 'mx-hatchbg').attr('width', 6).attr('height', 6);
+    pat.append('line').attr('class', 'mx-hatchline').attr('x1', 0).attr('y1', 0).attr('x2', 0).attr('y2', 6);
+    const gD = svg.append('g');
+    const gG = svg.append('g');
+    const gS = svg.append('g');
+    const gL = svg.append('g');
+    const tip = document.createElement('div');
+    tip.className = 'mx-tip';
+    tip.hidden = true;
+    wrap.appendChild(tip);
+    const legend = document.createElement('div');
+    legend.className = 'mx-legend';
+    const msg = document.createElement('div');
+    msg.className = 'mx-msg';
+    msg.hidden = true;
+    const probe = document.createElement('span');
+    probe.style.display = 'none';
+    el.append(wrap, legend, msg, probe);
+
+    const redraw = () => dash.draw('map');
+    const mq = window.matchMedia('(prefers-color-scheme: dark)');
+    mq.addEventListener('change', redraw);
+    const mo = new MutationObserver(redraw);
+    mo.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+
+    wrap.addEventListener('pointerleave', () => { if (!window.mx.pinned) tip.hidden = true; });
+    svg.on('click', (ev) => {
+      if (ev.target.closest && ev.target.closest('.mx-dong')) return;
+      window.mx.selected = null; window.mx.pinned = null;
+      tip.hidden = true;
+      gS.selectAll('path').remove();
+      dash.draw('dongrows');
+    });
+    return { wrap, svg, gD, gG, gS, gL, tip, legend, msg, probe, redraw, mq, mo };
+  },
+
+  update(el, m) {
+    const mx = window.mx;
+    const S = dash.data('shapes'), D = dash.data('dong'), G = dash.data('gu');
+    const st = [S.status, D.status, G.status];
+    if (st.some((s) => s !== 'ok')) {
+      const failed = st.some((s) => s === 'error' || s === 'missing');
+      m.msg.hidden = !failed;
+      if (failed) m.msg.textContent = '지도를 불러오지 못했습니다.';
+      return;
+    }
+    m.msg.hidden = true;
+
+    const rows = D.data;
+    const byCode = new Map(rows.map((r) => [String(r.code), r]));
+    const guName = new Map(G.data.map((r) => [String(r.code), r.gu]));
+    const metric = mx.metric;
+    const region = mx.region;
+    const inRegion = (r) => !!r && (!region || r.region === region);
+    const feats = S.data.dong.features;
+    const ONGJIN = '2872000000';
+    const GANGHWA = '2871000000';
+
+    const fitFeats = feats.filter((f) => {
+      const r = byCode.get(f.properties.code);
+      return inRegion(r) && r.gu_code !== ONGJIN && (region || r.gu_code !== GANGHWA);
+    });
+    const fitFC = { type: 'FeatureCollection', features: fitFeats };
+    const w = Math.max(280, el.clientWidth || 600);
+    const pad = 8;
+    const p0 = d3.geoMercator().fitWidth(w - 2 * pad, fitFC);
+    const b = d3.geoPath(p0).bounds(fitFC);
+    let h = Math.round(b[1][1] - b[0][1]) + 2 * pad;
+    h = Math.max(300, Math.min(h, Math.max(460, Math.round(w * 1.0))));
+    const proj = d3.geoMercator().fitExtent([[pad, pad], [w - pad, h - pad]], fitFC);
+    const path = d3.geoPath(proj);
+
+    m.svg.attr('viewBox', '0 0 ' + w + ' ' + h).attr('width', '100%')
+      .attr('aria-label', (region || '서울·인천·부천') + ' 행정동별 ' + window.mxMetricName[metric] + ' 지도');
+
+    const vals = rows.filter(inRegion).map((r) => r[metric]).filter((v) => v !== null && v !== undefined);
+    const NB = 7;
+    const q = d3.scaleQuantile().domain(vals).range(d3.range(NB));
+    const resolve = (css) => { m.probe.style.color = css; return getComputedStyle(m.probe).color; };
+    const accent = resolve(dash.colors[0]);
+    const bg = resolve('var(--color-bg)');
+    const mix = d3.interpolateLab(bg, accent);
+    const ramp = d3.range(NB).map((i) => mix(0.12 + 0.88 * i / (NB - 1)));
+    const fillOf = (r) => {
+      if (!inRegion(r)) return 'var(--cds-chart-muted)';
+      const v = r[metric];
+      if (v === null || v === undefined) return 'url(#mx-hatch)';
+      return ramp[q(v)];
+    };
+
+    const tip = m.tip;
+    const row = (k, v, on) => {
+      const d = document.createElement('div');
+      d.className = 'mx-tip-r' + (on ? ' on' : '');
+      const a = document.createElement('span'); a.textContent = k;
+      const c = document.createElement('span'); c.textContent = v;
+      d.append(a, c);
+      return d;
+    };
+    const fillTip = (r) => {
+      const t = document.createElement('div'); t.className = 'mx-tip-t'; t.textContent = r.dong;
+      const g = document.createElement('div'); g.className = 'mx-tip-g'; g.textContent = r.gu;
+      const items = [t, g,
+        row('인구', window.mxFmt('pop', r.pop) + '명'),
+        row('의원', window.mxFmt('clinics', r.clinics) + '곳'),
+        row('의원 / 1만 명', window.mxFmt('clinics_per10k', r.clinics_per10k), metric === 'clinics_per10k'),
+        row('의원 1곳당 인구', r.pop_per_clinic == null ? '의원 없음' : window.mxFmt('pop_per_clinic', r.pop_per_clinic) + '명', metric === 'pop_per_clinic'),
+        row('의원 내과전문의', window.mxFmt('im_clinic', r.im_clinic) + '명'),
+        row('의원 내과 / 1만 명', window.mxFmt('im_clinic_per10k', r.im_clinic_per10k), metric === 'im_clinic_per10k'),
+        row('의원 의사 / 1만 명', window.mxFmt('clinic_md_per10k', r.clinic_md_per10k), metric === 'clinic_md_per10k'),
+        row('전체 의사 / 1만 명', window.mxFmt('md_all_per10k', r.md_all_per10k), metric === 'md_all_per10k'),
+        row('전체 내과 / 1만 명', window.mxFmt('im_all_per10k', r.im_all_per10k), metric === 'im_all_per10k'),
+      ];
+      if (r.pop < 5000) {
+        const wn = document.createElement('div'); wn.className = 'mx-tip-w'; wn.textContent = '인구가 적어 비율이 크게 흔들릴 수 있습니다.';
+        items.push(wn);
+      }
+      tip.replaceChildren(...items);
+    };
+    const place = (x, y) => {
+      tip.hidden = false;
+      const tw = tip.offsetWidth, th = tip.offsetHeight;
+      let left = x + 14, top = y + 14;
+      if (left + tw > w - 4) left = Math.max(4, x - tw - 14);
+      if (top + th > h - 4) top = Math.max(4, y - th - 14);
+      tip.style.left = left + 'px';
+      tip.style.top = top + 'px';
+    };
+
+    m.gD.selectAll('path')
+      .data(feats, (f) => f.properties.code)
+      .join('path')
+      .attr('class', (f) => 'mx-dong' + (inRegion(byCode.get(f.properties.code)) ? '' : ' out'))
+      .attr('d', path)
+      .style('fill', (f) => { const r = byCode.get(f.properties.code); return r ? fillOf(r) : 'var(--cds-chart-muted)'; })
+      .on('pointermove', (ev, f) => {
+        if (mx.pinned) return;
+        const r = byCode.get(f.properties.code);
+        if (!inRegion(r)) { tip.hidden = true; return; }
+        fillTip(r);
+        const [x, y] = d3.pointer(ev, m.wrap);
+        place(x, y);
+      })
+      .on('pointerleave', () => { if (!mx.pinned) tip.hidden = true; })
+      .on('click', (ev, f) => {
+        const r = byCode.get(f.properties.code);
+        if (!inRegion(r)) return;
+        mx.selected = r.code; mx.pinned = r.code;
+        fillTip(r);
+        const [x, y] = d3.pointer(ev, m.wrap);
+        place(x, y);
+        m.gS.selectAll('path').data([f]).join('path').attr('class', 'mx-selpath').attr('d', path);
+        dash.draw('dongrows');
+      });
+
+    m.gG.selectAll('path')
+      .data(S.data.gu.features, (f) => f.properties.code)
+      .join('path')
+      .attr('class', 'mx-gu')
+      .attr('d', path);
+
+    const showLabels = region || w >= 640;
+    const labelFeats = showLabels ? S.data.gu.features.filter((f) => {
+      const code = f.properties.code;
+      const r = G.data.find((x) => String(x.code) === code);
+      return r && (!region || r.region === region) && code !== ONGJIN;
+    }) : [];
+    m.gL.selectAll('text')
+      .data(labelFeats, (f) => f.properties.code)
+      .join('text')
+      .attr('class', 'mx-label')
+      .attr('transform', (f) => 'translate(' + path.centroid(f) + ')')
+      .text((f) => (guName.get(f.properties.code) || '').replace('부천 ', ''));
+
+    const selF = mx.selected ? feats.find((f) => f.properties.code === mx.selected) : null;
+    m.gS.selectAll('path').data(selF ? [selF] : []).join('path').attr('class', 'mx-selpath').attr('d', path);
+    if (selF && mx.pinned === mx.selected) {
+      fillTip(byCode.get(mx.selected));
+      const [cx, cy] = path.centroid(selF);
+      place(cx, cy);
+    } else if (!selF) {
+      tip.hidden = true;
+    }
+
+    // 범례
+    const title = document.createElement('div');
+    title.textContent = window.mxMetricName[metric] + (metric === 'pop_per_clinic' ? ' · 진할수록 의원이 적음' : ' · 진할수록 많음');
+    const box = document.createElement('div');
+    box.className = 'mx-lg-items';
+    const fmt = (v) => window.mxFmt(metric, v);
+    const used = new Set(vals.map((v) => q(v)));
+    ramp.forEach((c, i) => {
+      if (!used.has(i)) return;
+      const [lo, hi] = q.invertExtent(i);
+      if (lo === undefined || hi === undefined) return;
+      const it = document.createElement('span'); it.className = 'mx-lg';
+      const sw = document.createElement('i'); sw.style.background = c;
+      const tx = document.createElement('span'); tx.textContent = fmt(lo) + '–' + fmt(hi);
+      it.append(sw, tx);
+      box.appendChild(it);
+    });
+    if (rows.some((r) => inRegion(r) && (r[metric] === null || r[metric] === undefined))) {
+      const it = document.createElement('span'); it.className = 'mx-lg';
+      const sw = document.createElement('i'); sw.style.background = 'repeating-linear-gradient(45deg, var(--color-bg) 0 3px, var(--color-fg-muted) 3px 4px)';
+      const tx = document.createElement('span'); tx.textContent = '의원 없음';
+      it.append(sw, tx);
+      box.appendChild(it);
+    }
+    m.legend.replaceChildren(title, box);
+  },
+
+  unmount(el, m) {
+    m.mq.removeEventListener('change', m.redraw);
+    m.mo.disconnect();
+  },
+});
+</script>
+
+<script>
+(() => {
+  const DONG_COLS = ['gu', 'dong', 'pop', 'clinics', 'clinics_per10k', 'pop_per_clinic', 'im_clinic', 'im_clinic_per10k', 'clinic_md_per10k', 'md_all_per10k', 'im_all_per10k'];
+  const GU_COLS = ['gu', 'pop', 'clinics', 'clinics_per10k', 'pop_per_clinic', 'im_clinic', 'im_clinic_per10k', 'clinic_md_per10k', 'md_all', 'md_all_per10k', 'im_all', 'im_all_per10k'];
+
+  const fill = (tbody, rows, cols, onClick, isSel) => {
+    const mx = window.mx;
+    const tr = d3.select(tbody).selectAll('tr')
+      .data(rows, (r) => String(r.code))
+      .join('tr')
+      .attr('data-key', (r) => encodeURIComponent(String(r.code)))
+      .classed('sel', isSel)
+      .on('click', onClick);
+    tr.selectAll('td')
+      .data((r) => cols.map((c) => [c, r[c]]))
+      .join('td')
+      .attr('class', ([c]) => (window.mxText[c] ? '' : 'num') + (c === mx.metric ? ' hl' : ''))
+      .text(([c, v]) => window.mxFmt(c, v));
+    tr.order();
+  };
+
+  dash.draw('dongrows', (tbody) => {
+    const mx = window.mx;
+    const D = dash.data('dong');
+    if (D.status !== 'ok') { d3.select(tbody).selectAll('tr').remove(); return; }
+    const s = window.mxSortOf('dong');
+    const rows = D.data
+      .filter((r) => (!mx.region || r.region === mx.region)
+        && (!mx.minPop || r.pop >= 5000)
+        && (!mx.q || (r.gu + ' ' + r.dong).includes(mx.q)))
+      .slice()
+      .sort((a, b) => window.mxCmp(a[s.key], b[s.key], s.dir));
+    fill(tbody, rows, DONG_COLS, (ev, r) => {
+      mx.selected = String(r.code); mx.pinned = String(r.code);
+      d3.select(tbody).selectAll('tr').classed('sel', (d) => String(d.code) === mx.selected);
+      dash.draw('map');
+      const map = document.getElementById('dong-map');
+      if (map && map.scrollIntoView) map.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+    }, (r) => String(r.code) === mx.selected);
+  });
+
+  dash.draw('gurows', (tbody) => {
+    const mx = window.mx;
+    const G = dash.data('gu');
+    if (G.status !== 'ok') { d3.select(tbody).selectAll('tr').remove(); return; }
+    const s = window.mxSortOf('gu');
+    const rows = G.data
+      .filter((r) => !mx.region || r.region === mx.region)
+      .slice()
+      .sort((a, b) => window.mxCmp(a[s.key], b[s.key], s.dir));
+    fill(tbody, rows, GU_COLS, (ev, r) => {
+      const input = document.getElementById('mx-search');
+      mx.q = r.gu;
+      if (input) input.value = r.gu;
+      dash.draw('dongrows');
+      const sec = document.getElementById('dong-table-section');
+      if (sec && sec.scrollIntoView) sec.scrollIntoView({ block: 'start', behavior: 'smooth' });
+    }, () => false);
+  });
+})();
+</script>
