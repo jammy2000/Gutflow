@@ -37,3 +37,9 @@ python export_map_data.py results HangJeongDong_ver20261001.geojson <지도 데�
 - 한강 남북, 영종·강화·옹진 섬은 서로 다른 생활권
 - 지표: 내과전문의 1명당 생활권 40세 이상 인구, 분석 지역 평균 대비 배수
 - 반경 1km·2km에서도 평균의 1.3배 이상이면 '반경 바꿔도 유지'
+
+## 역세권 후보 (station_search.py, station_maps.py)
+- 역 위치: 철도산업정보센터 「전체_도시철도역사정보」 2026.6.30 (data.kric.go.kr). 환승역·표기 차이(…역)는 합침
+- 역 반경 500m·1km·1.5km의 40세 이상 인구와 의원 내과전문의, 1km 가정의학과, 1.5km 병원급 내과, 500m 점포 수
+- 지표: 1km 40세 이상 ÷ (경쟁 의원 내과전문의 + 개원하는 나 1명), 분석 지역 평균 대비
+- 결과: `results/station_candidates.csv`, 지도: `역세권_추천5_지도.png`
