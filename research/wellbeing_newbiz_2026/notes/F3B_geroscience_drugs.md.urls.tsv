@@ -81,3 +81,12 @@ https://pubmed.ncbi.nlm.nih.gov/37889486/	2026-11-15	성공	TRAVERSE 빈혈 하�
 https://www.fda.gov/drugs/drug-safety-and-availability/fda-issues-class-wide-labeling-changes-testosterone-products	2026-11-15	성공	2025-02-28 FDA: 박스경고 중 심혈관 위험 문구 삭제, 연령관련 성선저하 '사용 제한' 유지, 혈압 경고 추가
 https://www.hira.or.kr/co/search.do?query=테스토스테론	2026-11-15	성공(헤드리스)	심평원 검색: 테스토스테론 관련 고시·행정해석
 https://www.hira.or.kr/rc/insu/insuadtcrtr/InsuAdtCrtrPopup.do?mtgHmeDd=20180401&sno=1&mtgMtrRegSno=12&brdScnBltNo=4&brdBltNo=	2026-11-15	성공(헤드리스)	고시 제2018-58호 안드리올 급여기준(총T<200ng/dL+증상, 갱년기장애 비급여) — 고시 제2021-337호(2022.1.1)로 삭제
+https://clinicaltrials.gov/api/v2/studies?query.term=pelacarsen+OR+olpasiran+OR+lepodisiran	2026-11-15	성공	Lp(a) 결과시험: HORIZON NCT04023552 완료(PCD 2026-07-16), OCEAN(a)-Outcomes NCT05581303 PCD 2028-03, ACCLAIM NCT06292013 PCD 2029-03, OCEAN(a)-PreEvent PCD 2031-10
+https://www.novartis.com/news/media-releases/novartis-announces-lpahorizon-phase-iii-topline-results-pelacarsen-patients-elevated-lpa-and-established-cardiovascular-disease-cvd	2026-11-15	미접속(WebSearch 요약)	2026-09-04 HORIZON 1차지표 실패(뉴스 기반)
+https://pubmed.ncbi.nlm.nih.gov/32865380/	2026-11-15	성공	LoDoCo2 NEJM 2020 콜히친 만성관상동맥질환 HR 0.69
+https://pubmed.ncbi.nlm.nih.gov/39555823/	2026-11-15	성공	CLEAR NEJM 2025 콜히친 급성 MI 후 HR 0.99
+https://pubmed.ncbi.nlm.nih.gov/40908114/	2026-11-15	성공	CLEAR 이득-위해 분석 2026: 콜히친 win ratio 0.88(설사)
+https://pubmed.ncbi.nlm.nih.gov/30415629/	2026-11-15	성공	VITAL NEJM 2019 비타민D 암 HR 0.96, MACE HR 0.97
+https://pubmed.ncbi.nlm.nih.gov/39900648/	2026-11-15	성공	DO-HEALTH 사후분석 Nat Aging 2025: 오메가3가 DNA 메틸화 시계 2.9~3.8개월 늦춤(대리지표)
+https://www.health.kr/api/drug/A11A1291A0210?expert=0	2026-11-15	성공	콜킨정 0.6mg 효능: 급성통풍 발작 치료·예방만, 급여 75원
+https://api.fda.gov/drug/drugsfda.json?search=LODOCO	2026-11-15	실패(프록시 403)	Lodoco FDA 승인일 확인 시도
