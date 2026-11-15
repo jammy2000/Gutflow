@@ -1,0 +1,11 @@
+URL	열람일	결과	확인내용
+https://www.goyang.go.kr/www/index.do	2026-11-15	성공	고양시청 메인 접속됨(브리프의 '차단'과 달리 재시도 시 200 OK, 425KB)
+https://kosis.kr/	2026-11-15	실패(Connection reset by peer, 재시도)	KOSIS 접속 시도
+https://www.nhis.or.kr/	2026-11-15	실패(Connection reset by peer, 재시도)	건보공단 접속 시도
+https://www.longtermcare.or.kr/	2026-11-15	실패(Connection reset by peer, 재시도)	노인장기요양보험 사이트 접속 시도
+https://data.gg.go.kr/	2026-11-15	실패(프록시 403 허용 목록 아님)	경기데이터드림 접속 시도
+https://www.gg.go.kr/	2026-11-15	실패(프록시 403 허용 목록 아님)	경기도청 접속 시도
+https://www.hira.or.kr/	2026-11-15	실패(25초 타임아웃)	심평원 접속 시도
+https://www.localdata.go.kr/	2026-11-15	실패(프록시 403)	지방행정 인허가 데이터 접속 시도
+https://www.mois.go.kr/	2026-11-15	실패(프록시 403)	행안부 접속 시도
+https://repository.kihasa.re.kr/	2026-11-15	실패(프록시 403)	보사연 리포지터리 접속 시도

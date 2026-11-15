@@ -23,3 +23,6 @@ https://kosis.kr	2026-11-15	실패(연결 재설정)	통계청 KOSIS
 https://www.elis.go.kr	2026-11-15	실패(연결 재설정)	자치법규정보시스템
 https://www.kma.org	2026-11-15	실패(연결 재설정)	대한의사협회
 https://saiseiiryo.mhlw.go.jp	2026-11-15	실패(403)	일본 재생의료 등록 포털
+https://stemtx.co.kr/?bid=comm_01&m=bbs	2026-11-15	실패(연결 재설정, 헤드리스 브라우저도 upstream request failed)	대한줄기세포치료학회 공지사항(2026 추계학술대회 프로그램)
+https://www.stemtx.co.kr/	2026-11-15	실패(연결 재설정)	대한줄기세포치료학회 홈페이지
+http://www.stemtx.co.kr/index.php?r=home&c=comm/notice	2026-11-15	실패(http DNS 미해결)	학회 공지사항(구 주소)
