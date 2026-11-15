@@ -90,3 +90,11 @@ https://pubmed.ncbi.nlm.nih.gov/30415629/	2026-11-15	성공	VITAL NEJM 2019 비�
 https://pubmed.ncbi.nlm.nih.gov/39900648/	2026-11-15	성공	DO-HEALTH 사후분석 Nat Aging 2025: 오메가3가 DNA 메틸화 시계 2.9~3.8개월 늦춤(대리지표)
 https://www.health.kr/api/drug/A11A1291A0210?expert=0	2026-11-15	성공	콜킨정 0.6mg 효능: 급성통풍 발작 치료·예방만, 급여 75원
 https://api.fda.gov/drug/drugsfda.json?search=LODOCO	2026-11-15	실패(프록시 403)	Lodoco FDA 승인일 확인 시도
+https://pubmed.ncbi.nlm.nih.gov/37952131/	2026-11-15	성공	SELECT NEJM 2023 세마글루타이드 MACE 6.5% vs 8.0%
+https://www.health.kr/api/searchDrug?drugName=스프라이셀	2026-11-15	성공	다사티닙(스프라이셀) 항악성종양제 급여 100mg 46,112원; 퀘르세틴 성분 품목 0, 피세틴 미등재
+https://www.law.go.kr/행정규칙/허가또는신고범위초과약제비급여사용승인에관한기준및절차	2026-11-15	성공(헤드리스)	보건복지부고시 제2020-140호: 급여목록 약제 허가초과 비급여 사용은 심평원 승인 필요, 신청기관=의약품임상시험실시기관(IRB)
+https://lady.khan.co.kr/health/article/202610081604001	2026-11-15	미접속(WebSearch 요약)	국내 NAD+ 주사 미허가·일본 원정 보도(2026-10-08)
+https://www.npanational.org/news/amid-pressure-from-npa-fda-declares-nmn-lawful-in-dietary-supplements/	2026-11-15	미접속(WebSearch 요약)	FDA 2025-09 NMN 건강기능식품(dietary supplement) 합법 판단(뉴스 기반)
+https://www.frierlevitt.com/articles/fda-peptides-do-not-compound-list-update-2026/	2026-11-15	미접속(WebSearch 요약)	2026-04 FDA 12개 펩타이드 카테고리2 제외, 카테고리1 아님(뉴스 기반)
+https://www.mcdermottlaw.com/insights/bulk-list-bound-pcac-backs-majority-of-peptides-in-two-day-public-meeting/	2026-11-15	미접속(WebSearch 요약)	PCAC 2026-07 7개 중 6개 등재 권고, BPC-157 8:6(뉴스 기반)
+https://pubmed.ncbi.nlm.nih.gov/40954388/	2026-11-15	성공	IV NAD+ 심부전 RCT 결과: 1개월 LVEF 45.4 vs 42.4%, 6개월 MACCE 14.6 vs 24.7%(p=0.089)

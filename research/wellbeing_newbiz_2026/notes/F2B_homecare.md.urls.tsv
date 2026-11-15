@@ -1,2 +1,55 @@
 https://www.nhis.or.kr	2026-11-15	실패(연결 재설정, 재시도 1회)	건보공단 접속 시도
 https://www.longtermcare.or.kr	2026-11-15	실패(연결 재설정, 재시도 1회)	장기요양 접속 시도
+https://www.hira.or.kr/	2026-11-15	부분 성공(루트 200, 게시판 목록 60초 타임아웃)	심평원 공지 게시판 접근 시도
+https://biz.hira.or.kr/	2026-11-15	실패(프록시 403)	요양기관업무포털 시범사업 공지 확인 시도
+https://www.hira.or.kr/bbs/157/2024/11/BZ202411140797067.pdf (WebFetch)	2026-11-15	실패(WebFetch 호스트 해석 불가)	방문진료 지침
+https://www.hira.or.kr/bbs/157/2024/11/BZ202411140797067.pdf	2026-11-15	성공(curl 3회째)	일차의료 방문진료 수가 시범사업 지침(2024.11): 방문진료료Ⅰ·Ⅱ 점수, 가산, 월 60회/100회 상한, 본인부담
+https://www.hira.or.kr/bbs/157/2024/02/BZ202402169628340.pdf	2026-11-15	성공	장애인 건강 주치의 4단계 시범사업 지침(2024.2.28): 교육, 기관요건, 수가표, 본인부담 10%
+https://www.hira.or.kr/bbs/157/2024/07/BZ202407220278394.pdf	2026-11-15	성공(내려받기만, 2026 보도자료로 대체)	치매관리주치의 시범사업 지침(2024.7)
+https://www.mohw.go.kr/board.es?act=view&bid=0027&list_no=1490869&mid=a10503010100	2026-11-15	성공	재택의료센터 50개소 추가 선정(2026.6.16), 총 463개소, 협업형B
+https://www.mohw.go.kr/boardDownload.es?bid=0027&list_no=1490869&seq=2	2026-11-15	성공	보도참고자료 PDF: 사업개요, 2026 급여비용, 기관 명단(고양시 3곳)
+https://www.mohw.go.kr/board.es?act=view&bid=0003&list_no=1491152&mid=a10501010100	2026-11-15	성공	보건복지부 공고 제2026-554호 재택의료센터 지침 개정(시행 2026.7)
+https://www.mohw.go.kr/boardDownload.es?bid=0003&list_no=1491152&seq=1	2026-11-15	성공	재택의료센터 시범사업 지침(의원·병원·지역보건의료기관 의과) 2026.7: 인력, 산정지침, 급여목록, 140회 상한
+https://www.mohw.go.kr/boardDownload.es?bid=0003&list_no=1491152&seq=5	2026-11-15	실패(연결 재설정)	지침 주요 개정사항 PDF
+https://www.mohw.go.kr/board.es?act=view&bid=0027&list_no=1488522&mid=a10503000000	2026-11-15	실패(연결 재설정)	2026.1 재택의료센터 모집 보도자료
+https://www.mohw.go.kr/board.es?mid=a10503010100&bid=0027&act=list (키워드 검색: 재택의료·방문진료·통합돌봄·위원회·치매·장애인 건강·일차의료 등)	2026-11-15	성공(간헐 연결 재설정)	보도자료 목록에서 관련 글 번호 확인
+https://www.mohw.go.kr/board.es?mid=a10503010100&bid=0003&act=list (키워드 검색)	2026-11-15	성공	공지사항 목록: 재택의료센터·방문진료·일차의료 혁신·치매주치의 공고 확인, 2027 재택의료센터 공모 미게시 확인
+https://www.mohw.go.kr/board.es?act=view&bid=0003&list_no=1490198&mid=a10501010100	2026-11-15	성공	보건복지부 공고 제2026-346호 재택의료센터 2차 공모(’26.4.21~5.22), 공단 문의처
+https://www.mohw.go.kr/boardDownload.es?bid=0003&list_no=1490198&seq=2	2026-11-15	성공	공모문 PDF: 사업기간 ’26.1.1~12.31, 신청요건, 협업형A/B 수가, 선정기준
+https://www.mohw.go.kr/board.es?act=view&bid=0003&list_no=1492398&mid=a10501010100	2026-11-15	성공	보건복지부 공고 제2026-830호 장기요양 재택자립훈련 시범사업 공모(’26.11.2~11.20)
+https://www.mohw.go.kr/boardDownload.es?bid=0003&list_no=1492398&seq=2	2026-11-15	성공	재택자립훈련 공고문 PDF: 전담형만, 물리·작업치료사, 월 10회
+https://www.mohw.go.kr/board.es?act=view&bid=0027&list_no=1489116&mid=a10503010100	2026-11-15	성공	재택의료센터 전국 229개 시군구 설치(2026.2.13), 연도별 기관 수
+https://www.mohw.go.kr/boardDownload.es?bid=0027&list_no=1489116&seq=2	2026-11-15	성공	명단 PDF(고양시 소망의원 등)
+https://www.law.go.kr/법령/의료·요양 등 지역 돌봄의 통합지원에 관한 법률	2026-11-15	성공(렌더링)	돌봄통합지원법 본문(시행 2026.9.10. 법률 제21777호), 제11·15·16·26조, 부칙 시행일
+https://www.law.go.kr/법령/의료·요양 등 지역 돌봄의 통합지원에 관한 법률 시행령	2026-11-15	성공(3회째)	시행령(대통령령 제35897호, 시행 2026.3.27) 대상자·직권신청
+https://www.law.go.kr/법령/의료·요양 등 지역 돌봄의 통합지원에 관한 법률 시행규칙	2026-11-15	성공(2회째)	시행규칙(보건복지부령 제1161호, 시행 2026.3.27) 제7·9·14조
+https://www.mohw.go.kr/board.es?act=view&bid=0027&list_no=1489823&mid=a10503010100	2026-11-15	성공	통합돌봄 본격 시행(2026.3.27) 보도자료, 서비스 목록
+https://www.mohw.go.kr/boardDownload.es?bid=0027&list_no=1489823&seq=2	2026-11-15	성공	PDF 담당부서 연락처(통합돌봄사업과)
+https://www.mohw.go.kr/board.es?act=view&bid=0027&list_no=1487324&mid=a10503010100	2026-11-15	성공	2025 통합지원 시범사업 229개 지자체 참여(2025.9.2)
+https://www.mohw.go.kr/boardDownload.es?bid=0027&list_no=1487324&seq=2	2026-11-15	성공	참여 지자체 현황: 고양시=기술지원형(기존 참여), 경기 예산지원형=부천·안산
+https://www.mohw.go.kr/board.es?act=view&bid=0027&list_no=1489302&mid=a10503010100	2026-11-15	성공	통합돌봄 로드맵(2026.3.5) 1~3단계, 재택의료센터·방문진료 포함
+https://www.mohw.go.kr/board.es?act=view&bid=0027&list_no=1487678&mid=a10503010100	2026-11-15	성공	제1차관 방문진료 의료기관 방문(2025.10.23)
+https://www.mohw.go.kr/board.es?act=view&bid=0027&list_no=1491488&mid=a10503010100	2026-11-15	성공	치매관리주치의 2차 시범사업 92개 시군구·의사 417명(2026.7.31)
+https://www.mohw.go.kr/boardDownload.es?bid=0027&list_no=1491488&seq=2	2026-11-15	성공	치매관리주치의 개요·수가표·명단(고양시 22기관·29명, 기존 선정)
+https://www.mohw.go.kr/board.es?act=view&bid=0027&list_no=1491010&mid=a10503010100	2026-11-15	성공	제12차 건정심(2026.6.25): 2026·2027 환산지수, 지역사회 일차의료 혁신 시범사업 변경안
+https://www.mohw.go.kr/board.es?act=view&bid=0003&list_no=1488520&mid=a10501010100	2026-11-15	성공	보건복지부 공고 제2026-16호 방문진료 수가 시범사업 2026 상반기 공모
+https://www.mohw.go.kr/boardDownload.es?bid=0003&list_no=1488520&seq=2	2026-11-15	성공	공모문 PDF: 신청대상, 선정기준(의사 1인 이상), 사업기간 문구
+https://www.mohw.go.kr/board.es?act=view&bid=0003&list_no=1489329&mid=a10501010100	2026-11-15	성공	방문진료 신규 참여기관 선정결과(2026.3.6) 의과 126·한의 140, 참여일 ’26.3.9
+https://www.mohw.go.kr/board.es?act=view&bid=0027&list_no=1492060&mid=a10503010100	2026-11-15	성공	지역사회 일차의료 혁신 시범사업 시작(2026.9.29), 120개 의원
+https://www.mohw.go.kr/boardDownload.es?bid=0027&list_no=1492060&seq=2	2026-11-15	성공	참여기관 명단: 고양시 단독모형 1곳, 협력모형(거점 국민건강보험일산병원)
+https://www.mohw.go.kr/board.es?act=view&bid=0003&list_no=1491204&mid=a10501010100	2026-11-15	성공	보건복지부 공고 제2026-562호 일차의료 혁신 시범사업 공모
+https://www.mohw.go.kr/boardDownload.es?bid=0003&list_no=1491204&seq=2	2026-11-15	성공	공모문 PDF: 기간 ’26.9~’29.8, 인력요건, 수가(HCC 분위별), 운영지원 3천만/1.5억, 중복참여 제한
+https://www.mohw.go.kr/boardDownload.es?bid=0003&list_no=1491204&seq=4	2026-11-15	성공(내려받기만)	설명회 질의응답 PDF
+https://www.mohw.go.kr/board.es?act=view&bid=0027&list_no=1488072&mid=a10503010100	2026-11-15	성공	제22차 건정심(2025.11.28): 방문진료 시범사업 2028.12까지 연장
+https://www.mohw.go.kr/boardDownload.es?bid=0027&list_no=1488072&seq=1	2026-11-15	성공	PDF 표: 산정횟수 100→140회, 방문진료만 참여 기관 60회, 보건소·병원 예외 허용
+https://www.law.go.kr/법령/노인장기요양보험법	2026-11-15	성공(2회째)	현행(시행 2026.5.26, 법률 제21690호) 제23조 급여 종류에 재택의료 없음 확인
+https://www.law.go.kr/법령/노인장기요양보험법 시행규칙	2026-11-15	성공	제36조 방문간호지시서 발급비용 부담 비율
+https://www.law.go.kr/LSW/admRulInfoR.do?admRulSeq=2100000285470	2026-11-15	성공	장기요양급여 제공기준 및 급여비용 산정방법 등에 관한 고시(제2026-189호, 시행 2026.10.1) 제27·78조
+https://www.law.go.kr/LSW/flDownload.do?flSeq=169768549	2026-11-15	성공	제78조 별표 이미지: 의사소견서·방문간호지시서 발급비용(자-1, 자-2)
+https://www.law.go.kr/법령/의료법 시행규칙	2026-11-15	성공	제24조 가정간호(시행 2026.6.12 판)
+https://www.law.go.kr/LSW/admRulInfoR.do?admRulSeq=2100000287680	2026-11-15	실패(본문이 첨부파일 방식, 가정간호 수가 미확인)	건강보험 행위 급여·비급여 목록표(제2026-228호, 시행 2026.11.1)
+https://www.mohw.go.kr/board.es?act=view&bid=0027&list_no=1483237&mid=a10503010100	2026-11-15	성공	일차의료 만성질환관리 본사업 전환(2024.9.30)
+https://www.mohw.go.kr/board.es?act=view&bid=0027&list_no=1490460&mid=a10503010100	2026-11-15	성공	장애인 일차의료 활성화 간담회(2026.5.8): 건강주치의 '진행 중 시범사업'
+https://www.mohw.go.kr/boardDownload.es?bid=0027&list_no=1490460&seq=1	2026-11-15	성공	HWPX 담당부서 연락처(장애인건강과)
+https://likms.assembly.go.kr/bill/BillSearchResult.do	2026-11-15	실패(HTTP 400)	'재택의료' 의안 검색 시도
+https://likms.assembly.go.kr/bill/main.do	2026-11-15	실패(연결 재설정)	의안정보 접속 재시도
