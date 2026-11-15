@@ -42,3 +42,12 @@ https://www.fda.gov/advisory-committees/pharmacy-compounding-advisory-committee/
 https://www.fda.gov/media/185642/download	2026-11-15	성공	PCAC 2024-12-04 회의록: CJC-1295 0:13, AOD-9604 0:12, 티모신알파1 4:17로 등재 반대
 https://www.law.go.kr/법령/약사법	2026-11-15	성공	약사법[시행 2026.11.12, 법률 제21692호] 제31조·제42조·제61조 원문
 https://ajmc.com/view/5-things-to-know-about-the-fda-s-peptide-reversal	2026-11-15	실패(호스트 차단)	WebSearch 요약만 사용
+https://pubmed.ncbi.nlm.nih.gov/42885452/	2026-11-15	성공	BPC-157 인체 근거 체계적 문헌고찰 2026: 3편 n=30, 비대조, 근거확실성 매우 낮음
+https://pubmed.ncbi.nlm.nih.gov/17227934/	2026-11-15	성공	Liu 2007 건강 노인 GH 메타분석: 제지방 +2.1kg, 부종·관절통·수근관증후군 증가
+https://pubmed.ncbi.nlm.nih.gov/39814420/	2026-11-15	성공	TESTS BMJ 2025 티모신알파1 패혈증 3상 n=1106 28일 사망 차이 없음
+https://www.health.kr/api/searchDrug?drugName=테스토스테론	2026-11-15	성공	국내 테스토스테론 8품목(네비도·센비도·팜비도·휴비도·예나스테론·나테스토·토스트렉스 등) 모두 보험코드 없음(비급여)
+https://www.health.kr/api/drug/A11AGGGGA4185?expert=0	2026-11-15	성공	예나스테론주(테스토스테론에난테이트) 급여 삭제 2012-03-01, 현재 비급여
+https://www.health.kr/api/drug/2015121800015?expert=0	2026-11-15	성공	네비도주 비급여, 효능: 남성 일차성·이차성 성선기능저하증 대치치료
+https://www.health.kr/api/searchDrug?drugName=에스트라디올	2026-11-15	성공	MHT 제품 급여 현황: 프로기노바·프레다·프레미나·안젤릭·페모스톤·티볼론·유트로게스탄 연질캡슐 급여, 디비겔·에스트레바겔·듀아비브 비급여
+https://www.health.kr/api/drug/(프로기노바28정1mg)?expert=0	2026-11-15	성공	프로기노바 효능: 갱년기 증상경감 HRT, 급여 114원/정(2018-07-25)
+https://www.health.kr/api/searchDrug?drugName=지노트로핀	2026-11-15	성공	지노트로핀 효능: 소아 성장부전·성인 GHD(two dynamic test 확진), 급여

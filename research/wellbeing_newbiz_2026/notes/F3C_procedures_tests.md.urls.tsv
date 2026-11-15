@@ -12,3 +12,23 @@ https://pubmed.ncbi.nlm.nih.gov/42773209/	2026-11-15	성공(E-utilities 초록)	
 https://pubmed.ncbi.nlm.nih.gov/42773207/	2026-11-15	성공(E-utilities 초록)	PATHFINDER 2 Nat Med 2026
 https://www.fda.gov/media/194910/download	2026-11-15	성공(PDF)	FDA 패널 회의 2026-09-23 GRAIL 브리핑 자료 표지 확인
 https://www.fda.gov/media/195032/download	2026-11-15	성공(PDF)	FDA 패널 24시간 요약: 안전성 10-0, 유효성 6-4, 편익/위험 7-2-1
+https://clinicaltrials.gov/api/v2/studies/NCT06534450	2026-11-15	성공	Kiprov TPE 시험 상태 UNKNOWN, n=40, 1차 완료 2023-11, 결과 미게시
+https://clinicaltrials.gov/api/v2/studies?query.term=plasma exchange AND (aging...)	2026-11-15	성공	노화 목적 TPE 진행 시험 검색(NCT07836127 중국 노쇠 등)
+https://pubmed.ncbi.nlm.nih.gov/35999337/	2026-11-15	성공(E-utilities)	Kim 2022 GeroScience 혈장 희석 단일군 연구(서지만)
+https://pubmed.ncbi.nlm.nih.gov/42489967/	2026-11-15	성공(E-utilities 초록)	젊은 공여자 혈장교환 MCI 파일럿 2026, NCT06234436
+https://www.fda.gov/vaccines-blood-biologics/safety-availability-biologics/important-information-about-young-donor-plasma-infusions-profit	2026-11-15	성공	FDA 2019-02-19 젊은 혈장 경고 원문
+https://www.fda.gov/vaccines-blood-biologics/safety-availability-biologics/update-important-information-about-young-donor-plasma-infusions-offered-profit	2026-11-15	성공	FDA 2024-12-06 젊은 혈장 재경고
+https://www.fda.gov/vaccines-blood-biologics/safety-availability-biologics/public-safety-notification-exosome-products	2026-11-15	성공	FDA 2019-12-06 엑소좀 공중안전 공지 "no FDA-approved exosome products"
+https://www.fda.gov/vaccines-blood-biologics/consumers-biologics/consumer-alert-regenerative-medicine-products-including-stem-cells-and-exosomes	2026-11-15	성공	FDA 소비자 경고(2020-07-22, 2024-04-09 갱신)
+https://www.law.go.kr/법령/의료법시행령/제32조	2026-11-15	성공(헤드리스)	의료법 시행령 제32조 품위손상(학문적으로 인정되지 않는 진료행위), 시행 2026.2.10
+https://www.law.go.kr/법령/의료법/제53조	2026-11-15	성공(헤드리스)	의료법 제53조 신의료기술평가, 시행 2026.11.12
+https://www.law.go.kr/법령/화장품법	2026-11-15	성공(헤드리스)	화장품법 제2조 화장품 정의(바르고 문지르거나 뿌리는), 시행 2026.10.20
+https://www.law.go.kr/법령/신의료기술평가에 관한 규칙	2026-11-15	성공(헤드리스)	제2조 평가유예(체외진단 포함), 제3조의3 서면동의, 시행 2026.1.26
+https://www.law.go.kr/법령/생명윤리및안전에관한법률	2026-11-15	성공(헤드리스)	제2조 유전자검사 정의, 제49조의2 DTC 인증, 제50조 제한, 시행 2025.10.1
+https://www.law.go.kr/법령/특수의료장비의 설치 및 운영에 관한 규칙	2026-11-15	성공(헤드리스)	MRI 등 특수의료장비 등록·설치인정기준(별표1 본문은 미확인), 시행 2026.6.17
+https://www.law.go.kr/행정규칙/신의료기술의 안전성ㆍ유효성 평가결과 고시	2026-11-15	성공(헤드리스)	보건복지부고시 제2026-209호(시행 2026.10.8) 본문
+https://www.law.go.kr/LSW/flDownload.do?flSeq=170542861	2026-11-15	성공(hwpx)	별표1: 605 대변 세균총 이식, 97 관상동맥 석회수치, 447 돌발성난청 고압산소, 780 근감소증 DXA
+https://www.law.go.kr/LSW/flDownload.do?flSeq=170545341	2026-11-15	성공(pdf 1239쪽)	별표1 PDF판
+https://www.law.go.kr/LSW/flDownload.do?flSeq=170545343	2026-11-15	실패(연결 재설정)	별표2 hwpx
+https://www.law.go.kr/LSW/flDownload.do?flSeq=170545389	2026-11-15	성공(pdf)	별표2 제한적 의료기술
+https://www.law.go.kr/LSW/flDownload.do?flSeq=170545391	2026-11-15	성공(hwpx)	별표3 혁신의료기술 목록: 다중암 검사 없음, 35번 대장암 MRD 액체생검
