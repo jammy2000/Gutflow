@@ -1,0 +1,31 @@
+https://www.data.go.kr/data/15051059/fileData.do	2026-11-15	성공	건강보험심사평가원_전국 병의원 및 약국 현황_20260930 메타(2026.9. 추출, 수정 2026-10-20)
+https://www.data.go.kr/cmm/cmm/fileDownload.do?atchFileId=FILE_000000007735984&fileDetailSn=1	2026-11-15	성공	위 데이터 zip(CSV 12개) 내려받음: 기본정보·시설·진료과목·장비·특수진료·기타인력에서 대상 의원과 일산서구 경쟁 집계
+https://www.mohw.go.kr/board.es?act=view&bid=0027&list_no=1491488&mid=a10503010100	2026-11-15	성공	치매관리주치의 2차 확대 보도참고자료(2026-07-31) 본문
+https://www.mohw.go.kr/boardDownload.es?bid=0027&list_no=1491488&seq=1	2026-11-15	성공	붙임 hwpx(기관 명단 없음, 개요·수가)
+https://www.mohw.go.kr/boardDownload.es?bid=0027&list_no=1491488&seq=2	2026-11-15	성공	붙임 pdf: 2차 신규 선정 79곳 명단(고양 0곳), 고양시 누계 22기관·29의사, 대상 의원 없음
+https://www.mohw.go.kr/board.es?mid=a10503010100&bid=0027&act=view&list_no=1482392	2026-11-15	성공	치매관리주치의 2024 선정 보도자료(2024-07-23)
+https://www.mohw.go.kr/boardDownload.es?bid=0027&list_no=1482392&seq=2	2026-11-15	성공	붙임 pdf: 경기도 고양시 선정 13곳 명단, 대상 의원 없음
+https://www.mohw.go.kr/boardDownload.es?bid=0027&list_no=1482392&seq=1	2026-11-15	성공	붙임 hwpx(같은 내용)
+https://www.mohw.go.kr/board.es?act=view&bid=0027&list_no=1492060&mid=a10503010100	2026-11-15	성공	지역사회 일차의료 혁신 시범사업 보도자료(2026-09-28)
+https://www.mohw.go.kr/boardDownload.es?bid=0027&list_no=1492060&seq=2	2026-11-15	성공	붙임 pdf: 참여기관 120곳 명단(고양시 단독 1, 협력 거점 일산병원+일차의료기관), 대상 의원 없음; 담당 지역의료정책과 044-202-1931
+https://www.mohw.go.kr/boardDownload.es?bid=0027&list_no=1492060&seq=1	2026-11-15	성공	붙임 hwpx(같은 내용)
+https://www.data.go.kr/data/15144843/fileData.do	2026-11-15	성공	국민건강보험공단_장애인 건강주치의 의료기관 목록_20250721(1,103행) 내려받음, 대상 의원 없음
+https://www.data.go.kr/data/15165686/fileData.do	2026-11-15	성공	국민건강보험공단_재택의료센터 주소정보_20260909(503곳) 내려받음, 고양 5곳·일산서구 0곳, 대상 의원 없음
+https://www.k-arm.go.kr/common/fileDown.do?key=80932&type=brd	2026-11-15	성공	첨단재생의료실시기관 지정 현황('26.10월) pdf, 일산서구는 일산백병원 1곳, 대상 의원 없음
+https://www.data.go.kr/tcs/dss/selectDataSetList.do?dType=FILE&keyword=건강검진기관	2026-11-15	성공	일반 키워드 검색(의원명 미입력): 건보공단 검진기관 데이터셋 찾음
+https://www.data.go.kr/tcs/dss/selectDataSetList.do?dType=FILE&keyword=검진기관	2026-11-15	성공	일반 키워드 검색(의원명 미입력)
+https://www.data.go.kr/data/15133044/fileData.do	2026-11-15	성공(판단에 미사용)	국민건강보험공단_검진기관기본_20240731: 5,000행뿐이라 전수 아님
+https://www.data.go.kr/data/15156506/fileData.do	2026-11-15	성공	국민건강보험공단_검진기관별 검진유형내역_20251031(25,589곳) 내려받음: 고양시 일산서구 141곳에 대상 의원 없음, 경쟁 검진기관 집계; 문의 1577-1000
+https://www.data.go.kr/data/15150246/fileData.do	2026-11-15	실패(연결 재설정, 파일 대신 HTML 반환)	국민건강보험공단_검진기관검진유형내역(15156506으로 대체)
+https://www.data.go.kr/tcs/dss/selectDataSetList.do?dType=FILE&keyword=적정성 평가	2026-11-15	성공(관련 파일 없음)	적정성 평가 기관별 파일 검색
+https://www.data.go.kr/tcs/dss/selectDataSetList.do?dType=FILE&keyword=병원평가	2026-11-15	부분(1회 연결 재설정 후 성공)	건강보험심사평가원_병원평가정보(15089272) 찾음
+https://www.data.go.kr/tcs/dss/selectDataSetList.do?dType=FILE&keyword=고혈압 평가	2026-11-15	성공	같은 결과(15089272, 15064654 통계만)
+https://www.data.go.kr/tcs/dss/selectDataSetList.do?dType=FILE&keyword=당뇨병 평가	2026-11-15	성공	같은 결과
+https://www.data.go.kr/tcs/dss/selectDataSetList.do?dType=FILE&keyword=건강보험심사평가원 평가결과	2026-11-15	성공	같은 결과
+https://www.data.go.kr/data/15089272/fileData.do	2026-11-15	성공(파일 없음)	병원평가정보_20231231: 내려받기는 심평원 사이트로 연결(기관자체 다운로드)
+https://www.data.go.kr/tcs/dss/selectDataSetList.do?dType=FILE&keyword=만성질환관리	2026-11-15	성공	일차의료 만성질환관리 참여의원 목록 데이터셋 찾음
+https://www.data.go.kr/data/15127570/fileData.do	2026-11-15	성공	국민건강보험공단_일차의료 만성질환관리 시범사업 참여의원 목록_20240331(2,609곳) 내려받음, 대상 의원 없음
+https://www.hira.or.kr/ra/eval/getDiagEvlList.do?pgmid=HIRAA030004000100	2026-11-15	실패(60초 시간초과 2회, 빈 응답 2회)	심평원 병원평가(적정성 평가) 결과 확인 시도
+https://opendata.hira.or.kr/home.do	2026-11-15	실패(빈 응답)	심평원 보건의료빅데이터개방시스템 접속 시도
+https://opendata.hira.or.kr/op/opc/olapDiagBhvInfo.do	2026-11-15	실패(빈 응답)	같은 시도
+https://www.hira.or.kr/main.do	2026-11-15	실패(빈 응답)	심평원 접속 확인

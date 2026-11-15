@@ -5,7 +5,7 @@
 - 노트 코드: F1=재생의료, F2=촉탁의·재택의료, F3=장수의학, V=원문 대조 검증, _main=총괄
 - 해외 접속 차단으로 열지 못한 주요 기관: 의약품안전나라·식약처, 국민건강보험공단, 노인장기요양보험, KOSIS, 대한의사협회, 금융감독원·금융위원회, 대법원 판결서, 보건산업진흥원, 경기도청. 대한줄기세포치료학회(stemtx.co.kr)는 선생님 PC 로컬 세션을 통해 열람.
 
-## 1. 직접 열람 성공 (665건)
+## 1. 직접 열람 성공 (685건)
 
 | URL | 열람일 | 상태 | 확인 내용 | 노트 |
 |---|---|---|---|---|
@@ -30,7 +30,7 @@
 | https://www.k-arm.go.kr/brd/view.do?key=2102158637710&nttSn=877 | 2026-11-15 | 성공 | 2026 필수인력 교육 계획: 전액 무료, 기본 8시간; 2026 필수인력 교육계획 공고 제2026-364호 | F1A_law, F1B_status |
 | https://www.k-arm.go.kr/common/fileDown.do?key=64588&type=brd | 2026-11-15 | 성공 | 교육계획 PDF(기본 8h·보수 2년 8h·치료 매년 6h) | F1A_law |
 | https://www.k-arm.go.kr/brd/view.do?key=2102158637710&nttSn=906 | 2026-11-15 | 성공 | 재생의료기관 지정현황 게시글(제2026-826호); 지정 현황 '26.10 공지(보건복지부 제2026-826호); 지정현황 알림 제2026-826호 | F1A_law, F1B_status, V1_verification |
-| https://www.k-arm.go.kr/common/fileDown.do?key=80932&type=brd | 2026-11-15 | 성공 | [복지부 제2026-826호] 첨단재생의료실시기관 지정 현황('26.10월): 264개(재생-1 159, 재생-2 63, 재생-3 42), 고양·파주 소재 기관 확인; 지정 현황('26.10월).pdf: 264개소 목록·유형·지역; 지정현황('26.10) PDF: 264곳, 의원 111; 지정현황('26.10월) PDF: 264개소 유형별 집계 | F1A_law, F1B_status, F1D_enforce_market, V1_verification |
+| https://www.k-arm.go.kr/common/fileDown.do?key=80932&type=brd | 2026-11-15 | 성공 | [복지부 제2026-826호] 첨단재생의료실시기관 지정 현황('26.10월): 264개(재생-1 159, 재생-2 63, 재생-3 42), 고양·파주 소재 기관 확인; 지정 현황('26.10월).pdf: 264개소 목록·유형·지역; 지정현황('26.10) PDF: 264곳, 의원 111; 지정현황('26.10월) PDF: 264개소 유형별 집계; 첨단재생의료실시기관 지정 현황('26.10월) pdf, 일산서구는 일산백병원 1곳, 대상 의원 없음 | F1A_law, F1B_status, F1D_enforce_market, F4_clinic_profile, V1_verification |
 | https://www.k-arm.go.kr/brd/view.do?key=2102158637710&nttSn=908 | 2026-11-15 | 성공 | 실시계획 적합 승인 현황 '26.10 공지; 실시계획 적합·승인 현황 게시글; 실시계획 적합·승인 현황 공지 | F1A_law, F1B_status, V1_verification |
 | https://www.k-arm.go.kr/common/fileDown.do?key=81311&type=brd | 2026-11-15 | 성공(1회 연결 재설정 후) | 승인 현황 pdf: 치료 1건, 연구 68건; 실시계획 현황('26.10) PDF: 치료계획 1건; 적합·승인 현황('26.10월) PDF: 치료 1, 연구 68; 첨단재생의료 실시계획 적합·승인 현황('26.10월): 치료계획 1건, 연구계획 68건; 노인성 근감소증 SVF+BMAC 정맥투여(제일정형외과병원, 저위험, 2026-03-26) | F1A_law, F1B_status, F1D_enforce_market, V1_verification |
 | https://www.k-arm.go.kr/brd/list.do?key=2102158715182 | 2026-11-15 | 성공(1회 연결 재설정 후) | 보도자료 목록 | F1A_law |
@@ -298,14 +298,14 @@
 | https://www.mohw.go.kr/boardDownload.es?bid=0027&list_no=1487324&seq=2 | 2026-11-15 | 성공 | 참여 지자체 현황: 고양시=기술지원형(기존 참여), 경기 예산지원형=부천·안산 | F2B_homecare |
 | https://www.mohw.go.kr/board.es?act=view&bid=0027&list_no=1489302&mid=a10503010100 | 2026-11-15 | 성공 | 통합돌봄 로드맵(2026.3.5) 1~3단계, 재택의료센터·방문진료 포함 | F2B_homecare |
 | https://www.mohw.go.kr/board.es?act=view&bid=0027&list_no=1487678&mid=a10503010100 | 2026-11-15 | 성공 | 제1차관 방문진료 의료기관 방문(2025.10.23) | F2B_homecare |
-| https://www.mohw.go.kr/board.es?act=view&bid=0027&list_no=1491488&mid=a10503010100 | 2026-11-15 | 성공 | #6 치매관리주치의 2차 보도자료 본문 (1차 렌더 upstream request failed, 재시도 성공); 치매관리주치의 2차 시범사업 92개 시군구·의사 417명(2026.7.31) | F2B_homecare, V2_verification |
-| https://www.mohw.go.kr/boardDownload.es?bid=0027&list_no=1491488&seq=2 | 2026-11-15 | 성공 | #6 첨부 PDF 개요·선정현황; 치매관리주치의 개요·수가표·명단(고양시 22기관·29명, 기존 선정) | F2B_homecare, V2_verification |
+| https://www.mohw.go.kr/board.es?act=view&bid=0027&list_no=1491488&mid=a10503010100 | 2026-11-15 | 성공 | #6 치매관리주치의 2차 보도자료 본문 (1차 렌더 upstream request failed, 재시도 성공); 치매관리주치의 2차 시범사업 92개 시군구·의사 417명(2026.7.31); 치매관리주치의 2차 확대 보도참고자료(2026-07-31) 본문 | F2B_homecare, F4_clinic_profile, V2_verification |
+| https://www.mohw.go.kr/boardDownload.es?bid=0027&list_no=1491488&seq=2 | 2026-11-15 | 성공 | #6 첨부 PDF 개요·선정현황; 붙임 pdf: 2차 신규 선정 79곳 명단(고양 0곳), 고양시 누계 22기관·29의사, 대상 의원 없음; 치매관리주치의 개요·수가표·명단(고양시 22기관·29명, 기존 선정) | F2B_homecare, F4_clinic_profile, V2_verification |
 | https://www.mohw.go.kr/board.es?act=view&bid=0027&list_no=1491010&mid=a10503010100 | 2026-11-15 | 성공 | 제12차 건정심(2026.6.25): 2026·2027 환산지수, 지역사회 일차의료 혁신 시범사업 변경안 | F2B_homecare |
 | https://www.mohw.go.kr/board.es?act=view&bid=0003&list_no=1488520&mid=a10501010100 | 2026-11-15 | 성공 | 보건복지부 공고 제2026-16호 방문진료 수가 시범사업 2026 상반기 공모 | F2B_homecare |
 | https://www.mohw.go.kr/boardDownload.es?bid=0003&list_no=1488520&seq=2 | 2026-11-15 | 성공 | 공모문 PDF: 신청대상, 선정기준(의사 1인 이상), 사업기간 문구 | F2B_homecare |
 | https://www.mohw.go.kr/board.es?act=view&bid=0003&list_no=1489329&mid=a10501010100 | 2026-11-15 | 성공 | 방문진료 신규 참여기관 선정결과(2026.3.6) 의과 126·한의 140, 참여일 ’26.3.9 | F2B_homecare |
-| https://www.mohw.go.kr/board.es?act=view&bid=0027&list_no=1492060&mid=a10503010100 | 2026-11-15 | 성공 | #5 시범사업 시작 보도자료 본문; 지역사회 일차의료 혁신 시범사업 시작(2026.9.29), 120개 의원 | F2B_homecare, V2_verification |
-| https://www.mohw.go.kr/boardDownload.es?bid=0027&list_no=1492060&seq=2 | 2026-11-15 | 성공 | #5 첨부 PDF 참여기관 명단; 참여기관 명단: 고양시 단독모형 1곳, 협력모형(거점 국민건강보험일산병원) | F2B_homecare, V2_verification |
+| https://www.mohw.go.kr/board.es?act=view&bid=0027&list_no=1492060&mid=a10503010100 | 2026-11-15 | 성공 | #5 시범사업 시작 보도자료 본문; 지역사회 일차의료 혁신 시범사업 보도자료(2026-09-28); 지역사회 일차의료 혁신 시범사업 시작(2026.9.29), 120개 의원 | F2B_homecare, F4_clinic_profile, V2_verification |
+| https://www.mohw.go.kr/boardDownload.es?bid=0027&list_no=1492060&seq=2 | 2026-11-15 | 성공 | #5 첨부 PDF 참여기관 명단; 붙임 pdf: 참여기관 120곳 명단(고양시 단독 1, 협력 거점 일산병원+일차의료기관), 대상 의원 없음; 담당 지역의료정책과 044-202-1931; 참여기관 명단: 고양시 단독모형 1곳, 협력모형(거점 국민건강보험일산병원) | F2B_homecare, F4_clinic_profile, V2_verification |
 | https://www.mohw.go.kr/board.es?act=view&bid=0003&list_no=1491204&mid=a10501010100 | 2026-11-15 | 성공 | 보건복지부 공고 제2026-562호 일차의료 혁신 시범사업 공모 | F2B_homecare |
 | https://www.mohw.go.kr/boardDownload.es?bid=0003&list_no=1491204&seq=2 | 2026-11-15 | 성공 | #5 지역사회 일차의료 혁신 시범사업 공모 공고문 PDF; 공모문 PDF: 기간 ’26.9~’29.8, 인력요건, 수가(HCC 분위별), 운영지원 3천만/1.5억, 중복참여 제한 | F2B_homecare, V2_verification |
 | https://www.mohw.go.kr/boardDownload.es?bid=0003&list_no=1491204&seq=4 | 2026-11-15 | 성공(내려받기만) | 설명회 질의응답 PDF | F2B_homecare |
@@ -315,7 +315,7 @@
 | https://www.law.go.kr/LSW/admRulInfoR.do?admRulSeq=2100000285470 | 2026-11-15 | 성공 | 장기요양급여 제공기준 및 급여비용 산정방법 등에 관한 고시(제2026-189호, 시행 2026.10.1) 제27·78조 | F2B_homecare |
 | https://www.law.go.kr/LSW/flDownload.do?flSeq=169768549 | 2026-11-15 | 성공 | 제78조 별표 이미지: 의사소견서·방문간호지시서 발급비용(자-1, 자-2); 제78조① 발급비용 표 이미지(GIF) | F2B_homecare, V1_verification |
 | https://www.law.go.kr/법령/의료법 시행규칙 | 2026-11-15 | 성공 | 제24조 가정간호(시행 2026.6.12 판) | F2B_homecare |
-| https://www.mohw.go.kr/board.es?act=view&bid=0027&list_no=1483237&mid=a10503010100 | 2026-11-15 | 성공 | 일차의료 만성질환관리 본사업 전환(2024.9.30) | F2B_homecare |
+| https://www.mohw.go.kr/board.es?act=view&bid=0027&list_no=1483237&mid=a10503010100 | 2026-11-15 | 성공 | 일차의료 만성질환관리 본사업 전환(2024.9.30); 일차의료 만성질환관리 본사업 전환(2024.9.30.), 본인부담 20% | F2B_homecare, _main |
 | https://www.mohw.go.kr/board.es?act=view&bid=0027&list_no=1490460&mid=a10503010100 | 2026-11-15 | 성공 | 장애인 일차의료 활성화 간담회(2026.5.8): 건강주치의 '진행 중 시범사업' | F2B_homecare |
 | https://www.mohw.go.kr/boardDownload.es?bid=0027&list_no=1490460&seq=1 | 2026-11-15 | 성공 | HWPX 담당부서 연락처(장애인건강과) | F2B_homecare |
 | https://www.goyang.go.kr/www/index.do | 2026-11-15 | 성공 | 고양시청 메인 접속됨(브리프의 '차단'과 달리 재시도 시 200 OK, 425KB) | F2C_goyang |
@@ -324,10 +324,10 @@
 | https://www.data.go.kr/data/15160442/fileData.do | 2026-11-15 | 성공 | #8 데이터셋 메타(20260531 기준); 국민건강보험공단_경기도 시군구별 장기요양기관 및 장기요양요원 현황(26.5.31 기준) 구별 시설 수 | F2C_goyang, V2_verification |
 | https://www.data.go.kr/data/15146940/fileData.do | 2026-11-15 | 성공 | 국민건강보험공단_경기도 시군별 장기요양기관 및 종사자 현황(25.12.31 기준) 고양시 급여종류별 기관 수 | F2C_goyang |
 | https://www.data.go.kr/data/15149305/fileData.do | 2026-11-15 | 성공 | 국민건강보험공단_재택의료센터기관정보(발췌 2025-08-21) 고양시 2곳 | F2C_goyang |
-| https://www.data.go.kr/data/15165686/fileData.do | 2026-11-15 | 성공 | 국민건강보험공단_재택의료센터 주소정보(발췌 2026-09-09, 전국 503곳) 고양시 5곳, 일산서구 0곳 | F2C_goyang |
+| https://www.data.go.kr/data/15165686/fileData.do | 2026-11-15 | 성공 | 국민건강보험공단_재택의료센터 주소정보(발췌 2026-09-09, 전국 503곳) 고양시 5곳, 일산서구 0곳; 국민건강보험공단_재택의료센터 주소정보_20260909(503곳) 내려받음, 고양 5곳·일산서구 0곳, 대상 의원 없음 | F2C_goyang, F4_clinic_profile |
 | https://www.data.go.kr/data/15149306/fileData.do | 2026-11-15 | 성공 | 재택의료시범대상기관(20250821) 고양시 의원1·한의원1 | F2C_goyang |
 | https://www.data.go.kr/data/15149307/fileData.do | 2026-11-15 | 성공 | 재택의료센터 협력기관현황(20250821) 고양 2곳 협력기관 수 | F2C_goyang |
-| https://www.data.go.kr/data/15144843/fileData.do | 2026-11-15 | 성공 | 국민건강보험공단_장애인 건강주치의 의료기관 목록(20250721) 고양시 의과 11·치과 16 | F2C_goyang |
+| https://www.data.go.kr/data/15144843/fileData.do | 2026-11-15 | 성공 | 국민건강보험공단_장애인 건강주치의 의료기관 목록(20250721) 고양시 의과 11·치과 16; 국민건강보험공단_장애인 건강주치의 의료기관 목록_20250721(1,103행) 내려받음, 대상 의원 없음 | F2C_goyang, F4_clinic_profile |
 | https://www.data.go.kr/data/3051420/fileData.do | 2026-11-15 | 성공 | 노인장기요양보험 인정현황(20251231) — 전국 단위만, 시군구 없음 | F2C_goyang |
 | https://www.data.go.kr/data/15116280/fileData.do | 2026-11-15 | 성공 | 노인장기요양보험 재가급여 종류별 이용 현황(2026.7.31 기준, 시군구·등급·연령) 고양 3개구 집계 | F2C_goyang |
 | https://jumin.mois.go.kr/etcStatOldAge.do | 2026-11-15 | 성공 | #7 65세 이상 인구 조회(경기도>고양시 일산서구, 2026.10, POST 조회); 2026년 10월 고양시·구·동별 총인구, 65세 이상 인구 | F2C_goyang, V2_verification |
@@ -340,7 +340,7 @@
 | https://www.mohw.go.kr/board.es?mid=a10503010100&bid=0027&act=view&list_no=1492399 | 2026-11-15 | 성공 | 2026-11-02 장기요양 재택자립훈련 시범사업 공모(11.2~11.20), 기존 재택의료센터 전담형만 신청 | F2C_goyang |
 | https://www.mohw.go.kr/board.es?mid=a10503010100&bid=0027&act=view&list_no=1491488 | 2026-11-15 | 성공 | 2026-07-31 치매관리주치의 2차 시범사업 92개 시군구·417명, 고양시 22개 기관·29명(신규 0), 수가표, 공모 7.3~7.19 | F2C_goyang |
 | https://www.mohw.go.kr/board.es?mid=a10503010100&bid=0027&act=view&list_no=1486966 | 2026-11-15 | 성공 | 2025-07-22 치매관리주치의 37개 시군구, 고양시 의사 27·기관 22, 고양시 추가 선정 일산 세기병원 | F2C_goyang |
-| https://www.mohw.go.kr/board.es?mid=a10503010100&bid=0027&act=view&list_no=1482392 | 2026-11-15 | 성공 | 2024-07-23 치매관리주치의 시행, 고양시 선정 13개 기관 명단 | F2C_goyang |
+| https://www.mohw.go.kr/board.es?mid=a10503010100&bid=0027&act=view&list_no=1482392 | 2026-11-15 | 성공 | 2024-07-23 치매관리주치의 시행, 고양시 선정 13개 기관 명단; 치매관리주치의 2024 선정 보도자료(2024-07-23) | F2C_goyang, F4_clinic_profile |
 | https://www.mohw.go.kr/board.es?mid=a10503010100&bid=0027&act=view&list_no=1481112 | 2026-11-15 | 성공 | 2024-04-17 치매관리주치의 22개 지역 선정, 고양시 참여신청 26개 기관 명단(별첨) | F2C_goyang |
 | https://www.goyang.go.kr/health/health01/health01_6/health01_6_6.jsp | 2026-11-15 | 성공 | 일산서구보건소 주소(일중로 54)·대표전화 031-8075-4160·팩스 | F2C_goyang |
 | https://www.goyang.go.kr/health/health01/health01_6/health01_6_5.jsp | 2026-11-15 | 성공 | 일산서구보건소 층별 부서(건강증진과 방문보건팀·치매관리팀, 보건행정과) | F2C_goyang |
@@ -642,6 +642,24 @@
 | WebSearch: FDA 컴파운딩 GLP-1·펩타이드(Pharmacy Times, AJMC) | 2026-11-15 | 성공(검색 요약) | 503B 제외 규칙안, PCAC 2026-07 권고 | F3D_longevity_market |
 | WebSearch: 고양시·일산서구·주엽동 인구 | 2026-11-15 | 성공(검색 요약) | 고양 65+ 18.6%, 일산서구 27.6만, 주엽동 5.2만·65+ 22.9% | F3D_longevity_market |
 | WebSearch: 식약처 웰니스·디지털의료제품 | 2026-11-15 | 성공(검색 요약) | 지침서-0091-03(2026-02-12), 건강지원기기 제도 | F3D_longevity_market |
+| https://www.data.go.kr/data/15051059/fileData.do | 2026-11-15 | 성공 | 건강보험심사평가원_전국 병의원 및 약국 현황_20260930 메타(2026.9. 추출, 수정 2026-10-20) | F4_clinic_profile |
+| https://www.data.go.kr/cmm/cmm/fileDownload.do?atchFileId=FILE_000000007735984&fileDetailSn=1 | 2026-11-15 | 성공 | 위 데이터 zip(CSV 12개) 내려받음: 기본정보·시설·진료과목·장비·특수진료·기타인력에서 대상 의원과 일산서구 경쟁 집계 | F4_clinic_profile |
+| https://www.mohw.go.kr/boardDownload.es?bid=0027&list_no=1491488&seq=1 | 2026-11-15 | 성공 | 붙임 hwpx(기관 명단 없음, 개요·수가) | F4_clinic_profile |
+| https://www.mohw.go.kr/boardDownload.es?bid=0027&list_no=1482392&seq=2 | 2026-11-15 | 성공 | 붙임 pdf: 경기도 고양시 선정 13곳 명단, 대상 의원 없음 | F4_clinic_profile |
+| https://www.mohw.go.kr/boardDownload.es?bid=0027&list_no=1482392&seq=1 | 2026-11-15 | 성공 | 붙임 hwpx(같은 내용) | F4_clinic_profile |
+| https://www.mohw.go.kr/boardDownload.es?bid=0027&list_no=1492060&seq=1 | 2026-11-15 | 성공 | 붙임 hwpx(같은 내용) | F4_clinic_profile |
+| https://www.data.go.kr/tcs/dss/selectDataSetList.do?dType=FILE&keyword=건강검진기관 | 2026-11-15 | 성공 | 일반 키워드 검색(의원명 미입력): 건보공단 검진기관 데이터셋 찾음 | F4_clinic_profile |
+| https://www.data.go.kr/tcs/dss/selectDataSetList.do?dType=FILE&keyword=검진기관 | 2026-11-15 | 성공 | 일반 키워드 검색(의원명 미입력) | F4_clinic_profile |
+| https://www.data.go.kr/data/15133044/fileData.do | 2026-11-15 | 성공(판단에 미사용) | 국민건강보험공단_검진기관기본_20240731: 5,000행뿐이라 전수 아님 | F4_clinic_profile |
+| https://www.data.go.kr/data/15156506/fileData.do | 2026-11-15 | 성공 | 국민건강보험공단_검진기관별 검진유형내역_20251031(25,589곳) 내려받음: 고양시 일산서구 141곳에 대상 의원 없음, 경쟁 검진기관 집계; 문의 1577-1000 | F4_clinic_profile |
+| https://www.data.go.kr/tcs/dss/selectDataSetList.do?dType=FILE&keyword=적정성 평가 | 2026-11-15 | 성공(관련 파일 없음) | 적정성 평가 기관별 파일 검색 | F4_clinic_profile |
+| https://www.data.go.kr/tcs/dss/selectDataSetList.do?dType=FILE&keyword=병원평가 | 2026-11-15 | 부분(1회 연결 재설정 후 성공) | 건강보험심사평가원_병원평가정보(15089272) 찾음 | F4_clinic_profile |
+| https://www.data.go.kr/tcs/dss/selectDataSetList.do?dType=FILE&keyword=고혈압 평가 | 2026-11-15 | 성공 | 같은 결과(15089272, 15064654 통계만) | F4_clinic_profile |
+| https://www.data.go.kr/tcs/dss/selectDataSetList.do?dType=FILE&keyword=당뇨병 평가 | 2026-11-15 | 성공 | 같은 결과 | F4_clinic_profile |
+| https://www.data.go.kr/tcs/dss/selectDataSetList.do?dType=FILE&keyword=건강보험심사평가원 평가결과 | 2026-11-15 | 성공 | 같은 결과 | F4_clinic_profile |
+| https://www.data.go.kr/data/15089272/fileData.do | 2026-11-15 | 성공(파일 없음) | 병원평가정보_20231231: 내려받기는 심평원 사이트로 연결(기관자체 다운로드) | F4_clinic_profile |
+| https://www.data.go.kr/tcs/dss/selectDataSetList.do?dType=FILE&keyword=만성질환관리 | 2026-11-15 | 성공 | 일차의료 만성질환관리 참여의원 목록 데이터셋 찾음 | F4_clinic_profile |
+| https://www.data.go.kr/data/15127570/fileData.do | 2026-11-15 | 성공 | 국민건강보험공단_일차의료 만성질환관리 시범사업 참여의원 목록_20240331(2,609곳) 내려받음, 대상 의원 없음 | F4_clinic_profile |
 | https://www.law.go.kr/LSW/admRulLsInfoR.do (POST admRulSeq=2100000287562) | 2026-11-15 | 성공 | 위험도 구분 고시 본문 제1~4조·부칙 | V1_verification |
 | https://www.law.go.kr/LSW/flDownload.do?flSeq=166840543&bylClsCd=200201 | 2026-11-15 | 성공(1차 connection reset, 재시도 성공) | 제2026-146호 별표1 PDF: 987까지 수록 | V1_verification |
 | https://www.law.go.kr/LSW/flDownload.do?flSeq=164654507&bylClsCd=200201 | 2026-11-15 | 성공 | 제2026-120호 별표1 PDF: 985까지 수록(987 없음) | V1_verification |
@@ -674,6 +692,8 @@
 | http://stemtx.co.kr/?m=bbs&bid=comm_01&uid=3367 | 2026-11-15 | 성공(선생님 PC 로컬 세션 경유 열람·전달, 클라우드 직접 접속은 실패) | 대한줄기세포치료학회 2026 추계학술대회 공지(포스터) | _main |
 | https://kast.thewithin.kr/register/2026_02/ | 2026-11-15 | 성공(선생님 PC 로컬 세션 경유) | 추계학술대회 등록 사이트, 프로그램·등록비·후원 단가 | _main |
 | https://pubmed.ncbi.nlm.nih.gov/42769274/ | 2026-11-15 | 성공(PubMed MCP 초록) | EVOKE 결과 인용 확인 | _main |
+| https://www.mohw.go.kr/boardDownload.es?bid=0027&list_no=1483237&seq=1 | 2026-11-15 | 성공(총괄) | 붙임: 만성질환 통합관리료 2024 의원 수가, 참여 요건(교육 이수·인력 신고), 담당 부서 전화 | _main |
+| https://www.law.go.kr/법령/건강검진기본법시행규칙 | 2026-11-15 | 성공(헤드리스 브라우저, 총괄) | [시행 2026.10.30.][보건복지부령 제1206호] 제4조 검진기관 구분(위암·대장암검진기관), 제5조 공단 신청. 별표 지정기준 본문은 열지 못함 | _main |
 
 ## 2. 직접 열지 못하고 검색 요약만 사용 (23건) — 본문에서는 [추론]으로 표시
 
@@ -703,7 +723,7 @@
 | WebSearch: "전신 MRI 검진 국내 비용" (세브란스·한양대 검진 페이지) | 2026-11-15 | 미열람(검색 요약만) | 복부 MRI 92만 원, MRI 암정밀검진 230만 원 | F3C_procedures_tests |
 | WebSearch: "후성유전 생체나이 검사 국내" (한경, 아주경제) | 2026-11-15 | 미열람(검색 요약만) | EDGC 에피클락 2024-02 출시 | F3C_procedures_tests |
 
-## 3. 접속 실패 (97건)
+## 3. 접속 실패 (101건)
 
 | URL | 열람일 | 사유 | 확인 내용 | 노트 |
 |---|---|---|---|---|
@@ -727,7 +747,7 @@
 | https://hta.neca.re.kr/publicationservice/pblcnmdltchevl/pblcNmdltchEvlRptpList.do | 2026-11-15 | 실패(프록시 403) | 신의료기술평가보고서 | F1C_nhta |
 | https://www.fss.or.kr/ | 2026-11-15 | 실패(프록시 403) | 금감원 소비자경보·분쟁조정; 금감원 소비자경보·분쟁조정 확인 불가 | F1C_nhta, F1D_enforce_market |
 | https://glaw.scourt.go.kr/ | 2026-11-15 | 실패(프록시 403) | 대법원 판결서 확인 불가 | F1D_enforce_market |
-| https://www.hira.or.kr/main.do | 2026-11-15 | 실패(60초 타임아웃) → 같은 URL 다른 시도에서 성공 | 심평원 비급여 진료비 확인 불가; 심평원 접속 확인 | F1D_enforce_market, F2A_contract_doctor |
+| https://www.hira.or.kr/main.do | 2026-11-15 | 실패(60초 타임아웃) → 같은 URL 다른 시도에서 성공 | 심평원 비급여 진료비 확인 불가; 심평원 접속 확인 | F1D_enforce_market, F2A_contract_doctor, F4_clinic_profile |
 | https://www.khidi.or.kr/ ; https://dart.fss.or.kr/ ; https://www.kpmr.or.kr/ | 2026-11-15 | 실패(프록시 403) | 보건산업진흥원·DART·재생의료진흥재단 확인 불가 | F1D_enforce_market |
 | https://kcia.or.kr/ad/cs/notice.php?no=15680&type=view | 2026-11-15 | 실패(WebFetch DNS 차단) | 식약처 화장품 광고(줄기세포·엑소좀 표현) 원문 확인 불가 | F1D_enforce_market |
 | https://saiseiiryo.mhlw.go.jp/ | 2026-11-15 | 실패(403 Forbidden, 재시도도 403) | e-再生医療 사이트 접속 시도 | F1E_japan_plan |
@@ -791,6 +811,10 @@
 | https://kostat.go.kr | 2026-11-15 | 실패(연결 안 됨) | 인구 통계 | F3D_longevity_market |
 | https://opendata.hira.or.kr | 2026-11-15 | 실패(연결 안 됨) | 비급여 가격 공개 데이터 | F3D_longevity_market |
 | https://medigatenews.com/news/1734412346 | 2026-11-15 | 실패(허용 목록 밖, WebFetch DNS 실패) | 의료법 시행령 광고 개정 보도 | F3D_longevity_market |
+| https://www.data.go.kr/data/15150246/fileData.do | 2026-11-15 | 실패(연결 재설정, 파일 대신 HTML 반환) | 국민건강보험공단_검진기관검진유형내역(15156506으로 대체) | F4_clinic_profile |
+| https://www.hira.or.kr/ra/eval/getDiagEvlList.do?pgmid=HIRAA030004000100 | 2026-11-15 | 실패(60초 시간초과 2회, 빈 응답 2회) | 심평원 병원평가(적정성 평가) 결과 확인 시도 | F4_clinic_profile |
+| https://opendata.hira.or.kr/home.do | 2026-11-15 | 실패(빈 응답) | 심평원 보건의료빅데이터개방시스템 접속 시도 | F4_clinic_profile |
+| https://opendata.hira.or.kr/op/opc/olapDiagBhvInfo.do | 2026-11-15 | 실패(빈 응답) | 같은 시도 | F4_clinic_profile |
 | https://www.law.go.kr/DRF/lawSearch.do | 2026-11-15 | 실패(OPEN API 사용자 검증 필요) | 법령 API | _main |
 | https://nedrug.mfds.go.kr | 2026-11-15 | 실패(연결 재설정, 해외 접속 차단 추정) | 의약품안전나라 | _main |
 | https://www.mfds.go.kr | 2026-11-15 | 실패(연결 재설정) | 식약처 | _main |
