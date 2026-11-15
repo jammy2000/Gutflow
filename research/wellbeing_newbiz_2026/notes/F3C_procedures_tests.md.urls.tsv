@@ -53,3 +53,27 @@ https://pubmed.ncbi.nlm.nih.gov/30669119/	2026-11-15	성공(E-utilities 초록)	
 https://pubmed.ncbi.nlm.nih.gov/35029144/	2026-11-15	성공(E-utilities 초록)	DunedinPACE 2022
 https://pubmed.ncbi.nlm.nih.gov/37118425/	2026-11-15	성공(E-utilities 초록)	CALERIE DNA 메틸화 2023
 https://pubmed.ncbi.nlm.nih.gov/39900648/	2026-11-15	성공(E-utilities 초록)	DO-HEALTH 후성시계 2025
+https://www.korea.kr/briefing/pressReleaseList.do?srchKeyword=엑소좀	2026-11-15	부분성공	보도자료 목록 렌더링됨, 엑소좀 관련 항목 미검출
+https://www.korea.kr/search/searchMain.do?srchQuery=엑소좀	2026-11-15	실패(메인으로 리다이렉트)	통합검색
+https://www.korea.kr/news/policyNewsView.do?newsId=148961424	2026-11-15	성공(헤드리스)	식약처 정책뉴스(2026.03.25 표기) "화장품은…피부 내에 주사하여 사용할 수 없습니다"
+https://www.korea.kr/news/policyNewsView.do?newsId=148959950	2026-11-15	성공(헤드리스)	2026.02.25 대장암 국가검진 45~74세 10년 주기 대장내시경 도입 방침, 목표 2028년
+https://www.mohw.go.kr/board.es?act=view&bid=0027&list_no=1491824&mid=a10503010100	2026-11-15	성공	복지부 보도자료 2026-09-08: 중증 2형 당뇨까지 CGM·인슐린펌프 지원 확대, CGM 가격
+https://www.data.go.kr/data/15152587/fileData.do	2026-11-15	성공	건보공단 수가코드 D2620 리포프로테인(a)[정밀면역검사] 진료현황(의원 포함)
+https://www.law.go.kr/법령/혈액관리법	2026-11-15	성공(헤드리스)	제3조 혈액 매매 금지, 제6조 혈액관리업무 주체, 시행 2023.6.22
+https://www.fda.gov/news-events/press-announcements/fda-clears-first-over-counter-continuous-glucose-monitor	2026-11-15	성공	Dexcom Stelo OTC CGM 2024-03-05 허가(비인슐린 사용자·비당뇨인)
+https://www.fda.gov/medical-devices/letters-health-care-providers/follow-instructions-safe-use-hyperbaric-oxygen-therapy-devices-letter-health-care-providers	2026-11-15	성공	FDA HBOT 장비 안전사용 서한 2025-08-25(중상·사망·화재 보고)
+https://www.fda.gov/consumers/consumer-updates/hyperbaric-oxygen-therapy-get-facts	2026-11-15	실패(404)	FDA HBOT 소비자 안내
+https://cacmap.fda.gov/consumers/consumer-updates/hyperbaric-oxygen-therapy-get-facts	2026-11-15	실패(프록시 403)	FDA HBOT 소비자 안내 미러
+https://clinicaltrials.gov/api/v2/studies/NCT05611632	2026-11-15	성공	NHS-Galleri: 1차 완료 2026-06-12, 전체 완료 예정 2031-01, 결과 미게시
+https://clinicaltrials.gov/api/v2/studies?query.term=Galleri	2026-11-15	성공	REACH(NCT05673018, n=50,000, 2030-09) 등 진행 시험
+https://clinicaltrials.gov/api/v2/studies?query.term=hyperbaric oxygen AND aging	2026-11-15	성공	HBOT 노화 관련 진행 시험(NCT06748586 등, 주로 이스라엘 Shamir)
+https://clinicaltrials.gov/api/v2/studies/NCT06649981	2026-11-15	성공	FMT 노화 RCT(칠레) n=80, 1차 완료 2026-06, 결과 미게시
+https://pubmed.ncbi.nlm.nih.gov/43001734/	2026-11-15	성공(E-utilities 초록)	Lp(a)HORIZON NEJM 2026: 펠라카르센 MACE 무효과 HR 1.02
+https://pubmed.ncbi.nlm.nih.gov/36027560/	2026-11-15	성공(E-utilities 초록)	DANCAVAS NEJM 2022 HR 0.95(P=0.06)
+https://pubmed.ncbi.nlm.nih.gov/19454641/	2026-11-15	성공(E-utilities 서지)	Kodama 2009 JAMA 심폐체력 메타분석
+https://pubmed.ncbi.nlm.nih.gov/35562197/	2026-11-15	성공(E-utilities 서지)	Laukkanen 2022 Mayo Clin Proc 심폐체력 메타분석
+https://pubmed.ncbi.nlm.nih.gov/39796978/	2026-11-15	성공(E-utilities 서지)	비당뇨인 CGM 체계적 문헌고찰 2025
+https://pubmed.ncbi.nlm.nih.gov/37377400/	2026-11-15	성공(E-utilities 초록)	엑소좀+미세침 분할안면 RCT n=28(한국)
+https://pubmed.ncbi.nlm.nih.gov/43021418/	2026-11-15	성공(E-utilities 초록)	MSC·EV 피부·모발 스코핑 리뷰 2026
+https://repository.hira.or.kr (쉽게 풀어 쓴 치료재료 급여기준 2019년 12월판)	2026-11-15	미열람(WebSearch 요약만)	마102다 치료적성분채집술(혈장) 언급
+https://www.neca.re.kr (WebSearch site 검색)	2026-11-15	부분성공(검색 요약)	다중암 액체생검 NECA 보고서 미발견

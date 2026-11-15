@@ -49,7 +49,7 @@ https://www.health.kr/api/searchDrug?drugName=테스토스테론	2026-11-15	성�
 https://www.health.kr/api/drug/A11AGGGGA4185?expert=0	2026-11-15	성공	예나스테론주(테스토스테론에난테이트) 급여 삭제 2012-03-01, 현재 비급여
 https://www.health.kr/api/drug/2015121800015?expert=0	2026-11-15	성공	네비도주 비급여, 효능: 남성 일차성·이차성 성선기능저하증 대치치료
 https://www.health.kr/api/searchDrug?drugName=에스트라디올	2026-11-15	성공	MHT 제품 급여 현황: 프로기노바·프레다·프레미나·안젤릭·페모스톤·티볼론·유트로게스탄 연질캡슐 급여, 디비겔·에스트레바겔·듀아비브 비급여
-https://www.health.kr/api/drug/(프로기노바28정1mg)?expert=0	2026-11-15	성공	프로기노바 효능: 갱년기 증상경감 HRT, 급여 114원/정(2018-07-25)
+https://www.health.kr/api/drug/A11AOOOOO0606?expert=0	2026-11-15	성공	프로기노바 효능: 갱년기 증상경감 HRT, 급여 114원/정(2018-07-25)
 https://www.health.kr/api/searchDrug?drugName=지노트로핀	2026-11-15	성공	지노트로핀 효능: 소아 성장부전·성인 GHD(two dynamic test 확진), 급여
 https://pubmed.ncbi.nlm.nih.gov/41223873/	2026-11-15	성공	KJIM 2025 리뷰: 근감소증 ICD-10-CM M62.84, KCD-8 M62.5; 허가 약물 없음
 https://pubmed.ncbi.nlm.nih.gov/36958807/	2026-11-15	성공	KWGS 2023 진단 가이드라인(진단코드·신의료기술 도입 언급)

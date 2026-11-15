@@ -1,0 +1,57 @@
+https://www.law.go.kr/법령/첨단재생의료및첨단바이오의약품안전및지원에관한법률	2026-11-15	성공(초기 2회 upstream request failed 후 재시도)	법률 현행[법률 제21525호] 제2·10·12·12의2·15·17·42·48·51·57~63조, 시행예정 개정(2026.11.27, 2027.4.29)
+https://www.law.go.kr/법령/첨단재생의료및첨단바이오의약품안전및지원에관한법률시행령	2026-11-15	성공	시행령 현행[대통령령 제36302호, 시행 2026.5.12] 제2·3·4·10·11의3·12·13의2·16·17·22·41·42조
+https://www.law.go.kr/법령/첨단재생의료및첨단바이오의약품안전및지원에관한법률시행규칙	2026-11-15	실패(한글주소 없음)	규칙 명칭이 달라 페이지 없음
+https://www.law.go.kr/법령/첨단재생의료및첨단바이오의약품안전및지원에관한규칙	2026-11-15	실패(404)	해당 명칭 없음
+https://www.law.go.kr/LSW/lsSc.do?menuId=1&subMenuId=15&tabMenuId=81&query=첨단재생의료	2026-11-15	성공	관련 법령 3건 확인(법률·시행령·첨단재생의료 안전 및 지원에 관한 규칙)
+https://www.law.go.kr/법령/첨단재생의료안전및지원에관한규칙	2026-11-15	성공	규칙 현행[보건복지부령 제1090호, 시행 2025.2.21] 제3·4·5·5의2·20조, 별표 목록
+https://www.law.go.kr/LSW/flDownload.do?gubun=&flSeq=149290685&bylClsCd=110201	2026-11-15	성공	규칙 별표1(지정 시설·장비·인력) PDF 원문
+https://www.law.go.kr/LSW/flDownload.do?gubun=&flSeq=149290693&bylClsCd=110201	2026-11-15	성공	규칙 별표1의2(교육 이수기준) PDF
+https://www.law.go.kr/LSW/flDownload.do?gubun=&flSeq=149290699&bylClsCd=110201	2026-11-15	성공	규칙 별표2(행정처분 기준) PDF
+https://www.law.go.kr/LSW/flDownload.do?gubun=&flSeq=149290683&bylClsCd=110201	2026-11-15	성공	규칙 별표1 HWP(미변환, PDF로 대체)
+https://www.law.go.kr/LSW/admRulSc.do?menuId=5&subMenuId=41&tabMenuId=183&query=첨단재생	2026-11-15	성공	관련 행정규칙 8건 목록(위험도 고시 2026-220, 지정 고시 2026-207/2025-140 등)
+https://www.law.go.kr/LSW/admRulInfoP.do?admRulSeq=2100000287562	2026-11-15	성공	위험도 구분 고시 제2026-220호 전문(자가 면역세포 저위험)
+https://www.law.go.kr/LSW/admRulInfoP.do?admRulSeq=2100000286170	2026-11-15	성공(1회 재시도)	지정·세포처리 준수사항 고시 제2026-207호(시행 2026.11.27) 전문
+https://www.law.go.kr/LSW/admRulInfoP.do?admRulSeq=2100000263236	2026-11-15	성공	같은 고시 현행 제2025-140호(비교용)
+https://www.law.go.kr/법령/의료법	2026-11-15	성공	의료법 현행[법률 제21111호, 시행 2026.11.12] 제56·57·63·89조
+https://www.k-arm.go.kr/main.do	2026-11-15	성공	메뉴·공지 링크
+https://www.k-arm.go.kr/brd/list.do?key=2102158637710	2026-11-15	성공	공지사항 목록(2027 공고 없음 확인)
+https://www.k-arm.go.kr/brd/view.do?key=2102158637710&nttSn=880	2026-11-15	성공(1회 연결 재설정 후)	2026 지정신청 공고(정정) 공고 제2026-442호, 마감 10.31
+https://www.k-arm.go.kr/fileDown.do?key=77356&type=brd	2026-11-15	실패(404 경로 오류)	올바른 경로는 /common/fileDown.do
+https://www.k-arm.go.kr/common/fileDown.do?key=77356&type=brd	2026-11-15	성공	2026 지정신청 공고문(정정) PDF: 대상·방법·심사주기·SOP 정성평가
+https://www.k-arm.go.kr/common/fileDown.do?key=77357&type=brd	2026-11-15	성공	공고 붙임 zip: 작성요령(헤파필터·냉장고 기준), FAQ(의원 가능·IRB 위탁), 증빙 예시(17·8개 항목)
+https://www.k-arm.go.kr/brd/view.do?key=2102158637710&nttSn=877	2026-11-15	성공	2026 필수인력 교육계획 공고 제2026-364호
+https://www.k-arm.go.kr/common/fileDown.do?key=64588&type=brd	2026-11-15	성공	교육계획 PDF(기본 8h·보수 2년 8h·치료 매년 6h)
+https://www.k-arm.go.kr/brd/view.do?key=2102158637710&nttSn=906	2026-11-15	성공	지정현황 알림 제2026-826호
+https://www.k-arm.go.kr/common/fileDown.do?key=80932&type=brd	2026-11-15	성공	지정현황('26.10) PDF: 264곳, 의원 111
+https://www.k-arm.go.kr/brd/view.do?key=2102158637710&nttSn=908	2026-11-15	성공	실시계획 적합·승인 현황 공지
+https://www.k-arm.go.kr/common/fileDown.do?key=81311&type=brd	2026-11-15	성공(1회 연결 재설정 후)	실시계획 현황('26.10) PDF: 치료계획 1건
+https://www.k-arm.go.kr/brd/list.do?key=2102158715182	2026-11-15	성공(1회 연결 재설정 후)	보도자료 목록
+https://www.k-arm.go.kr/brd/view.do?key=2102158715182&nttSn=869	2026-11-15	성공	치료 1호 승인 보도참고자료 게시물
+https://www.k-arm.go.kr/common/fileDown.do?key=61210&type=brd	2026-11-15	성공	치료 1호 보도참고자료 PDF: 비용 76,207,178원, 문의처
+https://www.k-arm.go.kr/brd/view.do?key=2102158715182&nttSn=904	2026-11-15	성공	2026.10.26 보도참고자료 게시물(첨부 내려받기만, 미정독)
+https://www.k-arm.go.kr/cell/list.do?key=2110052089523	2026-11-15	성공	세포처리시설 현황 56곳
+https://www.mohw.go.kr/board.es?mid=a10503010100&bid=0027&act=list&keyWord=재생의료&nPage=1	2026-11-15	성공	복지부 보도자료 목록(재생의료)
+https://www.mohw.go.kr/board.es?mid=a10503010100&bid=0027&act=view&list_no=1491366	2026-11-15	성공	2026.7.21 제2차 기본계획·사후관리 강화방안(1년 내 계획 제출·3년 갱신·광고 가이드라인 '27.3)
+https://www.mohw.go.kr/board.es?mid=a10503010100&bid=0027&act=view&list_no=1492379	2026-11-15	성공	2026.10.30 위험도 고시 제정 보도자료(세포처리시설 부대조건, 문헌 요건)
+https://www.mohw.go.kr/board.es?mid=a10503010100&bid=0027&act=view&list_no=1492314	2026-11-15	성공(부분 확인)	2026.10.23 규제합리화(자가면역세포 위험도 하향, 제대혈 원료세포)
+https://www.mohw.go.kr/board.es?mid=a10503010100&bid=0027&act=view&list_no=1491018	2026-11-15	성공	2026.6.25 심의위 위험도 조정 의결
+https://www.mohw.go.kr/board.es?mid=a10503010100&bid=0027&act=view&list_no=1490959	2026-11-15	성공	2026.6.22 지정 확대 보도(당시 마감 12.18, 223곳)
+https://www.mohw.go.kr/board.es?mid=a10503010100&bid=0027&act=list&keyWord=광고&nPage=1	2026-11-15	성공(1회 연결 재설정 후)	광고 관련 보도자료 검색
+https://www.mohw.go.kr/board.es?mid=a10503010100&bid=0027&act=view&list_no=1490640	2026-11-15	성공	2026.5.28 재생의료 거짓·과대광고 246건·63곳 적발
+https://www.mohw.go.kr/board.es?mid=a10501010100&bid=0003&act=list&keyWord=첨단재생의료실시기관&nPage=1	2026-11-15	성공	복지부 공지사항(2027 공고 없음 확인)
+https://www.mohw.go.kr/board.es?mid=a10501010100&bid=0003&act=view&list_no=1490680	2026-11-15	성공	2026 공고(정정) 공지 원문, 담당 044-202-2898
+https://www.mohw.go.kr/board.es?mid=a10501010100&bid=0003&act=view&list_no=1485494	2026-11-15	성공	2025 공고 제2025-340호(2025.4.28~12.12)
+https://www.mohw.go.kr/board.es?mid=a10501010100&bid=0003&act=list&keyWord=재생의료&nPage=1	2026-11-15	성공	복지부 공지사항(재생의료) 최신 목록
+https://likms.assembly.go.kr/bill/main.do	2026-11-15	실패(curl 연결 재설정)/성공(브라우저)	의안정보시스템 진입
+https://likms.assembly.go.kr/bill/BillSearchResult.do	2026-11-15	실패(400)	구 검색 URL 사용 불가
+https://likms.assembly.go.kr/bill/bi/bill/sch/detailedSchPage.do?detailedTab=billDtl	2026-11-15	성공(브라우저 검색)	의안명 '첨단재생의료' 22대 검색: 계류 7건·처리 3건
+https://likms.assembly.go.kr/bill/bi/billDetailPage.do?billId=PRC_X2W6U0U8T2U8P1O1O0N8O5M1M6U0T1	2026-11-15	성공	의안 2220915(이수진) 지정 갱신·계획 제출 의무, 11.13 상정·소위회부
+https://likms.assembly.go.kr/filegate/servlet/FileGate?bookId=93B8374D-995F-62E4-F5B5-9FC88C585045&type=1	2026-11-15	성공(브라우저 세션; curl 단독은 400)	의안 2220915 원문 PDF(조문·부칙)
+https://likms.assembly.go.kr/filegate/servlet/FileGate?bookId=35558b22-ae60-4484-9dc0-5781558d47c0&type=1	2026-11-15	성공(브라우저 세션)	의안 2220915 검토보고서(253곳 중 89곳 제출, 부처 의견)
+https://likms.assembly.go.kr/bill/bi/billDetailPage.do?billId=PRC_G2H6F0E7A0Z1A1Y3W5F2E4E1D2B1K4	2026-11-15	성공	의안 2219912(백종헌) 자가처리 최소조작 한정
+https://likms.assembly.go.kr/bill/bi/billDetailPage.do?billId=PRC_Z2X6Y0W9W1V6D1D4C5C3B5B5A1I7I5	2026-11-15	성공	의안 2221723(권칠승) 타 기관 세포 수급
+https://likms.assembly.go.kr/bill/bi/billDetailPage.do?billId=PRC_P2N6N0M7K2L4S1T1S4S4Q1R3Q1E6F2	2026-11-15	성공(2회차)	의안 2220162(이수진) 분과위원회
+https://likms.assembly.go.kr/bill/bi/billDetailPage.do?billId=PRC_M2N6U0V4T2U4S1T2R3G5H1F1F2E6F2	2026-11-15	성공	의안 2218661(박희승) 치료 실시기관 확대
+https://likms.assembly.go.kr/bill/bi/billDetailPage.do?billId=PRC_V2V6S0J3H1C3S1X2J3A8D2G0O7F4G2	2026-11-15	성공	의안 2217924(대안) 원안가결 4.23, 공포 2026.5.26 법률 제21698호
+https://likms.assembly.go.kr/bill/bi/billDetailPage.do?billId=PRC_R2R5Q1R2P1P7L1K5K5I2J0H1I9Q6Q2	2026-11-15	성공(2회차)	의안 2215523(박성훈) AI·데이터
+https://likms.assembly.go.kr/bill/bi/billDetailPage.do?billId=PRC_9621349D35464790976E4EC9BB2E5D	2026-11-15	성공(2회차)	의안 2222711(박지원) 교육비 부담
