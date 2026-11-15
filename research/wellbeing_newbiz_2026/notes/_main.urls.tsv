@@ -1,0 +1,25 @@
+https://www.law.go.kr	2026-11-15	성공(헤드리스 브라우저)	첨단재생바이오법 현행 시행일·법률번호, 제2조 원문
+https://www.law.go.kr/DRF/lawSearch.do	2026-11-15	실패(OPEN API 사용자 검증 필요)	법령 API
+https://www.k-arm.go.kr/main.do	2026-11-15	성공(헤드리스 브라우저)	공지: 지정 현황('26.10), 실시계획 승인 현황('26.10)
+https://www.mohw.go.kr	2026-11-15	성공	접속 확인
+https://www.hira.or.kr	2026-11-15	성공	접속 확인
+https://www.korea.kr	2026-11-15	성공	접속 확인
+https://www.kdca.go.kr	2026-11-15	성공	접속 확인
+https://www.neca.re.kr	2026-11-15	성공	접속 확인
+https://www.nih.go.kr	2026-11-15	성공	접속 확인
+https://clinicaltrials.gov	2026-11-15	성공	접속 확인
+https://pubmed.ncbi.nlm.nih.gov	2026-11-15	성공	접속 확인
+https://www.fda.gov	2026-11-15	성공	접속 확인
+https://www.mhlw.go.jp	2026-11-15	성공	접속 확인
+https://www.health.kr	2026-11-15	성공	접속 확인
+https://www.kihasa.re.kr	2026-11-15	성공	접속 확인
+https://nedrug.mfds.go.kr	2026-11-15	실패(연결 재설정, 해외 접속 차단 추정)	의약품안전나라
+https://www.mfds.go.kr	2026-11-15	실패(연결 재설정)	식약처
+https://www.nhis.or.kr	2026-11-15	실패(연결 재설정)	국민건강보험공단
+https://www.longtermcare.or.kr	2026-11-15	실패(연결 재설정 / upstream request failed)	노인장기요양보험
+https://nhta.neca.re.kr	2026-11-15	실패(빈 응답)	신의료기술평가 시스템
+https://www.goyang.go.kr	2026-11-15	실패(연결 재설정)	고양시청
+https://kosis.kr	2026-11-15	실패(연결 재설정)	통계청 KOSIS
+https://www.elis.go.kr	2026-11-15	실패(연결 재설정)	자치법규정보시스템
+https://www.kma.org	2026-11-15	실패(연결 재설정)	대한의사협회
+https://saiseiiryo.mhlw.go.jp	2026-11-15	실패(403)	일본 재생의료 등록 포털
