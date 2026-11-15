@@ -1,0 +1,127 @@
+https://www.health.kr/api/searchDrug?drugName=브이트리	2026-11-15	성공	약학정보원 제품명 검색: 브이트리
+https://www.health.kr/api/searchDrug?drugName=멜스몬	2026-11-15	성공	약학정보원 제품명 검색: 멜스몬
+https://www.health.kr/api/searchDrug?drugName=라이넥	2026-11-15	성공	약학정보원 제품명 검색: 라이넥
+https://www.health.kr/api/searchDrug?drugName=서카딘	2026-11-15	성공	약학정보원 제품명 검색: 서카딘
+https://www.health.kr/api/searchDrug?drugName=나이아신	2026-11-15	성공	약학정보원 제품명 검색: 나이아신
+https://www.health.kr/api/searchDrug?drugName=NAD	2026-11-15	성공	약학정보원 제품명 검색: NAD
+https://www.health.kr/api/searchDrug?drugName=엔에이디	2026-11-15	성공	약학정보원 제품명 검색: 엔에이디
+https://www.health.kr/api/searchDrug?drugName=니코틴	2026-11-15	성공	약학정보원 제품명 검색: 니코틴
+https://www.health.kr/api/searchDrug?drugName=PREMIUM	2026-11-15	성공	약학정보원 제품명 검색: PREMIUM
+https://www.health.kr/api/searchDrug?drugName=디비겔	2026-11-15	성공	약학정보원 제품명 검색: 디비겔
+https://www.health.kr/api/searchDrug?drugName=에스트레바	2026-11-15	성공	약학정보원 제품명 검색: 에스트레바
+https://www.health.kr/api/searchDrug?drugName=프로기노바	2026-11-15	성공	약학정보원 제품명 검색: 프로기노바
+https://www.health.kr/api/searchDrug?drugName=안젤릭	2026-11-15	성공	약학정보원 제품명 검색: 안젤릭
+https://www.health.kr/api/searchDrug?drugName=리비알	2026-11-15	성공	약학정보원 제품명 검색: 리비알
+https://www.health.kr/api/searchDrug?drugName=듀아비브	2026-11-15	성공	약학정보원 제품명 검색: 듀아비브
+https://www.health.kr/api/searchDrug?drugName=크리멘	2026-11-15	성공	약학정보원 제품명 검색: 크리멘
+https://www.health.kr/api/searchDrug?drugName=에스트라디올	2026-11-15	성공	약학정보원 제품명 검색: 에스트라디올
+https://www.health.kr/api/searchDrug?drugName=에스트로겔	2026-11-15	성공(0건)	제품명 검색 0건
+https://www.health.kr/api/searchDrug?drugName=프레마린	2026-11-15	성공(0건)	제품명 검색 0건
+https://www.health.kr/api/drug/2023051500009?expert=0	2026-11-15	성공	브이트리주: 나이아신 50mg/mL, 전문, 비급여 052402221, 허가 2023-05-11, 효능 B3 결핍 등
+https://www.health.kr/api/drug/2026111300003?expert=0	2026-11-15	성공	지씨웰빙나이아신주 허가 2026-11-12, 비급여
+https://www.health.kr/api/drug/A11AOOOOO8251?expert=0	2026-11-15	성공	멜스몬주: 갱년기 장애 증상의 개선, 2주 6회, 비급여, 감염 경고
+https://www.health.kr/api/drug/A11AOOOOO6804?expert=0	2026-11-15	성공	라이넥주: 만성 간질환 간기능 개선, 비급여
+https://www.health.kr/api/drug/2011022400001?expert=0	2026-11-15	성공	라이넥주바이알: 동일 효능, 비급여
+https://www.health.kr/api/drug/2014062500015?expert=0	2026-11-15	성공	서카딘서방정: 55세 이상 불면증 단기치료, 13주, 비급여
+https://www.health.kr/api/drug/2026071600004?expert=0	2026-11-15	성공	서카딘서방정(2026 허가): 표준코드 646803250 비급여
+https://www.health.kr/api/drug/2023111600009?expert=0	2026-11-15	성공	슬리나이토미니: 소아 자폐·ADHD 불면증, 비급여
+https://www.health.kr/api/drug/A11ABBBBB1043?expert=0	2026-11-15	성공	다이아벡스정: 제2형 당뇨병, 급여 70원
+https://www.health.kr/api/drug/A11AOOOOO1292?expert=0	2026-11-15	성공	HRT 제품 급여 상태·효능
+https://www.health.kr/api/drug/A11ABBBBB0522?expert=0	2026-11-15	성공	HRT 제품 급여 상태·효능
+https://www.health.kr/api/drug/A11AOOOOO0606?expert=0	2026-11-15	성공	HRT 제품 급여 상태·효능
+https://www.health.kr/api/drug/A11APPPPP1264?expert=0	2026-11-15	성공	HRT 제품 급여 상태·효능
+https://www.health.kr/api/drug/2009092300016?expert=0	2026-11-15	성공	HRT 제품 급여 상태·효능
+https://www.health.kr/api/drug/2014072800047?expert=0	2026-11-15	성공	HRT 제품 급여 상태·효능
+https://www.health.kr/api/ingredient?keyword=니코틴아미드아데닌	2026-11-15	성공	성분 DB 검색(NAD/NADH/NADP 함유 제품 0건 등)
+https://www.health.kr/api/ingredient?keyword=니코틴산아미드	2026-11-15	성공	성분 DB 검색(NAD/NADH/NADP 함유 제품 0건 등)
+https://www.health.kr/api/ingredient?keyword=니코틴아미드	2026-11-15	성공	성분 DB 검색(NAD/NADH/NADP 함유 제품 0건 등)
+https://www.health.kr/api/ingredient?keyword=니코틴산	2026-11-15	성공	성분 DB 검색(NAD/NADH/NADP 함유 제품 0건 등)
+https://www.health.kr/api/ingredient?keyword=아데닌	2026-11-15	성공	성분 DB 검색(NAD/NADH/NADP 함유 제품 0건 등)
+https://www.health.kr/api/ingredient?keyword=Nicotinamide	2026-11-15	성공	성분 DB 검색(NAD/NADH/NADP 함유 제품 0건 등)
+https://www.health.kr/api/ingredient?keyword=리보플라빈	2026-11-15	성공	성분 DB 검색(NAD/NADH/NADP 함유 제품 0건 등)
+https://www.health.kr/api/ingredient?keyword=Riboflavin	2026-11-15	성공	성분 DB 검색(NAD/NADH/NADP 함유 제품 0건 등)
+https://www.health.kr/api/ingredient?keyword=디뉴클레오티드	2026-11-15	성공	성분 DB 검색(NAD/NADH/NADP 함유 제품 0건 등)
+https://www.health.kr/api/ingredient?keyword=Nicotinamide adenine dinucleotide	2026-11-15	성공	성분 DB 검색(NAD/NADH/NADP 함유 제품 0건 등)
+https://www.health.kr/api/ingredient?keyword=Melatonin	2026-11-15	성공	성분 DB 검색(NAD/NADH/NADP 함유 제품 0건 등)
+https://www.health.kr/api/ingredient?keyword=Placenta	2026-11-15	성공	성분 DB 검색(NAD/NADH/NADP 함유 제품 0건 등)
+https://www.health.kr/api/ingredient?keyword=자하거	2026-11-15	성공	성분 DB 검색(NAD/NADH/NADP 함유 제품 0건 등)
+https://www.health.kr/api/ingredient?keyword=Metformin	2026-11-15	성공	성분 DB 검색(NAD/NADH/NADP 함유 제품 0건 등)
+https://www.health.kr/api/ingredient?keyword=나이아신	2026-11-15	성공(0건)	성분 DB 0건(NMN·NR 미등재)
+https://www.health.kr/api/ingredient?keyword=니코틴아미드모노뉴클레오티드	2026-11-15	성공(0건)	성분 DB 0건(NMN·NR 미등재)
+https://www.health.kr/api/ingredient?keyword=니코틴아미드리보시드	2026-11-15	성공(0건)	성분 DB 0건(NMN·NR 미등재)
+https://www.health.kr/api/ingredient?keyword=NMN	2026-11-15	성공(0건)	성분 DB 0건(NMN·NR 미등재)
+https://www.health.kr/api/ingredient?keyword=Nicotinamide Riboside	2026-11-15	성공(0건)	성분 DB 0건(NMN·NR 미등재)
+https://www.health.kr/api/ingredient?keyword=Nicotinamide Mononucleotide	2026-11-15	성공(0건)	성분 DB 0건(NMN·NR 미등재)
+https://www.health.kr/api/ingredient?keyword=모노뉴클레오티드	2026-11-15	성공(0건)	성분 DB 0건(NMN·NR 미등재)
+https://www.health.kr/api/ingredient?keyword=리보시드	2026-11-15	성공(0건)	성분 DB 0건(NMN·NR 미등재)
+https://www.health.kr/api/ingredient?keyword=니아신	2026-11-15	성공(0건)	성분 DB 0건(NMN·NR 미등재)
+https://www.health.kr/api/ingredient?keyword=Niacin	2026-11-15	성공(0건)	성분 DB 0건(NMN·NR 미등재)
+https://www.health.kr/api/ingredient?keyword=엔에이디	2026-11-15	성공(0건)	성분 DB 0건(NMN·NR 미등재)
+https://www.health.kr/api/searchDrug?ingdcode=I002546&dosageRoute=B	2026-11-15	성공	나이아신 주사 2품목
+https://www.health.kr/api/searchDrug?ingdcode=I002541&dosageRoute=B	2026-11-15	성공	니코틴산아미드 함유 주사 22품목(전부 복합)
+https://www.health.kr/api/drug/{22개 코드}?expert=0	2026-11-15	성공	니코틴산아미드 함유 주사 각 제품 함량·효능·급여
+https://www.health.kr/api/searchDrug?ingdcode=I002095	2026-11-15	성공	성분별 제품 목록(멜라토닌/인태반/자하거가수분해물)
+https://www.health.kr/api/searchDrug?ingdcode=I009402	2026-11-15	성공	성분별 제품 목록(멜라토닌/인태반/자하거가수분해물)
+https://www.health.kr/api/searchDrug?ingdcode=I009404	2026-11-15	성공	성분별 제품 목록(멜라토닌/인태반/자하거가수분해물)
+https://www.health.kr/api/searchDrug?mode=options	2026-11-15	성공	검색 옵션(투여경로 코드)
+https://www.law.go.kr/법령/의료법	2026-11-15	성공	의료법[시행 2026.11.12] 제22·23·33·34의2·34의3·42·43·45·45의2·56·57·63·64·66·88·89·92조, 시행예정 2026.12.24
+https://www.law.go.kr/법령/의료법시행령	2026-11-15	성공	시행령[2026.2.10] 제23·24·32조
+https://www.law.go.kr/법령/의료법시행규칙	2026-11-15	성공	시행규칙[2026.6.12] 제40·41·42의2조
+https://www.law.go.kr/법령/약사법	2026-11-15	성공(2회째)	약사법[2026.11.12] 제42·61·62·68·93·95조
+https://www.law.go.kr/법령/건강기능식품에관한법률	2026-11-15	성공	제4·6·44조
+https://www.law.go.kr/법령/건강기능식품에관한법률시행령	2026-11-15	성공	제2조 영업 종류
+https://www.law.go.kr/법령/식품위생법시행령	2026-11-15	성공(2회째)	제21·25조
+https://www.law.go.kr/법령/개인정보보호법	2026-11-15	성공	제22·23·71조
+https://www.law.go.kr/법령/개인정보보호법시행령	2026-11-15	성공	제18조
+https://www.law.go.kr/법령/의료기기법	2026-11-15	성공	제2조
+https://www.law.go.kr/법령/혈액관리법시행규칙	2026-11-15	성공	제9조 헌혈금지약물(태반주사제)
+https://www.law.go.kr/LSW/flDownload.do?gubun=&flSeq=166458003&bylClsCd=110201	2026-11-15	성공	혈액관리법 시행규칙 별표1의2: 태반주사제 1년
+https://www.law.go.kr/LSW/flDownload.do?gubun=&flSeq=171466737&bylClsCd=110201	2026-11-15	성공(3회째)	요양급여기준규칙 별표2 비급여대상(개정 2026.11.13)
+https://www.law.go.kr/LSW/admRulSc.do?menuId=5&subMenuId=41&tabMenuId=183&query=비급여	2026-11-15	성공	비급여 관련 행정규칙 목록
+https://www.law.go.kr/행정규칙/비급여진료비용등의고지지침	2026-11-15	성공	고지 지침 제2023-192호 전문
+https://www.law.go.kr/행정규칙/비급여진료비용등의보고및공개에관한기준	2026-11-15	실패(upstream request failed)	같은 고시
+https://www.law.go.kr/LSW/admRulInfoP.do?admRulSeq=2100000274952	2026-11-15	성공	보고·공개 기준 제2026-38호 전문
+https://www.law.go.kr/LSW/flDownload.do?flSeq=161929971	2026-11-15	성공	보고 기준 별표1: FY8940000 HRV, 1Z51 영양주사 코드
+https://www.law.go.kr/LSW/flDownload.do?flSeq=161929979&bylClsCd=200201	2026-11-15	성공	보고 기준 별표2: 보고내역 항목
+https://www.law.go.kr/LSW/flDownload.do?flSeq=170542861&bylClsCd=200201	2026-11-15	성공	신의료기술 고시 별표1(hwpx): 845 근감소증 BIA, 363 체수분, HRV 없음
+https://www.law.go.kr/행정규칙/허가또는신고범위초과약제비급여사용승인에관한기준및절차	2026-11-15	성공	고시 제2020-140호 제2·3조(적용 대상: 급여목록 약제)
+https://www.law.go.kr/행정규칙/건강기능식품의기준및규격	2026-11-15	부분성공(본문에 원료목록 없음)	크레아틴 고시형 원료 확인 실패
+https://www.law.go.kr/LSW/admRulSc.do?...query=웰니스	2026-11-15	실패(결과 없음/불안정)	웰니스 판단기준(행정규칙 아님)
+https://www.hira.or.kr/npay/rb/selectNpayCdListInclLdivCd.do (POST, 체성분·영양·비타민·태반·심박·자율신경·주사·수액·멜라토닌·에스트로겐·호르몬·글루타치온·치옥트산·라이넥·멜스몬·자하거·비타민C·아미노산·약제·인바디·생체전기·비만)	2026-11-15	성공	2026 비급여 가격공개 항목 검색: HRV FY8940000 있음, 체성분·영양주사 없음
+https://www.hira.or.kr/rc/insu/insuadtcrtr/InsuAdtCrtrPopup.do?mtgHmeDd=20231001&sno=6&mtgMtrRegSno=4&brdScnBltNo=4&brdBltNo=	2026-11-15	성공	고시 제2023-184호 Estradiol valerate 경구제
+https://www.hira.or.kr/rc/insu/insuadtcrtr/InsuAdtCrtrPopup.do?mtgHmeDd=20130901&sno=1&mtgMtrRegSno=24&brdScnBltNo=4&brdBltNo=	2026-11-15	성공	[일반원칙] 폐경기증후군 약제 고시 제2013-127호
+https://www.hira.or.kr/rc/insu/insuadtcrtr/InsuAdtCrtrPopup.do?mtgHmeDd=20231228&sno=1&mtgMtrRegSno=2&brdScnBltNo=4&brdBltNo=	2026-11-15	성공	폐경 호르몬검사 심사지침(공고 2023-295)
+https://www.hira.or.kr/rc/insu/insuadtcrtr/InsuAdtCrtrPopup.do?mtgHmeDd=20110331&sno=1&mtgMtrRegSno=6&brdScnBltNo=4&brdBltNo=	2026-11-15	성공	HRT 사전·추적 유방촬영 인정 심의사례
+https://www.hira.or.kr/bbsDummy.do?pgmid=HIRAA020041000100&brdScnBltNo=4&brdBltNo=6960	2026-11-15	성공	2003 호르몬대체요법 인정기준 보도자료
+https://www.hira.or.kr/rc/insu/insuadtcrtr/InsuAdtCrtrPopup.do?mtgHmeDd=20021001&sno=3&mtgMtrRegSno=1&brdScnBltNo=4&brdBltNo=	2026-11-15	성공	고시 2002-69: 정밀체성분측정검사 진찰료 포함
+https://www.hira.or.kr/rc/insu/insuadtcrtr/InsuAdtCrtrPopup.do?mtgHmeDd=20240201&sno=3&mtgMtrRegSno=3&brdScnBltNo=4&brdBltNo=	2026-11-15	성공	고시 2024-18: 비만 진료 비급여
+https://www.hira.or.kr/rc/insu/insuadtcrtr/InsuAdtCrtrPopup.do?mtgHmeDd=20231001&sno=2&mtgMtrRegSno=2&brdScnBltNo=4&brdBltNo=	2026-11-15	성공	고시 2023-181 근감소증 BIA + 집행정지 안내
+https://www.hira.or.kr/rc/insu/insuadtcrtr/InsuAdtCrtrPopup.do?mtgHmeDd=20231001&sno=10&mtgMtrRegSno=1&brdScnBltNo=4&brdBltNo=	2026-11-15	성공	보험급여과-5432 집행정지 통보
+https://www.hira.or.kr/co/search.do?query=호르몬대체요법	2026-11-15	성공	HIRA 통합검색 호르몬대체요법
+https://www.hira.or.kr/co/search.do?query=심박변이	2026-11-15	성공	HIRA 통합검색 심박변이
+https://www.hira.or.kr/co/search.do?query=난포자극호르몬	2026-11-15	성공	HIRA 통합검색 난포자극호르몬
+https://www.hira.or.kr/co/search.do?query=갱년기	2026-11-15	성공	HIRA 통합검색 갱년기
+https://www.hira.or.kr/co/search.do?query=체성분분석	2026-11-15	성공	HIRA 통합검색 체성분분석
+https://www.hira.or.kr/co/search.do?query=영양주사	2026-11-15	성공	HIRA 통합검색 영양주사
+https://www.hira.or.kr/co/search.do?query=태반	2026-11-15	성공	HIRA 통합검색 태반
+https://www.hira.or.kr/co/search.do?query=체지방	2026-11-15	성공	HIRA 통합검색 체지방
+https://www.hira.or.kr/co/search.do?query=인바디	2026-11-15	성공	HIRA 통합검색 인바디
+https://www.hira.or.kr/co/search.do?query=비만	2026-11-15	성공	HIRA 통합검색 비만
+https://www.hira.or.kr/co/search.do?query=체성분	2026-11-15	실패(빈 응답)	재검색으로 대체(체성분분석)
+https://www.mohw.go.kr/board.es?mid=a10503010100&bid=0027&act=list&keyWord=영양주사 / 비급여 명칭 / 비급여관리 / 비급여 표준	2026-11-15	성공	복지부 보도자료 검색
+https://www.mohw.go.kr/board.es?mid=a10503010100&bid=0027&act=view&list_no=1488880	2026-11-15	성공	2025 상반기 비급여 분석: 영양주사 의과 4위
+https://www.mohw.go.kr/board.es?mid=a10503010100&bid=0027&act=view&list_no=1484268	2026-11-15	성공	2025-01-09 비급여 명칭코드 표준화 '활용 검토'
+https://www.mohw.go.kr/board.es?mid=a10503010100&bid=0027&act=view&list_no=1484231	2026-11-15	성공	2025-01-07 비급여 표준화 추진
+https://www.korea.kr/briefing/pressReleaseView.do?newsId=156769257	2026-11-15	성공	MFDS 2026-07-02 해외직구 수면·우울 식품(멜라토닌) 보도자료
+https://www.korea.kr/common/download.do?fileId=198501213&tblKey=GMN	2026-11-15	성공	같은 보도자료 PDF 원문
+https://www.korea.kr/briefing/pressReleaseView.do?newsId=156462138	2026-11-15	성공(무관)	2021 관세청 보도(검색결과 오인)
+https://www.korea.kr/briefing/pressReleaseView.do?newsId=156712048	2026-11-15	성공(무관)	2025 관세청 마약류 단속
+https://www.korea.kr/briefing/pressReleaseList.do?srchWord=멜라토닌/해외직구	2026-11-15	성공	korea.kr 보도자료 검색
+https://www.gangnamunni.com/events/169118	2026-11-15	실패(헤드리스 터널 실패, WebFetch DNS 차단)	브이트리 PREMIUM NAD 게시물(검색 요약만 사용)[추론]
+http://intropharm.com/	2026-11-15	실패(DNS)	제조사 홈페이지
+https://www.mfds.go.kr/brd/m_1059/view.do?seq=15229	2026-11-15	실패(연결 리셋)	웰니스 판단기준 2026.2.12 개정
+https://www.bloodinfo.net/knrcbs/bi/info/stopDrugList.do	2026-11-15	실패(프록시 403)	적십자 헌혈금지약물
+https://www.yeonsu.go.kr/UpFiles/board_275/주요_민원사례_및_관련법규.pdf	2026-11-15	실패(프록시 403)	지자체 클리닉 명칭 민원사례
+https://dailypharm.com/user/news/344179	2026-11-15	실패(WebFetch DNS 차단)	비급여 가격·기준관리법 보도[추론]
+https://www.medipharmhealth.co.kr/news/article.html?no=114137	2026-11-15	검색 요약만	웰니스 판단기준 2026.2.12 개정 기사[추론]
+https://www.foodsafetykorea.go.kr/portal/healthyfoodlife/functionalityView.do?viewNo=38	2026-11-15	검색 요약만	크레아틴 기능성 문구[추론]
