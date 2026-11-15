@@ -19,3 +19,18 @@ https://pubmed.ncbi.nlm.nih.gov/36857968/	2026-11-15	성공	D+Q IPF 1상 RCT n=1
 https://pubmed.ncbi.nlm.nih.gov/30616998/	2026-11-15	성공	D+Q IPF 공개 파일럿 n=14
 https://clinicaltrials.gov/api/v2/studies/NCT04129944	2026-11-15	성공	UBX0101 무릎 OA 2상 n=183 결과: 12주 WOMAC-A 변화 위약 -1.07 vs -0.89~-1.03
 https://clinicaltrials.gov/api/v2/studies?query.term=dasatinib+quercetin+OR+fisetin+OR+senolytic	2026-11-15	성공	진행 중 세놀리틱 시험 목록(STOMP-AD, AFFIRM 등)
+https://pubmed.ncbi.nlm.nih.gov/40275690/	2026-11-15	성공	NMN/NR 근육 메타분석: SMI·악력·보행속도 효과 없음
+https://pubmed.ncbi.nlm.nih.gov/42514320/	2026-11-15	성공	NMN 메타분석 2026(15 RCT): 안전, 대사지표 효과 없음
+https://pubmed.ncbi.nlm.nih.gov/39531138/	2026-11-15	성공	NMN 메타분석 2024: 혈당·지질 효과 없음
+https://pubmed.ncbi.nlm.nih.gov/33888596/	2026-11-15	성공	Yoshino 2021 Science NMN 근육 인슐린 감수성(대리지표)
+https://pubmed.ncbi.nlm.nih.gov/38871717/	2026-11-15	성공	NICE RCT NR 말초동맥질환 6분보행 개선(n=90)
+https://pubmed.ncbi.nlm.nih.gov/42478598/	2026-11-15	성공	NR 경도인지장애 2상 RCT 1차지표 실패
+https://pubmed.ncbi.nlm.nih.gov/42848371/	2026-11-15	성공	NOPARK JAMA 2026 NR 파킨슨 3상 n=410: UPDRS 위약이 2.72점 유리
+https://pubmed.ncbi.nlm.nih.gov/42787547/	2026-11-15	성공	IV NAD+ 서술적 리뷰 2026: 인체 근거 소규모·비대조
+https://pubmed.ncbi.nlm.nih.gov/41704678/	2026-11-15	성공	IV NAD+ vs IV NR 후향 내약성 연구(상업 시설)
+https://pubmed.ncbi.nlm.nih.gov/40954388/	2026-11-15	성공	IV NAD+ 허혈성 심근병증 심부전 RCT n=180(중국, LVEF 대리지표)
+https://clinicaltrials.gov/api/v2/studies?query.term=NOPARK	2026-11-15	성공	NOPARK NCT03568968 완료(PCD 2025-06-17)
+https://www.health.kr/api/ingredient?keyword=니코틴아미드아데닌	2026-11-15	성공	NAD/NADH 성분 등재되나 함유 허가품목 0건
+https://www.health.kr/api/drug/2026082500007?expert=0	2026-11-15	성공	엔에이디정=니코틴아미드 500mg 일반약 비급여 허가 2026-08-24(NAD 자체 아님)
+https://www.health.kr/api/drug/2026012000001?expert=0	2026-11-15	성공	나드정=니코틴아미드 220mg 복합 일반약 비급여 허가 2026-01-19
+https://www.health.kr/api/ingredient?keyword=Sermorelin	2026-11-15	성공	세르모렐린·테사모렐린 성분 등재, 허가품목 0건; 이파모렐린·BPC-157 미등재

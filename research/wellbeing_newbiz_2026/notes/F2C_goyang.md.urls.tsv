@@ -9,3 +9,16 @@ https://www.hira.or.kr/	2026-11-15	실패(25초 타임아웃)	심평원 접속 �
 https://www.localdata.go.kr/	2026-11-15	실패(프록시 403)	지방행정 인허가 데이터 접속 시도
 https://www.mois.go.kr/	2026-11-15	실패(프록시 403)	행안부 접속 시도
 https://repository.kihasa.re.kr/	2026-11-15	실패(프록시 403)	보사연 리포지터리 접속 시도
+https://www.data.go.kr/data/3080905/fileData.do	2026-11-15	성공	경기도 고양시_노인복지시설(주거_의료_재가)현황 CSV(20260515) 내려받음: 498행, 노인의료복지시설 210·재가 278·주거 10
+https://www.data.go.kr/data/15124763/fileData.do	2026-11-15	성공	국민건강보험공단_장기요양기관 시설별 현황 xlsx(20260610) 내려받음: 기관별 유형·정원·인력(의사 전임/촉탁 포함)
+https://www.data.go.kr/data/15160442/fileData.do	2026-11-15	성공	국민건강보험공단_경기도 시군구별 장기요양기관 및 장기요양요원 현황(26.5.31 기준) 구별 시설 수
+https://www.data.go.kr/data/15146940/fileData.do	2026-11-15	성공	국민건강보험공단_경기도 시군별 장기요양기관 및 종사자 현황(25.12.31 기준) 고양시 급여종류별 기관 수
+https://www.data.go.kr/data/15149305/fileData.do	2026-11-15	성공	국민건강보험공단_재택의료센터기관정보(발췌 2025-08-21) 고양시 2곳
+https://www.data.go.kr/data/15165686/fileData.do	2026-11-15	성공	국민건강보험공단_재택의료센터 주소정보(발췌 2026-09-09, 전국 503곳) 고양시 5곳, 일산서구 0곳
+https://www.data.go.kr/data/15149306/fileData.do	2026-11-15	성공	재택의료시범대상기관(20250821) 고양시 의원1·한의원1
+https://www.data.go.kr/data/15149307/fileData.do	2026-11-15	성공	재택의료센터 협력기관현황(20250821) 고양 2곳 협력기관 수
+https://www.data.go.kr/data/15144843/fileData.do	2026-11-15	성공	국민건강보험공단_장애인 건강주치의 의료기관 목록(20250721) 고양시 의과 11·치과 16
+https://www.data.go.kr/data/3051420/fileData.do	2026-11-15	성공	노인장기요양보험 인정현황(20251231) — 전국 단위만, 시군구 없음
+https://www.data.go.kr/data/15116280/fileData.do	2026-11-15	성공	노인장기요양보험 재가급여 종류별 이용 현황(2026.7.31 기준, 시군구·등급·연령) 고양 3개구 집계
+https://jumin.mois.go.kr/etcStatOldAge.do	2026-11-15	성공	2026년 10월 고양시·구·동별 총인구, 65세 이상 인구
+https://jumin.mois.go.kr/ageStatMonth.do	2026-11-15	성공	2026년 10월 고양시·구·주엽1/2동 10세 단위 연령별 인구
