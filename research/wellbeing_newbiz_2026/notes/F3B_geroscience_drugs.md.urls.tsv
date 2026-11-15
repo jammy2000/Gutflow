@@ -10,3 +10,12 @@ https://www.health.kr/drug/A11AOOOOO9854	2026-11-15	성공	라파뮨정1mg 효�
 https://www.health.kr/api/searchDrug?drugName=아피니토	2026-11-15	성공	에베로리무스(아피니토) 항악성종양제 급여
 https://www.health.kr/drug/A11AJJJJJ0563	2026-11-15	성공	자닥신주(싸이모신알파1) 허가 2000-10-18, 효능: 면역저하 고령자 인플루엔자 백신 보조요법, 보험코드 없음
 https://www.health.kr/api/searchDrug?drugName=티모신	2026-11-15	성공	티모신주(대한뉴팜) 싸이모신알파1 동일성분 제네릭, 보험코드 없음
+https://www.health.kr/api/searchDrug?drugName=써티칸	2026-11-15	성공	써티칸(에베로리무스 이식용) 급여코드 있음
+https://pubmed.ncbi.nlm.nih.gov/38956196/	2026-11-15	성공	Farr 2024 Nat Med D+Q 폐경 여성 골 2상 RCT 1차지표(CTx) 실패
+https://pubmed.ncbi.nlm.nih.gov/42823536/	2026-11-15	성공	Koning 2026 Nat Metab D+Q MASH 2상 RCT n=31 조직학 섬유화 개선 47% vs 7%
+https://pubmed.ncbi.nlm.nih.gov/40261111/	2026-11-15	성공	UBX1325(foselutoclax) 당뇨황반부종 RCT
+https://pubmed.ncbi.nlm.nih.gov/37679434/	2026-11-15	성공	D+Q 경도 알츠하이머 1상 공개 n=5
+https://pubmed.ncbi.nlm.nih.gov/36857968/	2026-11-15	성공	D+Q IPF 1상 RCT n=12 안전성
+https://pubmed.ncbi.nlm.nih.gov/30616998/	2026-11-15	성공	D+Q IPF 공개 파일럿 n=14
+https://clinicaltrials.gov/api/v2/studies/NCT04129944	2026-11-15	성공	UBX0101 무릎 OA 2상 n=183 결과: 12주 WOMAC-A 변화 위약 -1.07 vs -0.89~-1.03
+https://clinicaltrials.gov/api/v2/studies?query.term=dasatinib+quercetin+OR+fisetin+OR+senolytic	2026-11-15	성공	진행 중 세놀리틱 시험 목록(STOMP-AD, AFFIRM 등)

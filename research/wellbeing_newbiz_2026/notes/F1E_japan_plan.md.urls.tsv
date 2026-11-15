@@ -1,2 +1,50 @@
 https://saiseiiryo.mhlw.go.jp/	2026-11-15	실패(403 Forbidden, 재시도도 403)	e-再生医療 사이트 접속 시도
 https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/kenkou_iryou/iryou/saisei_iryou/index.html	2026-11-15	성공	MHLW 재생의료 메인: 2025-05-31 개정 시행, 2026-09-02 통보창구, 2026-07-31 자기점검 요청, 문의처
+https://saiseiiryo.mhlw.go.jp/disclosed_committee/index/2	2026-11-15	실패(미시도-동일 호스트 403)	e-再生医療 하위 페이지(위원회·제공계획 공개목록) — 호스트 전체 403
+https://www.mhlw.go.jp/content/001725058.pdf	2026-11-15	성공	재생의료등안전성확보법 개요 설명자료(2025.5.30 갱신): 1~3종 분류, 위원회, 제공계획 기재사항, 정기보고, 처분
+https://www.mhlw.go.jp/content/001590173.pdf	2026-11-15	성공	시행상황(2026-06-30 현재): 위원회 167, 제조시설 3,671(해외인정 19, 한국 13), 제공계획 치료 6,743/연구 85
+https://www.mhlw.go.jp/content/001590174.pdf	2026-11-15	성공	폐지된 인정위원회 목록(2025.7~2026.6)
+https://www.mhlw.go.jp/content/10800000/001731464.pdf	2026-11-15	성공	2026-07-31 医政研発0731第1号 자기점검 요청: 2025.8·2026.3 사망 보고, 2026.1·7 개선명령 언급
+https://www.mhlw.go.jp/content/10800000/001673212.pdf	2026-11-15	성공	2026-03-12 医政研発0312第2号 주의환기: 정맥투여 폐색전 위험, 구급체계, 잔여물 보관
+https://www.mhlw.go.jp/content/001428637.pdf	2026-11-15	성공	2025-02-28 미생물 오염방지 주의환기(다운로드만, 세부 미인용)
+https://www.mhlw.go.jp/content/001347876.pdf	2026-11-15	성공	2024-12 시행기일 정령 공포 통지(다운로드만)
+https://www.mhlw.go.jp/content/001265334.pdf	2026-11-15	성공	令和6年法律第51号 공포 통지(2024-06-14 공포) 및 개정 개요
+https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/kenkou_iryou/iryou/saisei_iryou/madoguchi.html	2026-11-15	성공	2026-09-02 개설 재생의료 정보제공·통보창구
+https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000186471.html	2026-11-15	성공	제공기관 정보 공표 근거(시행규칙 2017.11.30 개정); 목록 자체는 saiseiiryo(403)
+https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000150542_00016.html	2026-11-15	성공	법령·통지 목록(다운로드만)
+https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/kenkou_iryou/iryou/saisei_iryou/procedures.html	2026-11-15	성공	절차 안내(다운로드만)
+https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000150542_00003.html	2026-11-15	성공	인정위원회 안내(다운로드만)
+https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/kenkou_iryou/iryou/saisei_iryou/rm_update.html	2026-11-15	성공	갱신정보 이력 2020~2026(통지 목록)
+https://laws.e-gov.go.jp/api/2/law_data/425AC0000000085?response_format=json	2026-11-15	성공	법률 원문(현행, 2025-06-01 시행분): 제2조 정의, 제4조 제공계획, 제59~64조 벌칙, 개정법 부칙 제2조(2년 후 검토)
+https://www.mhlw.go.jp/stf/newpage_69163.html	2026-11-15	성공	2026-01-23 개선명령(코진바이오 사이타마 세포가공센터)
+https://www.mhlw.go.jp/content/10803000/001544221.pdf	2026-11-15	성공	위 보도자료 PDF: 2025-08-20 투여 중 사망 경위
+https://www.mhlw.go.jp/stf/newpage_70640.html	2026-11-15	성공	2026-02-20 개선명령(긴자호오클리닉), 2026-10-28 해제
+https://www.mhlw.go.jp/content/10803000/001762118.pdf	2026-11-15	성공	위 보도자료 PDF: 계획 미기재 의사 투여 등 위반
+https://www.mhlw.go.jp/stf/newpage_71555.html	2026-11-15	성공	2026-03-13 긴급명령(긴자클리닉·JASC 교토, 외국국적 환자 사망, RBio 서울 제조)
+https://www.mhlw.go.jp/stf/newpage_72690.html	2026-11-15	성공	2026-04-21 긴급명령(트리니티클리닉 후쿠오카): 제3자(제조자)가 환자리스트·세포수·비용 결정
+https://www.mhlw.go.jp/content/10803000/001693689.pdf	2026-11-15	성공	위 건 한국어 보도자료(다운로드만)
+https://www.mhlw.go.jp/stf/newpage_74981.html	2026-11-15	성공	2026-07-31 개선명령(긴자클리닉, 오사카 베데스다클리닉, American Angel Stem) + RBio 개선청구
+https://www.mhlw.go.jp/content/10803000/001731782.pdf	2026-11-15	성공	위 보도자료 PDF: 한국 Biostar 그룹 주도, 서울 베데스다클리닉 지방채취, 이익 대부분 제3자 귀속, 정기보고 12건 중 10건 미제출
+https://www.mhlw.go.jp/content/10803000/001731660.pdf	2026-11-15	성공	위 한국어 보도자료: '외국 국적 환자(1명)' 표현 확인
+https://www.mhlw.go.jp/stf/houdou/0000164606_00003.html	2026-11-15	성공	과거 개선명령 보도(다운로드만, 세부 미인용)
+https://www.mhlw.go.jp/stf/shingi/other-isei_127344_00001.html	2026-11-15	성공	법 재검토 WG: 2026-07-01 제7회 재개, 2026-10-08 제8회(엑소좀·배양상청액)
+https://www.mhlw.go.jp/content/11201250/001716700.pdf	2026-11-15	성공	제7회 WG 자료2 시행상황: 계획 추이, 세포종류별(PRP 57%·MSC 23%·면역 16%), 투여수, 질병등보고, 처분 추이·사례
+https://www.mhlw.go.jp/content/11201250/001719906.pdf	2026-11-15	성공	제7회 WG 자료3 검토사항(9개 항목), 자유진료 타당성 문제
+https://www.mhlw.go.jp/content/11201250/001756984.pdf	2026-11-15	성공	제8회 WG 자료1 정보공개(국민 5,000명 조사)
+https://www.mhlw.go.jp/content/11201250/001756985.pdf	2026-11-15	성공	제8회 WG 자료2: EV(엑소좀) 법 대상화 '안'
+https://www.mhlw.go.jp/content/11201250/001667258.pdf	2026-11-15	성공	평가부회 자료: 2025-08 사망 사례 행정처분 경위
+https://www.mhlw.go.jp/content/11201250/001662157.pdf	2026-11-15	실패(404)	평가부회 자료 추정 링크
+https://www.mohw.go.kr/board.es?act=view&bid=0027&list_no=1491366&mid=a10503010100&nPage=1&tag=	2026-11-15	성공	2026-07-21 복지부 보도자료: 제2차 기본계획 의결, 사후관리 강화방안, 규제 합리화 방안, 담당자
+https://www.mohw.go.kr/boardDownload.es?bid=0027&list_no=1491366&seq=2	2026-11-15	성공	위 보도자료 PDF(붙임 기대효과·성과, 부처별 담당자 전화)
+https://www.mohw.go.kr/boardDownload.es?bid=0027&list_no=1491366&seq=4	2026-11-15	성공	별첨 제2차 기본계획(’26~’30) PDF: 해외원정치료 국내화 과제표, 추진일정, 지정갱신제(안)
+https://www.mohw.go.kr/board.es?mid=a10503010100&bid=0027&act=view&list_no=1488384&tag=&nPage=2	2026-11-15	성공	2025-12-28 복지부 보도자료: 규제개선, '일본 등 해외원정치료' 수요 언급, 정부주도 임상 공모 예고
+https://www.mohw.go.kr/board.es?act=view&bid=0027&list_no=247451&mid=a10503010100	2026-11-15	성공	2011-01-04 복지부: 알앤엘바이오 수사의뢰, 2007~2010 약 8,000명·1인 1,000~3,000만원, 중국·일본 협력병원 시술
+https://www.mohw.go.kr/board.es?act=view&bid=0027&list_no=280261&mid=a10503010100	2026-11-15	성공	2012-12-26 복지부·식약청: 해외 미허가 줄기세포 시술 주의
+https://www.law.go.kr/법령/첨단재생의료및첨단바이오의약품안전및지원에관한법률	2026-11-15	성공(헤드리스)	현행 [시행 2026.10.8] 법률 제21525호; 2026.5.26 개정분 시행일 2026.11.27(제2조 유전물질, 제18조 수입); 제10조 실시기관=의료법 제3조 의료기관; 소관 재생의료정책과 044-202-2882
+https://www.law.go.kr/행정규칙/첨단재생의료 임상연구 및 첨단재생의료 치료 위험도 구분에 관한 고시	2026-11-15	성공(헤드리스)	보건복지부고시 제2026-220호(2026.10.30 제정·시행): 자가 면역세포 이용 연구·치료를 저위험으로
+https://www.fda.gov/vaccines-blood-biologics/consumers-biologics/important-patient-and-consumer-information-about-regenerative-medicine-therapies	2026-11-15	성공	FDA 소비자 안내(2021-06-03, 갱신 2024-04-08): 미승인 재생의료 제품 경고
+https://www.fda.gov/consumers/consumer-updates/fda-warns-about-stem-cell-therapies	2026-11-15	실패(404)	FDA 구 소비자 업데이트 URL
+https://www.fda.gov/inspections-compliance-enforcement-and-criminal-investigations/warning-letters/nexcell-scientific-inc-730612-09112026	2026-11-15	성공	FDA CBER 경고장 2026-09-11(제대혈 유래 세포 제품, 미승인 신약·미허가 생물학적제제)
+https://pubmed.ncbi.nlm.nih.gov/21107396/	2026-11-15	성공(PubMed MCP 메타데이터)	Cyranoski D. Korean deaths spark inquiry. Nature 2010;468:485. 초록 없음, 본문 미확인
+https://koreascience.kr/article/JAKO202412857682076.pdf	2026-11-15	실패(프록시 403/DNS 미허용)	원정치료 관련 국내 논문 추정
+WebSearch(뉴스 요약): view.asiae.co.kr, mt.co.kr, munhwa.com, dailymedi.com, newsis.com, dailypharm.com	2026-11-15	성공(요약만)	원정치료 규모 업계 추정(연 2만명·2,000억원), 2026-03 사망자 한국인 60대 여성 보도, 이수진 의원 지정갱신제 법안 보도 — [추론] 처리
