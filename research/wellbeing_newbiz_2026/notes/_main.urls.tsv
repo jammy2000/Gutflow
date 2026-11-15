@@ -26,3 +26,5 @@ https://saiseiiryo.mhlw.go.jp	2026-11-15	실패(403)	일본 재생의료 등록 
 https://stemtx.co.kr/?bid=comm_01&m=bbs	2026-11-15	실패(연결 재설정, 헤드리스 브라우저도 upstream request failed)	대한줄기세포치료학회 공지사항(2026 추계학술대회 프로그램)
 https://www.stemtx.co.kr/	2026-11-15	실패(연결 재설정)	대한줄기세포치료학회 홈페이지
 http://www.stemtx.co.kr/index.php?r=home&c=comm/notice	2026-11-15	실패(http DNS 미해결)	학회 공지사항(구 주소)
+https://www.mohw.go.kr/board.es?mid=a10501010100&bid=0003&act=view&list_no=1490680	2026-11-15	성공(헤드리스 브라우저, 총괄 직접 대조)	보건복지부 공고 제2026-442호(정정): 신청기간 '26.6.1~10.31, 마감 12.18→10.31 변경 문구, 담당 재생의료정책과 044-202-2898
+https://www.k-arm.go.kr/brd/view.do?key=2102158637710&nttSn=880	2026-11-15	실패(upstream request failed, 총괄 재시도)	지정 신청 공고 게시물

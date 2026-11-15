@@ -48,3 +48,19 @@ https://www.goyang.go.kr/news/user/bbs/BD_selectBbs.do?q_bbsCode=1090&q_bbscttSn
 https://www.goyang.go.kr/news/user/bbs/BD_selectBbs.do?q_bbsCode=1090&q_bbscttSn=20260428193415287	2026-11-15	성공	2026-04-28 고양시 재택의료센터 참여기관 공모(5.18 마감, 전담형), 일산서구보건소 031-8075-4171
 https://www.goyang.go.kr/news/user/bbs/BD_selectBbs.do?q_bbsCode=1090&q_bbscttSn=20260709161943715	2026-11-15	성공	2026-07-09 재택의료센터 사업 안내(장기요양기관 종사자 200여 명)
 https://www.goyang.go.kr/dong/user/bbs/BD_selectBbs.do?q_bbsCode=1071&q_bbscttSn=20260122150323171&q_clCode=2	2026-11-15	성공	2026-01-22 관산동 재택의료센터 홍보(2025 수가 기준)
+https://www.data.go.kr/data/15142232/fileData.do	2026-11-15	성공	국민건강보험공단_공단 본부 및 지사 현황(20250224): 고양일산지사 주소·관할(일산동구·일산서구)·1577-1000
+https://www.mohw.go.kr/board.es?mid=a10503010100&bid=0027&act=view&list_no=1488285	2026-11-15	성공	2025-12-19 보도자료: 2026 사회복지시설 종사자 기본급 3.5% 인상, 직위별 기본급표(사회복지사 1호봉 2,281,800원)
+https://www.mohw.go.kr/board.es?mid=a10503010100&bid=0027&act=view&list_no=1491030	2026-11-15	성공	2026-06-26 처우개선위원회: 가이드라인 준수율 '25 96.4%·'26 98.2%
+https://www.mohw.go.kr/board.es?mid=a10503010100&bid=0027&act=view&list_no=1492060	2026-11-15	성공	2026-09-28 지역사회 일차의료 혁신 시범사업 120개 의원, 고양 단독모형 연세365매일의원·협력모형(거점 일산병원) 12곳
+https://www.mohw.go.kr/board.es?mid=a10503010100&bid=0027&act=view&list_no=1491192	2026-11-15	성공	2026-07-08 일차의료 혁신 시범사업 공모(7.9~8.5), 단독·협력모형 인력요건
+https://www.mohw.go.kr/board.es?mid=a10411010100&bid=0019	2026-11-15	성공(해당 자료 없음)	연구/발간자료 게시판에서 '사회복지시설 관리안내' 검색 — 2013년판까지만 나옴
+https://www.hira.or.kr/bbs/157/2025/10/BZ202510272416307.pdf	2026-11-15	실패(연결 타임아웃)	검색에 나온 심평원 방문진료 관련 PDF 내려받기 시도
+https://www.hira.or.kr/bbs/157/2024/11/BZ202411140797067.pdf	2026-11-15	실패(연결 타임아웃)	같은 시도
+https://kosis.kr/index/index.do	2026-11-15	실패(Connection reset, 2회 재시도)	KOSIS 재시도
+https://www.kihasa.re.kr/search/list	2026-11-15	실패(JS 렌더링 검색, 결과 없음)	보사연 '방문진료' 검색 시도
+https://www.kihasa.re.kr/hswr/assets/pdf/1576/journal-45-2-451.pdf	2026-11-15	성공(관련 없음)	결핵 재택의료 효과평가 논문 — 방문 소요시간 자료 없음
+WebSearch:일차의료 방문진료 수가 시범사업 평가 소요시간	2026-11-15	성공(뉴스 요약만)	데일리팜 2026-01-09(심평원 2차 효과평가 인용 청구 12만374건), 메디게이트 2026-08(의원 0.6% 청구) — 원자료 미확인
+WebSearch:재택의료센터 평가 방문 시간	2026-11-15	성공(뉴스 요약만)	아시아경제 2024-05-28(건보연 2023 평가: 월평균 의사 1.05·간호사 2.2·사회복지사 0.75회) — 원보고서 미확인
+WebSearch:레이 리스·장기렌트 견적	2026-11-15	성공(상업 블로그)	getcha 2026-07 모의견적: 레이 밴 장기렌트 월 19~23만원(선납30%, 36개월)
+WebSearch:휴대용 초음파·i-STAT·휴대용 심전도 가격	2026-11-15	성공(해외 기사만)	Butterfly iQ 초기모델 $2,000 미만·£1,700(해외), 국내 가격 없음
+WebSearch:2026 인건비 가이드라인 간호사 기본급	2026-11-15	실패(간호사 금액 없음)	블로그만, 의료직 기본급표 미확인
