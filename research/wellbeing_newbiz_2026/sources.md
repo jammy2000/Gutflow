@@ -5,12 +5,12 @@
 - 노트 코드: F1=재생의료, F2=촉탁의·재택의료, F3=장수의학, V=원문 대조 검증, _main=총괄
 - 해외 접속 차단으로 열지 못한 주요 기관: 의약품안전나라·식약처, 국민건강보험공단, 노인장기요양보험, KOSIS, 대한의사협회, 금융감독원·금융위원회, 대법원 판결서, 보건산업진흥원, 경기도청. 대한줄기세포치료학회(stemtx.co.kr)는 선생님 PC 로컬 세션을 통해 열람.
 
-## 1. 직접 열람 성공 (653건)
+## 1. 직접 열람 성공 (665건)
 
 | URL | 열람일 | 상태 | 확인 내용 | 노트 |
 |---|---|---|---|---|
-| https://www.law.go.kr/법령/첨단재생의료및첨단바이오의약품안전및지원에관한법률 | 2026-11-15 | 성공(초기 2회 upstream request failed 후 재시도) | [시행 2026.10.8.] 법률 제21525호: 제2조1호 단서, 제2조6호 치료대상자, 제10조, 제12조, 제48조, 제57~59조 벌칙; 법 제2조·제10조·제15조 원문; 법률 현행[법률 제21525호] 제2·10·12·12의2·15·17·42·48·51·57~63조, 시행예정 개정(2026.11.27, 2027.4.29); 제2조제1호 단서 최소조작 제외(시행 2026.10.8.); 현행 [시행 2026.10.8] 법률 제21525호; 2026.5.26 개정분 시행일 2026.11.27(제2조 유전물질, 제18조 수입); | F1A_law, F1B_status, F1C_nhta, F1D_enforce_market, F1E_japan_plan |
-| https://www.law.go.kr/법령/첨단재생의료및첨단바이오의약품안전및지원에관한법률시행령 | 2026-11-15 | 성공 | 시행령 현행[대통령령 제36302호, 시행 2026.5.12] 제2·3·4·10·11의3·12·13의2·16·17·22·41·42조; 제2조제2항 제외 시술(미용·성형, 장관 고시), 제4조 최소조작 정의 | F1A_law, F1C_nhta |
+| https://www.law.go.kr/법령/첨단재생의료및첨단바이오의약품안전및지원에관한법률 | 2026-11-15 | 성공(초기 2회 upstream request failed 후 재시도) | [시행 2026.10.8.] 법률 제21525호: 제2조1호 단서, 제2조6호 치료대상자, 제10조, 제12조, 제48조, 제57~59조 벌칙; 법 제2조·제10조·제15조 원문; 법률 현행[법률 제21525호] 제2·10·12·12의2·15·17·42·48·51·57~63조, 시행예정 개정(2026.11.27, 2027.4.29); 제2조제1호 단서 최소조작 제외(시행 2026.10.8.); 첨단재생바이오법 현행 본문(제2조, 제10조, 제57조, 제63조); 현행 [시행 2026.10.8] 법률 제21525호; 2026.5.26 | F1A_law, F1B_status, F1C_nhta, F1D_enforce_market, F1E_japan_plan, V1_verification |
+| https://www.law.go.kr/법령/첨단재생의료및첨단바이오의약품안전및지원에관한법률시행령 | 2026-11-15 | 성공 | 시행령 제2조②, 시행일·호수; 시행령 현행[대통령령 제36302호, 시행 2026.5.12] 제2·3·4·10·11의3·12·13의2·16·17·22·41·42조; 제2조제2항 제외 시술(미용·성형, 장관 고시), 제4조 최소조작 정의 | F1A_law, F1C_nhta, V1_verification |
 | https://www.law.go.kr/LSW/lsSc.do?menuId=1&subMenuId=15&tabMenuId=81&query=첨단재생의료 | 2026-11-15 | 성공 | 관련 법령 3건 확인(법률·시행령·첨단재생의료 안전 및 지원에 관한 규칙) | F1A_law |
 | https://www.law.go.kr/법령/첨단재생의료안전및지원에관한규칙 | 2026-11-15 | 성공 | 규칙 제4조 자체 처리 준수사항(보건복지부령 제1090호); 규칙 현행[보건복지부령 제1090호, 시행 2025.2.21] 제3·4·5·5의2·20조, 별표 목록 | F1A_law, F1B_status |
 | https://www.law.go.kr/LSW/flDownload.do?gubun=&flSeq=149290685&bylClsCd=110201 | 2026-11-15 | 성공 | 규칙 별표1(지정 시설·장비·인력) PDF 원문 | F1A_law |
@@ -18,7 +18,7 @@
 | https://www.law.go.kr/LSW/flDownload.do?gubun=&flSeq=149290699&bylClsCd=110201 | 2026-11-15 | 성공 | 규칙 별표2(행정처분 기준) PDF | F1A_law |
 | https://www.law.go.kr/LSW/flDownload.do?gubun=&flSeq=149290683&bylClsCd=110201 | 2026-11-15 | 성공 | 규칙 별표1 HWP(미변환, PDF로 대체) | F1A_law |
 | https://www.law.go.kr/LSW/admRulSc.do?menuId=5&subMenuId=41&tabMenuId=183&query=첨단재생 | 2026-11-15 | 성공 | 관련 행정규칙 8건 목록(위험도 고시 2026-220, 지정 고시 2026-207/2025-140 등) | F1A_law |
-| https://www.law.go.kr/LSW/admRulInfoP.do?admRulSeq=2100000287562 | 2026-11-15 | 성공 | 위험도 구분 고시 제2026-220호 전문(자가 면역세포 저위험) | F1A_law |
+| https://www.law.go.kr/LSW/admRulInfoP.do?admRulSeq=2100000287562 | 2026-11-15 | 성공 | 위험도 구분 고시 제2026-220호 머리말; 위험도 구분 고시 제2026-220호 전문(자가 면역세포 저위험) | F1A_law, V1_verification |
 | https://www.law.go.kr/LSW/admRulInfoP.do?admRulSeq=2100000286170 | 2026-11-15 | 성공(1회 재시도) | 지정·세포처리 준수사항 고시 제2026-207호(시행 2026.11.27) 전문 | F1A_law |
 | https://www.law.go.kr/LSW/admRulInfoP.do?admRulSeq=2100000263236 | 2026-11-15 | 성공 | 같은 고시 현행 제2025-140호(비교용) | F1A_law |
 | https://www.law.go.kr/법령/의료법 | 2026-11-15 | 성공 | 시행 2026.11.12 제33조① 의료기관 밖 진료 예외; 의료법 현행[법률 제21111호, 시행 2026.11.12] 제56·57·63·89조; 제2조, 제45조의2, 제53조, 제56조제2항제1호, 제77조 원문(시행 2026.11.12.) | F1A_law, F1C_nhta, F2A_contract_doctor |
@@ -29,29 +29,29 @@
 | https://www.k-arm.go.kr/common/fileDown.do?key=77357&type=brd | 2026-11-15 | 성공 | 공고 붙임 zip: 작성요령(헤파필터·냉장고 기준), FAQ(의원 가능·IRB 위탁), 증빙 예시(17·8개 항목) | F1A_law |
 | https://www.k-arm.go.kr/brd/view.do?key=2102158637710&nttSn=877 | 2026-11-15 | 성공 | 2026 필수인력 교육 계획: 전액 무료, 기본 8시간; 2026 필수인력 교육계획 공고 제2026-364호 | F1A_law, F1B_status |
 | https://www.k-arm.go.kr/common/fileDown.do?key=64588&type=brd | 2026-11-15 | 성공 | 교육계획 PDF(기본 8h·보수 2년 8h·치료 매년 6h) | F1A_law |
-| https://www.k-arm.go.kr/brd/view.do?key=2102158637710&nttSn=906 | 2026-11-15 | 성공 | 지정 현황 '26.10 공지(보건복지부 제2026-826호); 지정현황 알림 제2026-826호 | F1A_law, F1B_status |
-| https://www.k-arm.go.kr/common/fileDown.do?key=80932&type=brd | 2026-11-15 | 성공 | [복지부 제2026-826호] 첨단재생의료실시기관 지정 현황('26.10월): 264개(재생-1 159, 재생-2 63, 재생-3 42), 고양·파주 소재 기관 확인; 지정 현황('26.10월).pdf: 264개소 목록·유형·지역; 지정현황('26.10) PDF: 264곳, 의원 111 | F1A_law, F1B_status, F1D_enforce_market |
-| https://www.k-arm.go.kr/brd/view.do?key=2102158637710&nttSn=908 | 2026-11-15 | 성공 | 실시계획 적합 승인 현황 '26.10 공지; 실시계획 적합·승인 현황 공지 | F1A_law, F1B_status |
-| https://www.k-arm.go.kr/common/fileDown.do?key=81311&type=brd | 2026-11-15 | 성공(1회 연결 재설정 후) | 승인 현황 pdf: 치료 1건, 연구 68건; 실시계획 현황('26.10) PDF: 치료계획 1건; 첨단재생의료 실시계획 적합·승인 현황('26.10월): 치료계획 1건, 연구계획 68건; 노인성 근감소증 SVF+BMAC 정맥투여(제일정형외과병원, 저위험, 2026-03-26) | F1A_law, F1B_status, F1D_enforce_market |
+| https://www.k-arm.go.kr/brd/view.do?key=2102158637710&nttSn=906 | 2026-11-15 | 성공 | 재생의료기관 지정현황 게시글(제2026-826호); 지정 현황 '26.10 공지(보건복지부 제2026-826호); 지정현황 알림 제2026-826호 | F1A_law, F1B_status, V1_verification |
+| https://www.k-arm.go.kr/common/fileDown.do?key=80932&type=brd | 2026-11-15 | 성공 | [복지부 제2026-826호] 첨단재생의료실시기관 지정 현황('26.10월): 264개(재생-1 159, 재생-2 63, 재생-3 42), 고양·파주 소재 기관 확인; 지정 현황('26.10월).pdf: 264개소 목록·유형·지역; 지정현황('26.10) PDF: 264곳, 의원 111; 지정현황('26.10월) PDF: 264개소 유형별 집계 | F1A_law, F1B_status, F1D_enforce_market, V1_verification |
+| https://www.k-arm.go.kr/brd/view.do?key=2102158637710&nttSn=908 | 2026-11-15 | 성공 | 실시계획 적합 승인 현황 '26.10 공지; 실시계획 적합·승인 현황 게시글; 실시계획 적합·승인 현황 공지 | F1A_law, F1B_status, V1_verification |
+| https://www.k-arm.go.kr/common/fileDown.do?key=81311&type=brd | 2026-11-15 | 성공(1회 연결 재설정 후) | 승인 현황 pdf: 치료 1건, 연구 68건; 실시계획 현황('26.10) PDF: 치료계획 1건; 적합·승인 현황('26.10월) PDF: 치료 1, 연구 68; 첨단재생의료 실시계획 적합·승인 현황('26.10월): 치료계획 1건, 연구계획 68건; 노인성 근감소증 SVF+BMAC 정맥투여(제일정형외과병원, 저위험, 2026-03-26) | F1A_law, F1B_status, F1D_enforce_market, V1_verification |
 | https://www.k-arm.go.kr/brd/list.do?key=2102158715182 | 2026-11-15 | 성공(1회 연결 재설정 후) | 보도자료 목록 | F1A_law |
 | https://www.k-arm.go.kr/brd/view.do?key=2102158715182&nttSn=869 | 2026-11-15 | 성공 | 보도참고자료 치료 1호 승인 76,207,178원·Q&A·담당자; 치료 1호 승인 보도참고자료 게시물 | F1A_law, F1B_status |
 | https://www.k-arm.go.kr/common/fileDown.do?key=61210&type=brd | 2026-11-15 | 성공 | 치료 1호 보도참고자료 PDF: 비용 76,207,178원, 문의처 | F1A_law |
 | https://www.k-arm.go.kr/brd/view.do?key=2102158715182&nttSn=904 | 2026-11-15 | 성공 | 2026.10.26 보도참고자료 게시물(첨부 내려받기만, 미정독); 보도참고자료 제11차(10-22) 1/3 적합 | F1A_law, F1B_status |
 | https://www.k-arm.go.kr/cell/list.do?key=2110052089523 | 2026-11-15 | 성공 | 세포처리시설 현황 56곳 | F1A_law |
 | https://www.mohw.go.kr/board.es?mid=a10503010100&bid=0027&act=list&keyWord=재생의료&nPage=1 | 2026-11-15 | 성공 | 복지부 보도자료 목록(재생의료) | F1A_law |
-| https://www.mohw.go.kr/board.es?mid=a10503010100&bid=0027&act=view&list_no=1491366 | 2026-11-15 | 성공 | 2026-07-21 정책위원회: 제2차 기본계획, 재생의료기관 사후관리 강화(1년 내 계획제출 의무·3년 갱신제·광고가이드라인 27.3월), 자가면역세포 저위험 조정 고시 10월 예정; 2026-07-21 제2차 기본계획·사후관리 강화(1년 내 제출, 3년 갱신); 2026.7.21 제2차 기본계획·사후관리 강화방안(1년 내 계획 제출·3년 갱신·광고 가이드라인 '27.3) | F1A_law, F1B_status, F1D_enforce_market |
+| https://www.mohw.go.kr/board.es?mid=a10503010100&bid=0027&act=view&list_no=1491366 | 2026-11-15 | 성공 | 2026-07-21 정책위원회: 제2차 기본계획, 재생의료기관 사후관리 강화(1년 내 계획제출 의무·3년 갱신제·광고가이드라인 27.3월), 자가면역세포 저위험 조정 고시 10월 예정; 2026-07-21 제2차 기본계획·사후관리 강화(1년 내 제출, 3년 갱신); 2026.7.21 제2차 기본계획·사후관리 강화방안(1년 내 계획 제출·3년 갱신·광고 가이드라인 '27.3); 제2차 기본계획·사후관리 강화방안 보도자료(7.21.) | F1A_law, F1B_status, F1D_enforce_market, V1_verification |
 | https://www.mohw.go.kr/board.es?mid=a10503010100&bid=0027&act=view&list_no=1492379 | 2026-11-15 | 성공 | 2026.10.30 위험도 고시 제정 보도자료(세포처리시설 부대조건, 문헌 요건) | F1A_law |
 | https://www.mohw.go.kr/board.es?mid=a10503010100&bid=0027&act=view&list_no=1492314 | 2026-11-15 | 성공(부분 확인) | 2026.10.23 규제합리화(자가면역세포 위험도 하향, 제대혈 원료세포) | F1A_law |
 | https://www.mohw.go.kr/board.es?mid=a10503010100&bid=0027&act=view&list_no=1491018 | 2026-11-15 | 성공 | 2026.6.25 심의위 위험도 조정 의결 | F1A_law |
 | https://www.mohw.go.kr/board.es?mid=a10503010100&bid=0027&act=view&list_no=1490959 | 2026-11-15 | 성공 | 2026-06 재생의료기관 223개소(상종44·종합56·병원39·의원84), 지정 신청 6.1~12.18, 문의 044-202-2898/2899, 재단 02-6365-2240/2257; 2026-06-22 223개소 유형별; 2026.6.22 지정 확대 보도(당시 마감 12.18, 223곳) | F1A_law, F1B_status, F1D_enforce_market |
 | https://www.mohw.go.kr/board.es?mid=a10503010100&bid=0027&act=list&keyWord=광고&nPage=1 | 2026-11-15 | 성공(1회 연결 재설정 후) | 광고 관련 보도자료 검색 | F1A_law |
-| https://www.mohw.go.kr/board.es?mid=a10503010100&bid=0027&act=view&list_no=1490640 | 2026-11-15 | 성공 | 2026-05-27 거짓·과대광고 246건; 2026-05-27 보도자료 재생의료 거짓·과대광고 246건/63개 기관, 유형·처분기준·범위 제외; 2026.5.28 재생의료 거짓·과대광고 246건·63곳 적발 | F1A_law, F1B_status, F1D_enforce_market |
+| https://www.mohw.go.kr/board.es?mid=a10503010100&bid=0027&act=view&list_no=1490640 | 2026-11-15 | 성공 | 2026-05-27 거짓·과대광고 246건; 2026-05-27 보도자료 재생의료 거짓·과대광고 246건/63개 기관, 유형·처분기준·범위 제외; 2026.5.28 재생의료 거짓·과대광고 246건·63곳 적발; 거짓·과대광고 246건 보도자료 | F1A_law, F1B_status, F1D_enforce_market, V1_verification |
 | https://www.mohw.go.kr/board.es?mid=a10501010100&bid=0003&act=list&keyWord=첨단재생의료실시기관&nPage=1 | 2026-11-15 | 성공 | 복지부 공지사항(2027 공고 없음 확인) | F1A_law |
-| https://www.mohw.go.kr/board.es?mid=a10501010100&bid=0003&act=view&list_no=1490680 | 2026-11-15 | 성공 | 2026 공고(정정) 공지 원문, 담당 044-202-2898; 보건복지부 공고 제2026-442호(정정): 신청기간 '26.6.1~10.31, 마감 12.18→10.31 변경 문구, 담당 재생의료정책과 044-202-2898 | F1A_law, _main |
+| https://www.mohw.go.kr/board.es?mid=a10501010100&bid=0003&act=view&list_no=1490680 | 2026-11-15 | 성공 | 2026 공고(정정) 공지 원문, 담당 044-202-2898; 공고 제2026-442호(정정) 신청기간·마감 변경; 보건복지부 공고 제2026-442호(정정): 신청기간 '26.6.1~10.31, 마감 12.18→10.31 변경 문구, 담당 재생의료정책과 044-202-2898 | F1A_law, V1_verification, _main |
 | https://www.mohw.go.kr/board.es?mid=a10501010100&bid=0003&act=view&list_no=1485494 | 2026-11-15 | 성공 | 2025 공고 제2025-340호(2025.4.28~12.12) | F1A_law |
 | https://www.mohw.go.kr/board.es?mid=a10501010100&bid=0003&act=list&keyWord=재생의료&nPage=1 | 2026-11-15 | 성공 | 복지부 공지사항(재생의료) 최신 목록 | F1A_law |
 | https://likms.assembly.go.kr/bill/bi/bill/sch/detailedSchPage.do?detailedTab=billDtl | 2026-11-15 | 성공(브라우저 검색) | 의안명 '첨단재생의료' 22대 검색: 계류 7건·처리 3건 | F1A_law |
-| https://likms.assembly.go.kr/bill/bi/billDetailPage.do?billId=PRC_X2W6U0U8T2U8P1O1O0N8O5M1M6U0T1 | 2026-11-15 | 성공 | 의안 2220915(이수진) 지정 갱신·계획 제출 의무, 11.13 상정·소위회부 | F1A_law |
+| https://likms.assembly.go.kr/bill/bi/billDetailPage.do?billId=PRC_X2W6U0U8T2U8P1O1O0N8O5M1M6U0T1 | 2026-11-15 | 성공 | 의안 2220915 심사경과·제안이유; 의안 2220915(이수진) 지정 갱신·계획 제출 의무, 11.13 상정·소위회부 | F1A_law, V1_verification |
 | https://likms.assembly.go.kr/filegate/servlet/FileGate?bookId=93B8374D-995F-62E4-F5B5-9FC88C585045&type=1 | 2026-11-15 | 성공(브라우저 세션; curl 단독은 400) | 의안 2220915 원문 PDF(조문·부칙) | F1A_law |
 | https://likms.assembly.go.kr/filegate/servlet/FileGate?bookId=35558b22-ae60-4484-9dc0-5781558d47c0&type=1 | 2026-11-15 | 성공(브라우저 세션) | 의안 2220915 검토보고서(253곳 중 89곳 제출, 부처 의견) | F1A_law |
 | https://likms.assembly.go.kr/bill/bi/billDetailPage.do?billId=PRC_G2H6F0E7A0Z1A1Y3W5F2E4E1D2B1K4 | 2026-11-15 | 성공 | 의안 2219912(백종헌) 자가처리 최소조작 한정 | F1A_law |
@@ -99,9 +99,9 @@
 | https://www.mohw.go.kr/board.es?mid=a10503010100&bid=0027&act=view&list_no=1492041 | 2026-11-15 | 성공 | 2026-09-22 치료 1호 현장, 첫 등록 환자 | F1B_status |
 | https://www.mohw.go.kr/board.es?mid=a10503010100&bid=0027&act=view&list_no=1490117 | 2026-11-15 | 성공 | 2026-04-17 심의 신청 건수 추이, 60건 승인 | F1B_status |
 | https://www.mohw.go.kr/board.es?mid=a10503010100&bid=0027&act=view&list_no=1488384 | 2026-11-15 | 성공 | 2025-12-28 규제 개선(난치질환 기준, 해외자료); 2025-12-28 첨단재생의료 제도개선(정부주도 임상: 해외원정 수요 질환) | F1B_status, F1D_enforce_market |
-| https://www.law.go.kr/행정규칙/신의료기술의안전성·유효성평가결과고시 | 2026-11-15 | 성공 | 현행판 제2026-209호(2026.10.8.), 담당 의료자원정책과 044-202-2456, 부칙 목록 | F1C_nhta |
+| https://www.law.go.kr/행정규칙/신의료기술의안전성·유효성평가결과고시 | 2026-11-15 | 성공 | 고시 현행판(제2026-209호, 2026.10.8.)·부칙 연혁·별표 링크; 현행판 제2026-209호(2026.10.8.), 담당 의료자원정책과 044-202-2456, 부칙 목록 | F1C_nhta, V1_verification |
 | https://www.law.go.kr/LSW/flDownload.do?flSeq=170542861&bylClsCd=200201 | 2026-11-15 | 성공 | 현행 별표1(신의료기술) 원문: 제778·918·948·958·982·986·987호 등 | F1C_nhta |
-| https://www.law.go.kr/LSW/flDownload.do?flSeq=170545341&bylClsCd=200201 | 2026-11-15 | 성공 | 위 고시 별표1 PDF(1239쪽): 918 BMAC, 948 SVF, 958 무릎 PRP, 778 상과염 PRP, 490 자가혈액 근육주사 원문; 현행 별표1(신의료기술) 원문: 제778·918·948·958·982·986·987호 등 | F1C_nhta, F1D_enforce_market |
+| https://www.law.go.kr/LSW/flDownload.do?flSeq=170545341&bylClsCd=200201 | 2026-11-15 | 성공 | 신의료기술 고시 제2026-209호 별표1 PDF(918/948/958/987); 위 고시 별표1 PDF(1239쪽): 918 BMAC, 948 SVF, 958 무릎 PRP, 778 상과염 PRP, 490 자가혈액 근육주사 원문; 현행 별표1(신의료기술) 원문: 제778·918·948·958·982·986·987호 등 | F1C_nhta, F1D_enforce_market, V1_verification |
 | https://www.law.go.kr/LSW/flDownload.do?flSeq=170545343&bylClsCd=200201 | 2026-11-15 | 성공 | 현행 별표2(제한적 의료기술): PRP 건병증·자가지방 줄기세포 등 기간 종료 | F1C_nhta |
 | https://www.law.go.kr/LSW/flDownload.do?flSeq=170545389&bylClsCd=200201 | 2026-11-15 | 성공 | 현행 별표2(제한적 의료기술): PRP 건병증·자가지방 줄기세포 등 기간 종료 | F1C_nhta |
 | https://www.law.go.kr/LSW/flDownload.do?flSeq=170545391&bylClsCd=200201 | 2026-11-15 | 성공 | 현행 별표3(혁신의료기술): 실시기관·실시의사 조항, 3D 미세지방 | F1C_nhta |
@@ -117,8 +117,8 @@
 | https://www.law.go.kr/행정규칙/신의료기술의안전성·유효성평가결과고시/(2026-108,20260504) | 2026-11-15 | 성공 | 연혁판 별표1 마지막 항목번호·문구 비교 | F1C_nhta |
 | https://www.law.go.kr/행정규칙/신의료기술의안전성·유효성평가결과고시/(2026-47,20260227) | 2026-11-15 | 성공 | 연혁판 별표1 마지막 항목번호·문구 비교 | F1C_nhta |
 | https://www.law.go.kr/행정규칙/신의료기술의안전성·유효성평가결과고시/(2026-81,20260401) | 2026-11-15 | 성공 | 연혁판 별표1 마지막 항목번호·문구 비교 | F1C_nhta |
-| https://www.law.go.kr/행정규칙/신의료기술의안전성·유효성평가결과고시/(2026-120,20260529) | 2026-11-15 | 성공 | 연혁판 별표1 마지막 항목번호·문구 비교 | F1C_nhta |
-| https://www.law.go.kr/행정규칙/신의료기술의안전성·유효성평가결과고시/(2026-146,20260707) | 2026-11-15 | 성공 | 연혁판 별표1 마지막 항목번호·문구 비교 | F1C_nhta |
+| https://www.law.go.kr/행정규칙/신의료기술의안전성·유효성평가결과고시/(2026-120,20260529) | 2026-11-15 | 성공 | 연혁판 별표1 마지막 항목번호·문구 비교; 제2026-120호(2026.5.29.)판 별표1 링크 | F1C_nhta, V1_verification |
+| https://www.law.go.kr/행정규칙/신의료기술의안전성·유효성평가결과고시/(2026-146,20260707) | 2026-11-15 | 성공 | 연혁판 별표1 마지막 항목번호·문구 비교; 제2026-146호(2026.7.7.)판 별표1 링크 | F1C_nhta, V1_verification |
 | https://www.law.go.kr/행정규칙/신의료기술의안전성·유효성평가결과고시/(2026-170,20260810) | 2026-11-15 | 성공 | 연혁판 별표1 마지막 항목번호·문구 비교 | F1C_nhta |
 | https://www.law.go.kr/행정규칙/신의료기술의안전성·유효성평가결과고시/(2025-121,20250718) | 2026-11-15 | 성공 | 연혁판 별표1 마지막 항목번호·문구 비교 | F1C_nhta |
 | https://www.law.go.kr/행정규칙/신의료기술의안전성·유효성평가결과고시/(2025-164,20250923) | 2026-11-15 | 성공 | 연혁판 별표1 마지막 항목번호·문구 비교 | F1C_nhta |
@@ -174,10 +174,10 @@
 | https://www.mohw.go.kr/boardDownload.es?bid=0027&list_no=1490640&seq=2 | 2026-11-15 | 성공 | 같은 보도자료 PDF 원문(담당부서 재생의료정책과 044-202-2880/2899) | F1D_enforce_market |
 | https://www.mohw.go.kr/board.es?mid=a10503010100&bid=0027&act=list&keyField=TITLE&keyWord=재생의료 | 2026-11-15 | 성공(간헐 연결재설정, 재시도로 해결) | 복지부 보도자료 제목검색(재생의료·줄기세포·비급여·실손·불법·광고) | F1D_enforce_market |
 | https://www.mohw.go.kr/boardDownload.es?bid=0027&list_no=1491366&seq=4 | 2026-11-15 | 성공 | 별첨 제2차 기본계획(’26~’30) PDF: 해외원정치료 국내화 과제표, 추진일정, 지정갱신제(안); 제2차 첨단재생의료·첨단바이오의약품 기본계획(26~30) PDF: 정부주도 임상(무릎골관절염 자가줄기세포 2026.7~2028.3), 글로벌 시장 232억→621억 달러, 기업수 76→138 | F1D_enforce_market, F1E_japan_plan |
-| https://www.mohw.go.kr/board.es?mid=a10503010100&bid=0027&act=view&list_no=1490286 | 2026-11-15 | 성공 | 첨단재생의료 치료 1호 승인(2026-04-23, 여의도성모, 76,207,178원, 성과연계 환불) | F1D_enforce_market |
+| https://www.mohw.go.kr/board.es?mid=a10503010100&bid=0027&act=view&list_no=1490286 | 2026-11-15 | 성공 | 첨단재생의료 치료 1호 승인(2026-04-23, 여의도성모, 76,207,178원, 성과연계 환불); 치료 1호 승인 보도자료(비용) | F1D_enforce_market, V1_verification |
 | https://www.mohw.go.kr/board.es?mid=a10503010100&bid=0027&act=view&list_no=1479210 | 2026-11-15 | 성공 | 2023-12-11 불법 의료광고 집중단속 공지, 처벌기준(유인·알선 3년/3천만, 거짓과장 1년/1천만+업무정지1~2개월) | F1D_enforce_market |
 | https://www.mohw.go.kr/board.es?mid=a10503010100&bid=0027&act=view&list_no=1480602 | 2026-11-15 | 성공 | 2024-03-11 불법의료광고 366건 적발(치료경험담 31.7%, 할인 26.7%, 거짓과장 24.9%) | F1D_enforce_market |
-| https://www.mohw.go.kr/board.es?mid=a10503010100&bid=0027&act=view&list_no=1489136 | 2026-11-15 | 성공 | 2026-02-19 관리급여 신설(건보법 시행령 18조의4 ①4호), 본인부담 95%; 2026-02-19 시행령 공포·시행, 본인부담 95% | F1D_enforce_market, F3D_longevity_market |
+| https://www.mohw.go.kr/board.es?mid=a10503010100&bid=0027&act=view&list_no=1489136 | 2026-11-15 | 성공 | #10 관리급여 시행령 개정 보도자료; 2026-02-19 관리급여 신설(건보법 시행령 18조의4 ①4호), 본인부담 95%; 2026-02-19 시행령 공포·시행, 본인부담 95% | F1D_enforce_market, F3D_longevity_market, V2_verification |
 | https://www.mohw.go.kr/board.es?mid=a10503010100&bid=0027&act=view&list_no=1491934 | 2026-11-15 | 성공 | 2025년 9월분 병원급 비급여 7,499억, 도수치료 2026.7.1 관리급여 적용; 2026-09-09 병원급 2025.9월분 7,499억 원, 관리급여 확대 예정 | F1D_enforce_market, F3D_longevity_market |
 | https://www.mohw.go.kr/board.es?mid=a10503010100&bid=0027&act=view&list_no=1488590 | 2026-11-15 | 성공 | 제2차 기본계획 연구자 간담회(시장자료 없음) | F1D_enforce_market |
 | https://www.korea.kr/briefing/pressReleaseList.do?srchWord=줄기세포 (외 키워드 다수) | 2026-11-15 | 성공 | 정책브리핑 보도자료 검색(줄기세포·엑소좀·무허가 세포치료제·화장품 주사·재생의료 광고·의료광고 모니터링·골수 줄기세포·자가 면역세포·5세대 실손): 식약처·경찰의 줄기세포/엑소좀 단속 보도자료는 검색되지 않음 | F1D_enforce_market |
@@ -185,7 +185,7 @@
 | https://www.korea.kr/common/download.do?fileId=198576300&tblKey=GMN | 2026-11-15 | 성공 | 위 보도자료 PDF(재생의료정책과 044-202-2660/2665) | F1D_enforce_market |
 | https://www.korea.kr/briefing/pressReleaseView.do?newsId=156787257 | 2026-11-15 | 성공 | 2026-10-30 「첨단재생의료 임상연구 및 첨단재생의료 치료 위험도 구분에 관한 고시」 제정(배양 자가면역세포 저위험, 세포처리시설 수행 조건) | F1D_enforce_market |
 | https://www.korea.kr/common/download.do?fileId=198581023&tblKey=GMN | 2026-11-15 | 성공 | 위 보도참고자료 PDF | F1D_enforce_market |
-| https://www.korea.kr/briefing/pressReleaseView.do?newsId=156759945 | 2026-11-15 | 성공 | 금융위 2026-05-06 5세대 실손 출시 | F1D_enforce_market |
+| https://www.korea.kr/briefing/pressReleaseView.do?newsId=156759945 | 2026-11-15 | 성공 | #14 5세대 실손 출시 보도자료(문서뷰어 포함); 금융위 2026-05-06 5세대 실손 출시 | F1D_enforce_market, V2_verification |
 | https://www.korea.kr/common/download.do?fileId=198453635&tblKey=GMN | 2026-11-15 | 성공 | 5세대 실손 보도자료 PDF: 특약2 미보상 '미등재 신의료기술(첨단재생의료 등 포함)', 비급여 주사제 등; 한도 1천만/자기부담 50%; 금감원 보험상품분쟁2국 02-3145-5750/5248 | F1D_enforce_market |
 | https://www.korea.kr/common/download.do?fileId=198453637&tblKey=GMN | 2026-11-15 | 성공 | 5세대 실손 Q&A PDF: 미등재 신의료기술은 특약1(중증)에서만 보장, 비급여 등재 시 특약2 보장; 계약전환 할인 26.11월~6개월 | F1D_enforce_market |
 | https://www.mohw.go.kr/board.es?mid=a10503010100&bid=0027&act=view&list_no=1484268 | 2026-11-15 | 성공 | 2025-01-09 비급여 관리·실손 개혁 토론회: 관리급여 신설, 병행진료 급여 제한, 재평가 퇴출; 2025-01-09 비급여·실손 개혁방안 토론회 발표자료(실손 개혁안 PDF seq=2) | F1D_enforce_market, F3D_longevity_market |
@@ -246,7 +246,7 @@
 | https://www.law.go.kr/법령/노인복지법시행규칙 | 2026-11-15 | 성공 | 시행 2025.12.29 복지부령 제1143호, 제22조(별표4·5 위임) | F2A_contract_doctor |
 | https://www.law.go.kr/LSW/flDownload.do?gubun=&flSeq=164709233&bylClsCd=110201 | 2026-11-15 | 성공 | 노인복지법 시행규칙 별표4(개정 2024.12.31) PDF: 직원배치기준 의사 또는 계약의사, 비고3·4 | F2A_contract_doctor |
 | https://www.law.go.kr/LSW/flDownload.do?gubun=&flSeq=164709251&bylClsCd=110201 | 2026-11-15 | 성공(1차 연결 재설정 후 재시도) | 노인복지법 시행규칙 별표5(개정 2021.6.30) PDF: 건강관리 1호 나·다목, 6호 카목 | F2A_contract_doctor |
-| https://www.law.go.kr/행정규칙/장기요양급여제공기준및급여비용산정방법등에관한고시 | 2026-11-15 | 성공 | 고시 제2026-189호(시행 2026.10.1) 제43조⑥, 제44조의2, 제44조의3 계약의사 조문 | F2A_contract_doctor |
+| https://www.law.go.kr/행정규칙/장기요양급여제공기준및급여비용산정방법등에관한고시 | 2026-11-15 | 성공 | 고시 제2026-189호(시행 2026.10.1) 제43조⑥, 제44조의2, 제44조의3 계약의사 조문; 장기요양 고시 제2026-189호 제43조⑥·제44조의2·제44조의3·제78조 | F2A_contract_doctor, V1_verification |
 | https://www.law.go.kr/LSW/flDownload.do?flSeq=169768579 | 2026-11-15 | 성공(1차 연결 재설정 후 재시도) | 제44조의2① 진찰비용 표(GIF): 초진·재진 = 건강보험 의원급 외래 초진·재진진찰료(기본단가) | F2A_contract_doctor |
 | https://www.law.go.kr/LSW/admRulRvsInfoR.do?admRulSeq=2100000285470&chrClsCd=010202 | 2026-11-15 | 성공 | 고시 2026-189호 제·개정이유(계약의사 조항 개정 없음) | F2A_contract_doctor |
 | https://www.law.go.kr/LSW/admRulSc.do?tabMenuIdx=2&query="계약의사" | 2026-11-15 | 성공 | 현행 행정규칙 조문내용 "계약의사" 검색: 3건(장기요양 제공기준 고시, 청구·심사 고시, 의료급여수가 고시) | F2A_contract_doctor |
@@ -265,7 +265,7 @@
 | https://www.mohw.go.kr/board.es?mid=a10503000000&bid=0027&act=view&list_no=1487817 | 2026-11-15 | 성공 | 2025.11.4 보도자료 2026 장기요양 제도개선(전문요양실 52→90 목표) | F2A_contract_doctor |
 | https://www.mohw.go.kr/board.es?mid=a10503000000&bid=0027&act=view&list_no=1492396 | 2026-11-15 | 성공 | 2026.10.30 보도자료 2027 장기요양 제도개선(전문요양실 계약의사 방문 주1회, 95→130개소) | F2A_contract_doctor |
 | https://www.mohw.go.kr/board.es?mid=a10503000000&bid=0027&act=view&list_no=1492342 | 2026-11-15 | 성공 | 2026.10.28 건정심 보도자료 본문 | F2A_contract_doctor |
-| https://www.mohw.go.kr/boardDownload.es?bid=0027&list_no=1492342&seq=1 | 2026-11-15 | 성공 | 위 HWPX: 2026 의원 초진진찰료 197.12점×95.6원=18,840원, 2027 21,210원 | F2A_contract_doctor |
+| https://www.mohw.go.kr/boardDownload.es?bid=0027&list_no=1492342&seq=1 | 2026-11-15 | 성공 | 수가 보도자료 HWPX(2026.10.28.): 의원 초진진찰료 표; 위 HWPX: 2026 의원 초진진찰료 197.12점×95.6원=18,840원, 2027 21,210원 | F2A_contract_doctor, V1_verification |
 | https://www.mohw.go.kr/board.es?mid=a10503000000&bid=0027&act=view&list_no=1492051 | 2026-11-15 | 성공 | 2026.9.23 서울요양원 방문(전문요양실 계약의사 지도·감독) | F2A_contract_doctor |
 | https://www.mohw.go.kr/board.es?mid=a10503000000&bid=0027&act=view&list_no=1491601 | 2026-11-15 | 성공 | 2026.8.14 제7기 장기요양위원회(계약의사 언급 없음) | F2A_contract_doctor |
 | https://www.mohw.go.kr/boardDownload.es?bid=0027&list_no=1491533&seq=2 | 2026-11-15 | 성공 | 2025 장기요양실태조사 보도자료 PDF(계약의사 통계 없음) | F2A_contract_doctor |
@@ -277,18 +277,18 @@
 | https://www.hira.or.kr/bbs/157/2024/11/BZ202411140797067.pdf | 2026-11-15 | 성공(curl 3회째) | 일차의료 방문진료 수가 시범사업 지침(2024.11): 방문진료료Ⅰ·Ⅱ 점수, 가산, 월 60회/100회 상한, 본인부담 | F2B_homecare |
 | https://www.hira.or.kr/bbs/157/2024/02/BZ202402169628340.pdf | 2026-11-15 | 성공 | 장애인 건강 주치의 4단계 시범사업 지침(2024.2.28): 교육, 기관요건, 수가표, 본인부담 10% | F2B_homecare |
 | https://www.hira.or.kr/bbs/157/2024/07/BZ202407220278394.pdf | 2026-11-15 | 성공(내려받기만, 2026 보도자료로 대체) | 치매관리주치의 시범사업 지침(2024.7) | F2B_homecare |
-| https://www.mohw.go.kr/board.es?act=view&bid=0027&list_no=1490869&mid=a10503010100 | 2026-11-15 | 성공 | 재택의료센터 50개소 추가 선정(2026.6.16), 총 463개소, 협업형B | F2B_homecare |
+| https://www.mohw.go.kr/board.es?act=view&bid=0027&list_no=1490869&mid=a10503010100 | 2026-11-15 | 성공 | #3 재택의료센터 50개소 추가(총 463개) 보도자료; 재택의료센터 50개소 추가 선정(2026.6.16), 총 463개소, 협업형B | F2B_homecare, V2_verification |
 | https://www.mohw.go.kr/boardDownload.es?bid=0027&list_no=1490869&seq=2 | 2026-11-15 | 성공 | 보도참고자료 PDF: 사업개요, 2026 급여비용, 기관 명단(고양시 3곳) | F2B_homecare |
 | https://www.mohw.go.kr/board.es?act=view&bid=0003&list_no=1491152&mid=a10501010100 | 2026-11-15 | 성공 | 보건복지부 공고 제2026-554호 재택의료센터 지침 개정(시행 2026.7) | F2B_homecare |
-| https://www.mohw.go.kr/boardDownload.es?bid=0003&list_no=1491152&seq=1 | 2026-11-15 | 성공 | 재택의료센터 시범사업 지침(의원·병원·지역보건의료기관 의과) 2026.7: 인력, 산정지침, 급여목록, 140회 상한 | F2B_homecare |
+| https://www.mohw.go.kr/boardDownload.es?bid=0003&list_no=1491152&seq=1 | 2026-11-15 | 성공 | #2 재택의료센터 시범사업 지침 2026.7 PDF; 재택의료센터 시범사업 지침(의원·병원·지역보건의료기관 의과) 2026.7: 인력, 산정지침, 급여목록, 140회 상한 | F2B_homecare, V2_verification |
 | https://www.mohw.go.kr/board.es?mid=a10503010100&bid=0027&act=list (키워드 검색: 재택의료·방문진료·통합돌봄·위원회·치매·장애인 건강·일차의료 등) | 2026-11-15 | 성공(간헐 연결 재설정) | 보도자료 목록에서 관련 글 번호 확인 | F2B_homecare |
 | https://www.mohw.go.kr/board.es?mid=a10503010100&bid=0003&act=list (키워드 검색) | 2026-11-15 | 성공 | 공지사항 목록: 재택의료센터·방문진료·일차의료 혁신·치매주치의 공고 확인, 2027 재택의료센터 공모 미게시 확인 | F2B_homecare |
 | https://www.mohw.go.kr/board.es?act=view&bid=0003&list_no=1490198&mid=a10501010100 | 2026-11-15 | 성공 | 보건복지부 공고 제2026-346호 재택의료센터 2차 공모(’26.4.21~5.22), 공단 문의처 | F2B_homecare |
 | https://www.mohw.go.kr/boardDownload.es?bid=0003&list_no=1490198&seq=2 | 2026-11-15 | 성공 | 공모문 PDF: 사업기간 ’26.1.1~12.31, 신청요건, 협업형A/B 수가, 선정기준 | F2B_homecare |
 | https://www.mohw.go.kr/board.es?act=view&bid=0003&list_no=1492398&mid=a10501010100 | 2026-11-15 | 성공 | 보건복지부 공고 제2026-830호 장기요양 재택자립훈련 시범사업 공모(’26.11.2~11.20) | F2B_homecare |
 | https://www.mohw.go.kr/boardDownload.es?bid=0003&list_no=1492398&seq=2 | 2026-11-15 | 성공 | 재택자립훈련 공고문 PDF: 전담형만, 물리·작업치료사, 월 10회 | F2B_homecare |
-| https://www.mohw.go.kr/board.es?act=view&bid=0027&list_no=1489116&mid=a10503010100 | 2026-11-15 | 성공 | 재택의료센터 전국 229개 시군구 설치(2026.2.13), 연도별 기관 수 | F2B_homecare |
-| https://www.mohw.go.kr/boardDownload.es?bid=0027&list_no=1489116&seq=2 | 2026-11-15 | 성공 | 명단 PDF(고양시 소망의원 등) | F2B_homecare |
+| https://www.mohw.go.kr/board.es?act=view&bid=0027&list_no=1489116&mid=a10503010100 | 2026-11-15 | 성공 | #1 재택의료센터 229개 시군구 설치 보도자료 본문; 재택의료센터 전국 229개 시군구 설치(2026.2.13), 연도별 기관 수 | F2B_homecare, V2_verification |
+| https://www.mohw.go.kr/boardDownload.es?bid=0027&list_no=1489116&seq=2 | 2026-11-15 | 성공 | #1 첨부 PDF 붙임1 급여비용('26) 표; 명단 PDF(고양시 소망의원 등) | F2B_homecare, V2_verification |
 | https://www.law.go.kr/법령/의료·요양 등 지역 돌봄의 통합지원에 관한 법률 | 2026-11-15 | 성공(렌더링) | 돌봄통합지원법 본문(시행 2026.9.10. 법률 제21777호), 제11·15·16·26조, 부칙 시행일 | F2B_homecare |
 | https://www.law.go.kr/법령/의료·요양 등 지역 돌봄의 통합지원에 관한 법률 시행령 | 2026-11-15 | 성공(3회째) | 시행령(대통령령 제35897호, 시행 2026.3.27) 대상자·직권신청 | F2B_homecare |
 | https://www.law.go.kr/법령/의료·요양 등 지역 돌봄의 통합지원에 관한 법률 시행규칙 | 2026-11-15 | 성공(2회째) | 시행규칙(보건복지부령 제1161호, 시행 2026.3.27) 제7·9·14조 | F2B_homecare |
@@ -298,22 +298,22 @@
 | https://www.mohw.go.kr/boardDownload.es?bid=0027&list_no=1487324&seq=2 | 2026-11-15 | 성공 | 참여 지자체 현황: 고양시=기술지원형(기존 참여), 경기 예산지원형=부천·안산 | F2B_homecare |
 | https://www.mohw.go.kr/board.es?act=view&bid=0027&list_no=1489302&mid=a10503010100 | 2026-11-15 | 성공 | 통합돌봄 로드맵(2026.3.5) 1~3단계, 재택의료센터·방문진료 포함 | F2B_homecare |
 | https://www.mohw.go.kr/board.es?act=view&bid=0027&list_no=1487678&mid=a10503010100 | 2026-11-15 | 성공 | 제1차관 방문진료 의료기관 방문(2025.10.23) | F2B_homecare |
-| https://www.mohw.go.kr/board.es?act=view&bid=0027&list_no=1491488&mid=a10503010100 | 2026-11-15 | 성공 | 치매관리주치의 2차 시범사업 92개 시군구·의사 417명(2026.7.31) | F2B_homecare |
-| https://www.mohw.go.kr/boardDownload.es?bid=0027&list_no=1491488&seq=2 | 2026-11-15 | 성공 | 치매관리주치의 개요·수가표·명단(고양시 22기관·29명, 기존 선정) | F2B_homecare |
+| https://www.mohw.go.kr/board.es?act=view&bid=0027&list_no=1491488&mid=a10503010100 | 2026-11-15 | 성공 | #6 치매관리주치의 2차 보도자료 본문 (1차 렌더 upstream request failed, 재시도 성공); 치매관리주치의 2차 시범사업 92개 시군구·의사 417명(2026.7.31) | F2B_homecare, V2_verification |
+| https://www.mohw.go.kr/boardDownload.es?bid=0027&list_no=1491488&seq=2 | 2026-11-15 | 성공 | #6 첨부 PDF 개요·선정현황; 치매관리주치의 개요·수가표·명단(고양시 22기관·29명, 기존 선정) | F2B_homecare, V2_verification |
 | https://www.mohw.go.kr/board.es?act=view&bid=0027&list_no=1491010&mid=a10503010100 | 2026-11-15 | 성공 | 제12차 건정심(2026.6.25): 2026·2027 환산지수, 지역사회 일차의료 혁신 시범사업 변경안 | F2B_homecare |
 | https://www.mohw.go.kr/board.es?act=view&bid=0003&list_no=1488520&mid=a10501010100 | 2026-11-15 | 성공 | 보건복지부 공고 제2026-16호 방문진료 수가 시범사업 2026 상반기 공모 | F2B_homecare |
 | https://www.mohw.go.kr/boardDownload.es?bid=0003&list_no=1488520&seq=2 | 2026-11-15 | 성공 | 공모문 PDF: 신청대상, 선정기준(의사 1인 이상), 사업기간 문구 | F2B_homecare |
 | https://www.mohw.go.kr/board.es?act=view&bid=0003&list_no=1489329&mid=a10501010100 | 2026-11-15 | 성공 | 방문진료 신규 참여기관 선정결과(2026.3.6) 의과 126·한의 140, 참여일 ’26.3.9 | F2B_homecare |
-| https://www.mohw.go.kr/board.es?act=view&bid=0027&list_no=1492060&mid=a10503010100 | 2026-11-15 | 성공 | 지역사회 일차의료 혁신 시범사업 시작(2026.9.29), 120개 의원 | F2B_homecare |
-| https://www.mohw.go.kr/boardDownload.es?bid=0027&list_no=1492060&seq=2 | 2026-11-15 | 성공 | 참여기관 명단: 고양시 단독모형 1곳, 협력모형(거점 국민건강보험일산병원) | F2B_homecare |
+| https://www.mohw.go.kr/board.es?act=view&bid=0027&list_no=1492060&mid=a10503010100 | 2026-11-15 | 성공 | #5 시범사업 시작 보도자료 본문; 지역사회 일차의료 혁신 시범사업 시작(2026.9.29), 120개 의원 | F2B_homecare, V2_verification |
+| https://www.mohw.go.kr/boardDownload.es?bid=0027&list_no=1492060&seq=2 | 2026-11-15 | 성공 | #5 첨부 PDF 참여기관 명단; 참여기관 명단: 고양시 단독모형 1곳, 협력모형(거점 국민건강보험일산병원) | F2B_homecare, V2_verification |
 | https://www.mohw.go.kr/board.es?act=view&bid=0003&list_no=1491204&mid=a10501010100 | 2026-11-15 | 성공 | 보건복지부 공고 제2026-562호 일차의료 혁신 시범사업 공모 | F2B_homecare |
-| https://www.mohw.go.kr/boardDownload.es?bid=0003&list_no=1491204&seq=2 | 2026-11-15 | 성공 | 공모문 PDF: 기간 ’26.9~’29.8, 인력요건, 수가(HCC 분위별), 운영지원 3천만/1.5억, 중복참여 제한 | F2B_homecare |
+| https://www.mohw.go.kr/boardDownload.es?bid=0003&list_no=1491204&seq=2 | 2026-11-15 | 성공 | #5 지역사회 일차의료 혁신 시범사업 공모 공고문 PDF; 공모문 PDF: 기간 ’26.9~’29.8, 인력요건, 수가(HCC 분위별), 운영지원 3천만/1.5억, 중복참여 제한 | F2B_homecare, V2_verification |
 | https://www.mohw.go.kr/boardDownload.es?bid=0003&list_no=1491204&seq=4 | 2026-11-15 | 성공(내려받기만) | 설명회 질의응답 PDF | F2B_homecare |
-| https://www.mohw.go.kr/board.es?act=view&bid=0027&list_no=1488072&mid=a10503010100 | 2026-11-15 | 성공 | 제22차 건정심(2025.11.28): 방문진료 시범사업 2028.12까지 연장 | F2B_homecare |
-| https://www.mohw.go.kr/boardDownload.es?bid=0027&list_no=1488072&seq=1 | 2026-11-15 | 성공 | PDF 표: 산정횟수 100→140회, 방문진료만 참여 기관 60회, 보건소·병원 예외 허용 | F2B_homecare |
+| https://www.mohw.go.kr/board.es?act=view&bid=0027&list_no=1488072&mid=a10503010100 | 2026-11-15 | 성공 | #4 건정심 보도자료 본문 (1차 렌더 upstream request failed, 재시도 성공); 제22차 건정심(2025.11.28): 방문진료 시범사업 2028.12까지 연장 | F2B_homecare, V2_verification |
+| https://www.mohw.go.kr/boardDownload.es?bid=0027&list_no=1488072&seq=1 | 2026-11-15 | 성공 | #4 첨부 PDF (방문진료 산정횟수 100→140, 60회); PDF 표: 산정횟수 100→140회, 방문진료만 참여 기관 60회, 보건소·병원 예외 허용 | F2B_homecare, V2_verification |
 | https://www.law.go.kr/법령/노인장기요양보험법 시행규칙 | 2026-11-15 | 성공 | 제36조 방문간호지시서 발급비용 부담 비율 | F2B_homecare |
 | https://www.law.go.kr/LSW/admRulInfoR.do?admRulSeq=2100000285470 | 2026-11-15 | 성공 | 장기요양급여 제공기준 및 급여비용 산정방법 등에 관한 고시(제2026-189호, 시행 2026.10.1) 제27·78조 | F2B_homecare |
-| https://www.law.go.kr/LSW/flDownload.do?flSeq=169768549 | 2026-11-15 | 성공 | 제78조 별표 이미지: 의사소견서·방문간호지시서 발급비용(자-1, 자-2) | F2B_homecare |
+| https://www.law.go.kr/LSW/flDownload.do?flSeq=169768549 | 2026-11-15 | 성공 | 제78조 별표 이미지: 의사소견서·방문간호지시서 발급비용(자-1, 자-2); 제78조① 발급비용 표 이미지(GIF) | F2B_homecare, V1_verification |
 | https://www.law.go.kr/법령/의료법 시행규칙 | 2026-11-15 | 성공 | 제24조 가정간호(시행 2026.6.12 판) | F2B_homecare |
 | https://www.mohw.go.kr/board.es?act=view&bid=0027&list_no=1483237&mid=a10503010100 | 2026-11-15 | 성공 | 일차의료 만성질환관리 본사업 전환(2024.9.30) | F2B_homecare |
 | https://www.mohw.go.kr/board.es?act=view&bid=0027&list_no=1490460&mid=a10503010100 | 2026-11-15 | 성공 | 장애인 일차의료 활성화 간담회(2026.5.8): 건강주치의 '진행 중 시범사업' | F2B_homecare |
@@ -321,7 +321,7 @@
 | https://www.goyang.go.kr/www/index.do | 2026-11-15 | 성공 | 고양시청 메인 접속됨(브리프의 '차단'과 달리 재시도 시 200 OK, 425KB) | F2C_goyang |
 | https://www.data.go.kr/data/3080905/fileData.do | 2026-11-15 | 성공 | 경기도 고양시_노인복지시설(주거_의료_재가)현황 CSV(20260515) 내려받음: 498행, 노인의료복지시설 210·재가 278·주거 10 | F2C_goyang |
 | https://www.data.go.kr/data/15124763/fileData.do | 2026-11-15 | 성공 | 국민건강보험공단_장기요양기관 시설별 현황 xlsx(20260610) 내려받음: 기관별 유형·정원·인력(의사 전임/촉탁 포함) | F2C_goyang |
-| https://www.data.go.kr/data/15160442/fileData.do | 2026-11-15 | 성공 | 국민건강보험공단_경기도 시군구별 장기요양기관 및 장기요양요원 현황(26.5.31 기준) 구별 시설 수 | F2C_goyang |
+| https://www.data.go.kr/data/15160442/fileData.do | 2026-11-15 | 성공 | #8 데이터셋 메타(20260531 기준); 국민건강보험공단_경기도 시군구별 장기요양기관 및 장기요양요원 현황(26.5.31 기준) 구별 시설 수 | F2C_goyang, V2_verification |
 | https://www.data.go.kr/data/15146940/fileData.do | 2026-11-15 | 성공 | 국민건강보험공단_경기도 시군별 장기요양기관 및 종사자 현황(25.12.31 기준) 고양시 급여종류별 기관 수 | F2C_goyang |
 | https://www.data.go.kr/data/15149305/fileData.do | 2026-11-15 | 성공 | 국민건강보험공단_재택의료센터기관정보(발췌 2025-08-21) 고양시 2곳 | F2C_goyang |
 | https://www.data.go.kr/data/15165686/fileData.do | 2026-11-15 | 성공 | 국민건강보험공단_재택의료센터 주소정보(발췌 2026-09-09, 전국 503곳) 고양시 5곳, 일산서구 0곳 | F2C_goyang |
@@ -330,7 +330,7 @@
 | https://www.data.go.kr/data/15144843/fileData.do | 2026-11-15 | 성공 | 국민건강보험공단_장애인 건강주치의 의료기관 목록(20250721) 고양시 의과 11·치과 16 | F2C_goyang |
 | https://www.data.go.kr/data/3051420/fileData.do | 2026-11-15 | 성공 | 노인장기요양보험 인정현황(20251231) — 전국 단위만, 시군구 없음 | F2C_goyang |
 | https://www.data.go.kr/data/15116280/fileData.do | 2026-11-15 | 성공 | 노인장기요양보험 재가급여 종류별 이용 현황(2026.7.31 기준, 시군구·등급·연령) 고양 3개구 집계 | F2C_goyang |
-| https://jumin.mois.go.kr/etcStatOldAge.do | 2026-11-15 | 성공 | 2026년 10월 고양시·구·동별 총인구, 65세 이상 인구 | F2C_goyang |
+| https://jumin.mois.go.kr/etcStatOldAge.do | 2026-11-15 | 성공 | #7 65세 이상 인구 조회(경기도>고양시 일산서구, 2026.10, POST 조회); 2026년 10월 고양시·구·동별 총인구, 65세 이상 인구 | F2C_goyang, V2_verification |
 | https://jumin.mois.go.kr/ageStatMonth.do | 2026-11-15 | 성공 | 2026년 10월 고양시·구·주엽1/2동 10세 단위 연령별 인구 | F2C_goyang |
 | https://www.data.go.kr/data/3051421/fileData.do | 2026-11-15 | 성공 | 노인장기요양보험 등급판정 현황(20260930) — 2026.9월부터 시도 단위로만 제공, 고양시 인정자 수 없음 | F2C_goyang |
 | https://www.data.go.kr/data/15103041/fileData.do | 2026-11-15 | 성공(내려받기 링크 없음) | 장기요양보험통계연보 데이터셋 — 2021년판 메타만 확인 | F2C_goyang |
@@ -354,7 +354,7 @@
 | https://www.goyang.go.kr/news/user/bbs/BD_selectBbs.do?q_bbsCode=1090&q_bbscttSn=20261012133858994 | 2026-11-15 | 성공 | 2026-10-12 고양형 통합돌봄 '고양온돌' 보도자료(대상 약 4만2천명, 고양시의사회 협력 등) | F2C_goyang |
 | https://www.goyang.go.kr/news/user/bbs/BD_selectBbs.do?q_bbsCode=1090&q_bbscttSn=20260815112035988 | 2026-11-15 | 성공 | 2026-08 경기도사회서비스원 통합돌봄 지원사업 협약 | F2C_goyang |
 | https://www.goyang.go.kr/news/user/bbs/BD_selectBbs.do?q_bbsCode=1090&q_bbscttSn=20260601121049480 | 2026-11-15 | 성공 | 2026-06-01 통합돌봄 퇴원환자 발굴 간담회(종합병원 7곳) | F2C_goyang |
-| https://www.goyang.go.kr/news/user/bbs/BD_selectBbs.do?q_bbsCode=1090&q_bbscttSn=20260624175635643 | 2026-11-15 | 성공 | 2026-06-23 재택의료센터 추가 선정(심욱섭소아과의원=고양시의사회장 의료기관), 5곳 명단·전화 | F2C_goyang |
+| https://www.goyang.go.kr/news/user/bbs/BD_selectBbs.do?q_bbsCode=1090&q_bbscttSn=20260624175635643 | 2026-11-15 | 성공 | #9 고양시 재택의료센터 추가 선정 보도자료; 2026-06-23 재택의료센터 추가 선정(심욱섭소아과의원=고양시의사회장 의료기관), 5곳 명단·전화 | F2C_goyang, V2_verification |
 | https://www.goyang.go.kr/news/user/bbs/BD_selectBbs.do?q_bbsCode=1090&q_bbscttSn=20260428193415287 | 2026-11-15 | 성공 | 2026-04-28 고양시 재택의료센터 참여기관 공모(5.18 마감, 전담형), 일산서구보건소 031-8075-4171 | F2C_goyang |
 | https://www.goyang.go.kr/news/user/bbs/BD_selectBbs.do?q_bbsCode=1090&q_bbscttSn=20260709161943715 | 2026-11-15 | 성공 | 2026-07-09 재택의료센터 사업 안내(장기요양기관 종사자 200여 명) | F2C_goyang |
 | https://www.goyang.go.kr/dong/user/bbs/BD_selectBbs.do?q_bbsCode=1071&q_bbscttSn=20260122150323171&q_clCode=2 | 2026-11-15 | 성공 | 2026-01-22 관산동 재택의료센터 홍보(2025 수가 기준) | F2C_goyang |
@@ -591,7 +591,7 @@
 | https://pubmed.ncbi.nlm.nih.gov/37118425/ | 2026-11-15 | 성공(E-utilities 초록) | CALERIE DNA 메틸화 2023 | F3C_procedures_tests |
 | https://www.korea.kr/briefing/pressReleaseList.do?srchKeyword=엑소좀 | 2026-11-15 | 부분성공 | 보도자료 목록 렌더링됨, 엑소좀 관련 항목 미검출 | F3C_procedures_tests |
 | https://www.korea.kr/news/policyNewsView.do?newsId=148961424 | 2026-11-15 | 성공(헤드리스) | 식약처 정책뉴스(2026.03.25 표기) "화장품은…피부 내에 주사하여 사용할 수 없습니다" | F3C_procedures_tests |
-| https://www.korea.kr/news/policyNewsView.do?newsId=148959950 | 2026-11-15 | 성공(헤드리스) | 2026.02.25 대장암 국가검진 45~74세 10년 주기 대장내시경 도입 방침, 목표 2028년 | F3C_procedures_tests |
+| https://www.korea.kr/news/policyNewsView.do?newsId=148959950 | 2026-11-15 | 성공(헤드리스) | #15 대장내시경 국가암검진 정책뉴스; 2026.02.25 대장암 국가검진 45~74세 10년 주기 대장내시경 도입 방침, 목표 2028년 | F3C_procedures_tests, V2_verification |
 | https://www.mohw.go.kr/board.es?act=view&bid=0027&list_no=1491824&mid=a10503010100 | 2026-11-15 | 성공 | 복지부 보도자료 2026-09-08: 중증 2형 당뇨까지 CGM·인슐린펌프 지원 확대, CGM 가격 | F3C_procedures_tests |
 | https://www.data.go.kr/data/15152587/fileData.do | 2026-11-15 | 성공 | 건보공단 수가코드 D2620 리포프로테인(a)[정밀면역검사] 진료현황(의원 포함) | F3C_procedures_tests |
 | https://www.law.go.kr/법령/혈액관리법 | 2026-11-15 | 성공(헤드리스) | 제3조 혈액 매매 금지, 제6조 혈액관리업무 주체, 시행 2023.6.22 | F3C_procedures_tests |
@@ -619,13 +619,13 @@
 | https://www.mohw.go.kr/board.es?mid=a10503010100&bid=0027&act=view&list_no=1488167 | 2026-11-15 | 성공 | 2025-12-09 관리급여 3개 항목 선정, 체외충격파·언어치료 재논의 | F3D_longevity_market |
 | https://www.mohw.go.kr/board.es?mid=a10503010100&bid=0027&act=view&list_no=1490729 | 2026-11-15 | 성공 | 2026-06-04 건정심: 도수치료 43,850원, 주2회·연15~24회, 평가주기 3년 | F3D_longevity_market |
 | https://www.mohw.go.kr/board.es?mid=a10503010100&bid=0027&act=view&list_no=1491109 | 2026-11-15 | 성공 | 2026-07-01 도수치료 관리급여 시행, 이전 평균 약 11만 원 | F3D_longevity_market |
-| https://www.mohw.go.kr/board.es?mid=a10503010100&bid=0027&act=view&list_no=1488880 | 2026-11-15 | 성공 | 2026-01-29 2025.3월분 비급여 2조1,019억 원, 의과 상위10(영양주사 4위) | F3D_longevity_market |
-| https://www.mohw.go.kr/boardDownload.es?bid=0027&list_no=1488880&seq=2 | 2026-11-15 | 성공 | 첨부 PDF: 영양주사 전체 558억/의원급 417억 원(월), 의과의원 8.3% | F3D_longevity_market |
+| https://www.mohw.go.kr/board.es?mid=a10503010100&bid=0027&act=view&list_no=1488880 | 2026-11-15 | 성공 | #11 비급여 보고 분석 보도자료 본문; 2026-01-29 2025.3월분 비급여 2조1,019억 원, 의과 상위10(영양주사 4위) | F3D_longevity_market, V2_verification |
+| https://www.mohw.go.kr/boardDownload.es?bid=0027&list_no=1488880&seq=2 | 2026-11-15 | 성공 | #11 첨부 PDF 표 5-3; 첨부 PDF: 영양주사 전체 558억/의원급 417억 원(월), 의과의원 8.3% | F3D_longevity_market, V2_verification |
 | https://www.mohw.go.kr/boardDownload.es?bid=0027&list_no=1491789&seq=2 | 2026-11-15 | 성공 | 첨부 PDF: 공개 현황(영양주사 항목별 가격은 없음) | F3D_longevity_market |
-| https://www.mohw.go.kr/board.es?mid=a10503010100&bid=0027&act=view&list_no=1490777 | 2026-11-15 | 성공 | 2026-06-10 비정상·가짜진료 행정조사반(6.15~), 시행령 제32조 적용 | F3D_longevity_market |
-| https://www.mohw.go.kr/board.es?mid=a10503010100&bid=0027&act=view&list_no=1492485 | 2026-11-15 | 성공 | 2026-11-10 킬레이션 주사 의료기관 행정조사, 제보 129 | F3D_longevity_market |
+| https://www.mohw.go.kr/board.es?mid=a10503010100&bid=0027&act=view&list_no=1490777 | 2026-11-15 | 성공 | #13 행정조사반 출범 보도참고자료(시행령 제32조 언급); 2026-06-10 비정상·가짜진료 행정조사반(6.15~), 시행령 제32조 적용 | F3D_longevity_market, V2_verification |
+| https://www.mohw.go.kr/board.es?mid=a10503010100&bid=0027&act=view&list_no=1492485 | 2026-11-15 | 성공 | #13 킬레이션 주사 행정조사 보도참고자료 본문; 2026-11-10 킬레이션 주사 의료기관 행정조사, 제보 129 | F3D_longevity_market, V2_verification |
 | https://www.mohw.go.kr/board.es?mid=a10503010100&bid=0027&act=view&list_no=1488108 | 2026-11-15 | 성공 | 2025-12-02 비대면진료 의료법 개정 통과, 공포 1년 후 시행, 중개매체 광고 사전심의 | F3D_longevity_market |
-| https://www.mohw.go.kr/board.es?mid=a10503010100&bid=0027&act=view&list_no=1492252 | 2026-11-15 | 성공(재시도) | 2026-10-18 시행규칙 입법예고: 비만치료제 비대면 처방 원칙 금지, 12.24 시행, 의료정보정책과 044-202-2612 | F3D_longevity_market |
+| https://www.mohw.go.kr/board.es?mid=a10503010100&bid=0027&act=view&list_no=1492252 | 2026-11-15 | 성공(재시도) | #12 비대면진료 시행규칙 입법예고 보도자료; 2026-10-18 시행규칙 입법예고: 비만치료제 비대면 처방 원칙 금지, 12.24 시행, 의료정보정책과 044-202-2612 | F3D_longevity_market, V2_verification |
 | https://www.mohw.go.kr/board.es?mid=a10503010100&bid=0027&act=view&list_no=1491628 | 2026-11-15 | 성공 | 2026-08-20 비대면 약배송, 12.24 시행 확인 | F3D_longevity_market |
 | https://www.mohw.go.kr/board.es?mid=a10503010100&bid=0027&act=view&list_no=1483765 | 2026-11-15 | 성공 | 2024-11-29 비대면 비만치료제 처방 제한(12.2~), 대상 성분 목록 | F3D_longevity_market |
 | https://www.mohw.go.kr/board.es?mid=a10503010100&bid=0027&act=view&list_no=1483352 | 2026-11-15 | 성공 | 2023 노인실태조사: 가구소득 3,469만, 금융자산 4,912만, 만성질환 2.2개 | F3D_longevity_market |
@@ -642,6 +642,18 @@
 | WebSearch: FDA 컴파운딩 GLP-1·펩타이드(Pharmacy Times, AJMC) | 2026-11-15 | 성공(검색 요약) | 503B 제외 규칙안, PCAC 2026-07 권고 | F3D_longevity_market |
 | WebSearch: 고양시·일산서구·주엽동 인구 | 2026-11-15 | 성공(검색 요약) | 고양 65+ 18.6%, 일산서구 27.6만, 주엽동 5.2만·65+ 22.9% | F3D_longevity_market |
 | WebSearch: 식약처 웰니스·디지털의료제품 | 2026-11-15 | 성공(검색 요약) | 지침서-0091-03(2026-02-12), 건강지원기기 제도 | F3D_longevity_market |
+| https://www.law.go.kr/LSW/admRulLsInfoR.do (POST admRulSeq=2100000287562) | 2026-11-15 | 성공 | 위험도 구분 고시 본문 제1~4조·부칙 | V1_verification |
+| https://www.law.go.kr/LSW/flDownload.do?flSeq=166840543&bylClsCd=200201 | 2026-11-15 | 성공(1차 connection reset, 재시도 성공) | 제2026-146호 별표1 PDF: 987까지 수록 | V1_verification |
+| https://www.law.go.kr/LSW/flDownload.do?flSeq=164654507&bylClsCd=200201 | 2026-11-15 | 성공 | 제2026-120호 별표1 PDF: 985까지 수록(987 없음) | V1_verification |
+| https://www.mohw.go.kr/boardDownload.es?bid=0027&list_no=1489116&seq=1 | 2026-11-15 | 성공 | #1 첨부 hwpx (내려받음, PDF판으로 대조) | V2_verification |
+| https://jumin.mois.go.kr/selectHangkikcdListAjax.do | 2026-11-15 | 성공 | #7 행정기관 코드 목록(고양시 4128000000) | V2_verification |
+| https://www.data.go.kr/tcs/dss/selectFileDataDownload.do?publicDataPk=15160442&publicDataDetailPk=uddi:74fdfb85-43ba-4a8a-9d7e-eeec5bd3b262&fileDetailSn=1 | 2026-11-15 | 성공 | #8 다운로드 파일ID 조회 | V2_verification |
+| https://www.data.go.kr/cmm/cmm/fileDownload.do?atchFileId=FILE_000000003679829&fileDetailSn=1 | 2026-11-15 | 성공 | #8 XLSX 원문 파일 | V2_verification |
+| https://www.mohw.go.kr/boardDownload.es?bid=0027&list_no=1492252&seq=4 | 2026-11-15 | 성공 | #12 별첨1 의료법 시행규칙 개정령안 PDF(제31조의10, 부칙) | V2_verification |
+| https://www.mohw.go.kr/boardDownload.es?bid=0027&list_no=1492485&seq=2 | 2026-11-15 | 성공 | #13 첨부 PDF (시행령 제32조 언급 없음 확인) | V2_verification |
+| https://www.law.go.kr/%ED%96%89%EC%A0%95%EA%B7%9C%EC%B9%99/%ED%97%88%EA%B0%80%EB%98%90%EB%8A%94%EC%8B%A0%EA%B3%A0%EB%B2%94%EC%9C%84%EC%B4%88%EA%B3%BC%EC%95%BD%EC%A0%9C%EB%B9%84%EA%B8%89%EC%97%AC%EC%82%AC%EC%9A%A9%EC%8A%B9%EC%9D%B8%EC%97%90%EA%B4%80%ED%95%9C%EA%B8%B0%EC%A4%80%EB%B0%8F%EC%A0%88%EC%B0%A8 | 2026-11-15 | 성공 | #16 행정규칙 페이지(헤드리스 렌더는 upstream request failed, curl로 셸 수신: 제2020-140호, admRulSeq 확인) | V2_verification |
+| https://www.law.go.kr/LSW/admRulLsInfoR.do | 2026-11-15 | 성공 | #16 본문 조문(POST admRulSeq=2100000191300) 제3조① | V2_verification |
+| https://www.hira.or.kr/ra/medi/getHistoryList.do?pgmid=HIRAA030035020000 | 2026-11-15 | 성공 | #17 약제급여목록 이력 검색(마운자로·위고비·오젬픽, POST artcNm) | V2_verification |
 | https://www.law.go.kr | 2026-11-15 | 성공(헤드리스 브라우저) | 첨단재생바이오법 현행 시행일·법률번호, 제2조 원문 | _main |
 | https://www.mohw.go.kr | 2026-11-15 | 성공 | 접속 확인 | _main |
 | https://www.hira.or.kr | 2026-11-15 | 성공 | 접속 확인 | _main |
