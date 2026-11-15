@@ -1,2 +1,6 @@
 https://www.nhis.or.kr/	2026-11-15	실패(Connection reset by peer, 재시도)	건보공단 장기요양 안내
 https://www.longtermcare.or.kr/	2026-11-15	실패(Connection reset by peer, 재시도)	장기요양 계약의사 안내
+https://www.law.go.kr/법령/노인장기요양보험법시행규칙	2026-11-15	성공	시행 2025.12.12 복지부령 제1138호 본문 전체에 '계약의사' 0건(제23조의2 등 계약의사 조항 없음)
+https://www.law.go.kr/법령/노인복지법시행규칙	2026-11-15	성공	시행 2025.12.29 복지부령 제1143호, 제22조(별표4·5 위임)
+https://www.law.go.kr/LSW/flDownload.do?gubun=&flSeq=164709233&bylClsCd=110201	2026-11-15	성공	노인복지법 시행규칙 별표4(개정 2024.12.31) PDF: 직원배치기준 의사 또는 계약의사, 비고3·4
+https://www.law.go.kr/LSW/flDownload.do?gubun=&flSeq=164709251&bylClsCd=110201	2026-11-15	성공(1차 연결 재설정 후 재시도)	노인복지법 시행규칙 별표5(개정 2021.6.30) PDF: 건강관리 1호 나·다목, 6호 카목
