@@ -51,3 +51,33 @@ https://www.health.kr/api/drug/2015121800015?expert=0	2026-11-15	성공	네비�
 https://www.health.kr/api/searchDrug?drugName=에스트라디올	2026-11-15	성공	MHT 제품 급여 현황: 프로기노바·프레다·프레미나·안젤릭·페모스톤·티볼론·유트로게스탄 연질캡슐 급여, 디비겔·에스트레바겔·듀아비브 비급여
 https://www.health.kr/api/drug/(프로기노바28정1mg)?expert=0	2026-11-15	성공	프로기노바 효능: 갱년기 증상경감 HRT, 급여 114원/정(2018-07-25)
 https://www.health.kr/api/searchDrug?drugName=지노트로핀	2026-11-15	성공	지노트로핀 효능: 소아 성장부전·성인 GHD(two dynamic test 확진), 급여
+https://pubmed.ncbi.nlm.nih.gov/41223873/	2026-11-15	성공	KJIM 2025 리뷰: 근감소증 ICD-10-CM M62.84, KCD-8 M62.5; 허가 약물 없음
+https://pubmed.ncbi.nlm.nih.gov/36958807/	2026-11-15	성공	KWGS 2023 진단 가이드라인(진단코드·신의료기술 도입 언급)
+https://pubmed.ncbi.nlm.nih.gov/42512588/	2026-11-15	성공	국내 청구자료 연구에서 KCD M62.5를 근감소증 대리코드로 사용
+https://common.health.kr/shared/healthkr/pharmreview/팜리뷰_24_08_근감소증.pdf	2026-11-15	실패(프록시 차단 403)	약학정보원 팜리뷰 근감소증
+https://kssc.kostat.go.kr/	2026-11-15	실패(프록시 차단)	KCD 원문 확인 시도
+https://www.hira.or.kr/co/search.do?query=근감소증	2026-11-15	성공(헤드리스)	심평원 통합검색 근감소증 3건
+https://www.hira.or.kr/rc/insu/insuadtcrtr/InsuAdtCrtrPopup.do?mtgHmeDd=20231001&sno=2&mtgMtrRegSno=2&brdScnBltNo=4&brdBltNo=	2026-11-15	성공(헤드리스)	고시 제2023-181호: 근감소증 부위별 다주파수 BIA 체성분분석 = 진찰료·입원료에 포함; 2023.10.5~ 집행정지, 한시적 비급여 가능
+https://www.hira.or.kr/rc/insu/insuadtcrtr/InsuAdtCrtrPopup.do?mtgHmeDd=20231001&sno=10&mtgMtrRegSno=1&brdScnBltNo=4&brdBltNo=	2026-11-15	성공(헤드리스)	보험급여과-5432호 집행정지 통보(서울행정법원 제12부 2023.10.5/10.26/11.7 결정)
+https://pubmed.ncbi.nlm.nih.gov/41772149/	2026-11-15	성공	BELIEVE 2상 Nat Med 2026 비마그루맙+세마글루타이드 n=507 체중 -17.8kg
+https://pubmed.ncbi.nlm.nih.gov/42260100/	2026-11-15	성공	EMBRAZE 2상 아피테그로맙+티르제파타이드 n=102 제지방 손실 1.9kg 적음
+https://pubmed.ncbi.nlm.nih.gov/42530342/	2026-11-15	성공	비마그루맙 메타분석 2026(4 RCT): 제지방 +1.66kg, 중단·근경련·설사 증가, LDL 상승
+https://pubmed.ncbi.nlm.nih.gov/33074327/	2026-11-15	성공	Rooks 2020 비마그루맙 근감소증 RCT n=180: SPPB 차이 없음
+https://pubmed.ncbi.nlm.nih.gov/24866862/	2026-11-15	성공	LIFE 연구 JAMA 2014 n=1635: 주요 이동장애 HR 0.82
+https://pubmed.ncbi.nlm.nih.gov/26170041/	2026-11-15	성공	PROVIDE 2015 n=380: 악력·SPPB 차이 없음, 의자일어서기·사지근육량 소폭 개선
+https://pubmed.ncbi.nlm.nih.gov/32033882/	2026-11-15	성공	AWGS 2019 진단 기준(악력 28/18kg, 6m 보행 1.0m/s, DXA 7.0/5.4, BIA 7.0/5.7)
+https://clinicaltrials.gov/api/v2/studies?query.term=enobosarm	2026-11-15	성공	Veru 에노보사름+GLP-1 2상 NCT07446998 n=239 PCD 2027-10
+https://clinicaltrials.gov/api/v2/studies?query.term=bimagrumab	2026-11-15	성공	릴리 비마그루맙+티르제파타이드 2상 NCT06643728 n=252 PCD 2026-01-16
+https://clinicaltrials.gov/api/v2/studies?query.term=trevogrumab	2026-11-15	성공	리제네론 COURAGE NCT06299098 n=1005 PCD 2026-06-16 완료
+https://www.fda.gov/news-events/press-announcements/hhs-advances-womens-health-removes-misleading-fda-warnings-hormone-replacement-therapy	2026-11-15	성공	2025-11-10 FDA/HHS: HRT 박스경고(심혈관·유방암·치매) 삭제 착수, 에스트로겐 단독 자궁내막암 경고는 유지
+https://www.hhs.gov/press-room/hhs-advances-womens-health-removes-misleading-fda-warnings-hormone-replacement-therapy.html	2026-11-15	실패(프록시 403)	HHS 보도자료 사본
+https://pubmed.ncbi.nlm.nih.gov/28898378/	2026-11-15	성공	WHI 18년 추적 전체사망 HR 0.99
+https://pubmed.ncbi.nlm.nih.gov/38691368/	2026-11-15	성공	Manson 2024 JAMA WHI 리뷰: 만성질환 예방 목적 MHT 지지 안 함
+https://pubmed.ncbi.nlm.nih.gov/41687116/	2026-11-15	성공(제목만)	Obstet Gynecol 2026 박스경고 삭제 논평
+https://www.hira.or.kr/rc/insu/insuadtcrtr/InsuAdtCrtrPopup.do?mtgHmeDd=20231001&sno=6&mtgMtrRegSno=4&brdScnBltNo=4&brdBltNo=	2026-11-15	성공(헤드리스)	고시 제2023-184호 Estradiol valerate 경구제: 허가사항 범위 내 급여 인정(2023.10.1)
+https://pubmed.ncbi.nlm.nih.gov/37326322/	2026-11-15	성공	TRAVERSE NEJM 2023 n=5246 MACE HR 0.96 비열등; 심방세동·급성신손상·폐색전 증가
+https://pubmed.ncbi.nlm.nih.gov/38231621/	2026-11-15	성공	TRAVERSE 골절 하위연구 NEJM 2024: 골절 HR 1.43
+https://pubmed.ncbi.nlm.nih.gov/37889486/	2026-11-15	성공	TRAVERSE 빈혈 하위연구 JAMA Netw Open 2023: 빈혈 교정 증가
+https://www.fda.gov/drugs/drug-safety-and-availability/fda-issues-class-wide-labeling-changes-testosterone-products	2026-11-15	성공	2025-02-28 FDA: 박스경고 중 심혈관 위험 문구 삭제, 연령관련 성선저하 '사용 제한' 유지, 혈압 경고 추가
+https://www.hira.or.kr/co/search.do?query=테스토스테론	2026-11-15	성공(헤드리스)	심평원 검색: 테스토스테론 관련 고시·행정해석
+https://www.hira.or.kr/rc/insu/insuadtcrtr/InsuAdtCrtrPopup.do?mtgHmeDd=20180401&sno=1&mtgMtrRegSno=12&brdScnBltNo=4&brdBltNo=	2026-11-15	성공(헤드리스)	고시 제2018-58호 안드리올 급여기준(총T<200ng/dL+증상, 갱년기장애 비급여) — 고시 제2021-337호(2022.1.1)로 삭제

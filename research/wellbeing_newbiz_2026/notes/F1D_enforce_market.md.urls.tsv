@@ -32,3 +32,13 @@ https://www.fss.or.kr/	2026-11-15	실패(프록시 403, WebFetch DNS 차단)	금
 https://glaw.scourt.go.kr/	2026-11-15	실패(프록시 403)	대법원 판결서 확인 불가
 https://www.hira.or.kr/main.do	2026-11-15	실패(60초 타임아웃)	심평원 비급여 진료비 확인 불가
 https://www.khidi.or.kr/ ; https://dart.fss.or.kr/ ; https://www.kpmr.or.kr/	2026-11-15	실패(프록시 403)	보건산업진흥원·DART·재생의료진흥재단 확인 불가
+https://www.k-arm.go.kr/common/fileDown.do?key=80932&type=brd	2026-11-15	성공	[복지부 제2026-826호] 첨단재생의료실시기관 지정 현황('26.10월): 264개(재생-1 159, 재생-2 63, 재생-3 42), 고양·파주 소재 기관 확인
+https://www.k-arm.go.kr/common/fileDown.do?key=81311&type=brd	2026-11-15	성공	첨단재생의료 실시계획 적합·승인 현황('26.10월): 치료계획 1건, 연구계획 68건; 노인성 근감소증 SVF+BMAC 정맥투여(제일정형외과병원, 저위험, 2026-03-26)
+https://www.mohw.go.kr/board.es?mid=a10503010100&bid=0027&act=view&list_no=1491789	2026-11-15	성공	2026-09-03 비급여 진료비용 공개(753항목, 74,449기관): 보도자료에 BMAC·SVF·PRP 항목 가격 없음
+https://www.mohw.go.kr/board.es?mid=a10503010100&bid=0027&act=view&list_no=1488384	2026-11-15	성공	2025-12-28 첨단재생의료 제도개선(정부주도 임상: 해외원정 수요 질환)
+https://www.mohw.go.kr/board.es?mid=a10503010100&bid=0027&act=list&keyField=TITLE&keyWord=의료광고 / 가이드라인	2026-11-15	성공	재생의료 광고 가이드라인 발표 없음(2027.3 예정과 일치)
+https://www.law.go.kr/법령/화장품법	2026-11-15	성공(헤드리스)	[시행 2026.10.20.] 법률 제22113호 제2조1호 화장품 정의(바르고 문지르거나 뿌리는…)
+https://www.law.go.kr/법령/약사법	2026-11-15	성공(헤드리스, 1회 upstream 실패 후 재시도)	[시행 2026.11.12.] 법률 제21692호 제61조(판매 등의 금지), 제93조①4·5·10호(5년/5천만)
+https://www.mhlw.go.jp/stf/newpage_71555.html	2026-11-15	성공	2026-03-13 후생노동성 긴급명령: 긴자 클리닉 자가지방유래 MSC 투여 중 외국적 환자 사망, 세포는 JASC 교토 및 한국 RBio(서울) 제조
+https://kcia.or.kr/ad/cs/notice.php?no=15680&type=view	2026-11-15	실패(WebFetch DNS 차단)	식약처 화장품 광고(줄기세포·엑소좀 표현) 원문 확인 불가
+WebSearch(뉴스 요약 다수: asiae, dailymedi, medicaltimes, mdtoday, nocutnews, nate, dailypharm, mt.co.kr, imaeil, news.bizwatch, v.daum 등)	2026-11-15	요약만(직접 열람 불가)	단속·수사 사례, 실손 판결, 가격, 기업 실적 → 모두 [추론]
