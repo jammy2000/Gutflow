@@ -1,86 +1,136 @@
 # -*- coding: utf-8 -*-
 """웰빙내과 수액실 — 기본 자료 (프로그램 · 등급 · 조제 · 보충제 · 확인 항목)
 
-원내 조제표(MC·PNT·색 프로그램)를 바탕으로 짠 초안이다.
+11-17 부원장님: 「지금 웰빙내과에 있는 수액 자원」(EMR 수액 목록)으로 짠다.
+  써프라민 · N/S 100mL · 삐콤헥사 · 메리트씨 · 마시주 · 라노빈 · 진코발 · 비치라이트
+  + 디펩티벤(장면역강화) · 라이넥(입고 예정). 히시파겐C는 허가 취하로 뺌.
 가격·구성은 화면 「설정」에서 원장님이 바꿀 수 있고, 바꾼 값은 DB에 따로 저장된다.
 이 파일은 '처음 값'만 가진다.
 
-제품 성분은 식약처 의약품안전나라 허가정보로 확인(2026-11-17).
+제품 성분·배합 주의는 식약처 의약품안전나라 허가정보로 확인(2026-11-17).
 """
 import copy
+import math
 
 TIER_NAME = {"basic": "기본", "plus": "플러스", "premium": "프리미엄"}
 TIERS = ["basic", "plus", "premium"]
 
-SBP_NO_MG = 100          # 원내 규칙: 수축기 100 이하면 메가네슘 섞지 않기
+SBP_NO_MG = 100          # 원내 규칙: 수축기 100 이하면 마그네슘 섞지 않기
 PACKAGE_DISCOUNT = 10    # 코스(회차권) 기본 할인율 %, 설정에서 바꿈
 
-# ───────────────────────── 성분 ─────────────────────────
-# flags: 오늘 확인 결과로 빼는 묶음 이름
-# add_ml: 섞을 때 늘어나는 양(주입 속도 계산용, 큰 것만)
+# ───────────────────────── 원내 수액 재고 ─────────────────────────
+# flags : 오늘 확인 결과로 빼는 묶음 (바탕액에 붙으면 그 백 전체가 빠짐)
+# groups: 「같이 섞으면 안 되는 조합」 규칙에 쓰는 묶음
+# unit "mL" 이면 qty가 곧 늘어나는 양, 아니면 add_ml × qty
 ING = {
     # 바탕액
-    "NS110": {"name": "N/S 110mL", "unit": "", "ml": 110, "base": True, "generic": "생리식염수"},
-    "NS250": {"name": "N/S 250mL", "unit": "", "ml": 250, "base": True, "generic": "생리식염수"},
-    "NS500": {"name": "N/S 500mL", "unit": "", "ml": 500, "base": True, "generic": "생리식염수"},
-    "HS500": {"name": "하트만 500mL", "unit": "", "ml": 500, "base": True, "generic": "하트만액(젖산링거)"},
-    "DW250": {"name": "D/W 250mL", "unit": "", "ml": 250, "base": True, "dextrose": True,
-              "swap_to": "NS250", "generic": "5% 포도당"},
+    "NS100": {"name": "N/S 100mL", "unit": "", "ml": 100, "base": True,
+              "generic": "생리식염수 100mL 백 (중외)"},
+    "SUP100": {"name": "써프라민 100mL", "unit": "", "ml": 100, "base": True,
+               "generic": "아미노산 7.5% (간장애용 BCAA 고함량, 아황산·시스테인 함유)",
+               "flags": ["aa", "sulfite"], "groups": ["aa_base"],
+               "mix": "100mL당 36분 이상 · 비타민 넣으면 바로 투여"},
+    "SHOT": {"name": "따로 주사 (피하·근육)", "unit": "", "ml": 0, "base": True, "shot": True,
+             "generic": "수액 백에 섞지 않고 같은 날 따로 주사"},
     # 섞는 약
-    "megagreen": {"name": "메가그린", "unit": "V", "generic": "비타민C 10g/20mL", "add_ml": 20,
-                  "flags": ["vitc_high"],
-                  "notice": "비타민C: 팔이 뻐근하면 속도 줄이기 · 10시간 동안 손끝 혈당이 높게 나올 수 있음"},
-    "meganesium": {"name": "메가네슘", "unit": "cc", "generic": "황산마그네슘 10% (5cc=0.5g)",
-                   "flags": ["mg"], "notice": "마그네슘: 몸이 화끈거릴 수 있음 → 천천히"},
-    "vitao": {"name": "비타오", "unit": "A", "generic": "D-판테놀(B5) 500mg/2mL",
-              "mix": "직접 정맥주사 금지, 꼭 희석"},
-    "vita6": {"name": "비타식스", "unit": "A", "generic": "피리독신(B6) 50mg/1mL"},
-    "vita12": {"name": "비타일이", "unit": "A", "generic": "히드록소코발라민(B12) 5mg/2mL"},
-    "fursul": {"name": "푸르설타민", "unit": "A", "generic": "푸르설티아민(B1) 50mg/10mL", "add_ml": 10,
-               "flags": ["b1"], "notice": "마늘주사: 입에서 마늘 냄새 · 혈관통 → 천천히"},
-    "hisi": {"name": "히시파겐C", "unit": "A", "generic": "글리시리진·글리신·시스테인(감초) 20mL",
-             "add_ml": 20, "flags": ["licorice"],
-             "mix": "2026-08 허가 취하 → 재고 소진 뒤 글리파겐주·지씨웰빙글리메타주로 바꾸기"},
+    "meritc": {"name": "메리트씨", "unit": "mL", "generic": "아스코르브산 500mg/mL (20mL=10g)",
+               "flags": ["vitc_high"], "groups": ["vitc", "bicarb"],
+               "mix": "냉장 보관 · 차광 · 천천히",
+               "notice": "비타민C: 팔이 뻐근하면 속도 줄이기 · 10시간 동안 손끝 혈당이 높게 나올 수 있음"},
+    "masi": {"name": "마시주", "unit": "mL", "generic": "황산마그네슘 10% (10mL=1g)",
+             "flags": ["mg"], "groups": ["mg"], "mix": "1g당 30분 이상",
+             "notice": "마그네슘: 몸이 화끈거릴 수 있음 → 천천히"},
+    "bcx": {"name": "삐콤헥사", "unit": "A", "add_ml": 2,
+            "generic": "B1·B2·B6·B12·니코틴아미드·판테놀 2mL (아황산 함유)",
+            "flags": ["sulfite"], "groups": ["bcx"], "mix": "차광 · 섞은 뒤 바로",
+            "notice": "비타민B: 소변이 진한 노란색이 될 수 있음"},
+    "lanovin": {"name": "라노빈", "unit": "A", "add_ml": 2, "generic": "히드록소코발라민(B12) 5mg/2mL",
+                "groups": ["b12h"], "mix": "차광"},
+    "jinko": {"name": "진코발", "unit": "A", "add_ml": 5, "generic": "은행엽엑스 17.5mg/5mL",
+              "flags": ["ginkgo"], "groups": ["ginkgo"], "mix": "다른 약과 섞지 않고 단독 · 앞뒤로 식염수 흘리기"},
+    "vichi": {"name": "비치라이트", "unit": "V", "generic": "글루타치온 600mg (가루, 녹여서)",
+              "flags": ["gsh"], "groups": ["gsh", "bicarb"], "mix": "녹인 뒤 바로 섞기"},
+    "dipeptiven": {"name": "디펩티벤", "unit": "mL", "generic": "알라닐-글루타민 20% (50·100mL 병)",
+                   "flags": ["dipep"], "groups": ["dipep"], "carriers": ["SUP100"],
+                   "min_carrier_ratio": 5, "max_ml_per_kg": 2.5,
+                   "mix": "아미노산 수액(써프라민)에만 1:5 이상 · 다른 약 넣지 않기 · 섞은 뒤 바로",
+                   "notice": "디펩티벤: 천천히"},
     "laennec": {"name": "라이넥", "unit": "A", "generic": "자하거가수분해물(태반) 2mL",
-                "flags": ["placenta"], "notice": "태반주사: 맞은 뒤 1년 동안 헌혈 제한",
-                "mix": "허가 용법은 피하·근육 — 원장님 지시대로"},
-    "tathion600": {"name": "타치온 600mg", "unit": "V", "generic": "글루타치온 600mg",
-                   "flags": ["gsh"], "mix": "녹인 뒤 바로 섞기"},
-    "tathion1200": {"name": "타치온 1200mg", "unit": "V", "generic": "글루타치온 1200mg",
-                    "flags": ["gsh"], "mix": "녹인 뒤 바로 섞기"},
-    "thioctic": {"name": "치옥트산", "unit": "A", "generic": "알파리포산 25mg/5mL",
-                 "flags": ["ala"], "mix": "빛 가리기(호일)",
-                 "notice": "알파리포산: 당뇨약 드시면 저혈당 주의"},
-    "zinc": {"name": "지씨징크", "unit": "A", "generic": "황산아연(아연)", "flags": ["zinc"]},
-    "vibon": {"name": "비본", "unit": "A", "generic": "탄산수소나트륨 8.4% (산도 맞춤·혈관통 완화)",
-              "flags": ["bicarb"]},
-    "drlamin": {"name": "닥터라민", "unit": "병", "generic": "아미노산 수액", "flags": ["aa"]},
-    "dipeptiven": {"name": "디펩티벤", "unit": "병", "generic": "알라닐-글루타민 20% 50mL", "add_ml": 50,
-                   "flags": ["aa", "dipep"], "min_carrier_ratio": 5, "max_ml_per_kg": 2.5,
-                   "mix": "바탕액을 디펩티벤의 5배 이상(50mL → 250mL 이상)",
-                   "notice": "디펩티벤: 천천히(1시간 이상)"},
+                "flags": ["placenta"], "groups": ["placenta"], "stock_note": "입고 예정",
+                "mix": "피하·근육 주사 (허가 용법)",
+                "notice": "태반주사: 맞은 날부터 1년 동안 헌혈 제한"},
 }
 
 FLAG_LABEL = {
-    "mg": "마그네슘", "vitc_high": "고용량 비타민C", "b1": "푸르설티아민", "licorice": "감초(히시파겐)",
-    "placenta": "태반(라이넥)", "gsh": "글루타치온", "ala": "알파리포산", "zinc": "아연",
-    "bicarb": "비본", "aa": "아미노산", "dipep": "디펩티벤",
+    "mg": "마그네슘", "vitc_high": "고용량 비타민C", "gsh": "글루타치온", "ginkgo": "진코발",
+    "placenta": "태반(라이넥)", "aa": "아미노산(써프라민)", "dipep": "디펩티벤", "sulfite": "아황산 든 약",
 }
+
+# ───────────────────────── 같이 섞으면 안 되는 조합 ─────────────────────────
+# level "bag" : 같은 백 금지 → 다른 백으로 따로 연결
+# level "care": 같은 백 가능, 조건 있음
+# b == "*"   : a 는 다른 어떤 약과도 같은 백에 넣지 않음
+INCOMPAT = [
+    {"id": "vitc_b12", "a": "vitc", "b": "b12h", "level": "bag",
+     "title": "메리트씨(비타민C) × 라노빈(B12)",
+     "why": "비타민C가 B12(히드록소코발라민)를 분해한다.",
+     "do": "다른 백으로 따로", "src": "Cyanokit 허가사항 · Hadinata Lie 2019"},
+    {"id": "gsh_b12", "a": "gsh", "b": "b12h", "level": "bag",
+     "title": "비치라이트(글루타치온) × 라노빈(B12)",
+     "why": "글루타치온이 B12와 바로 결합해 다른 물질(글루타치오닐코발라민)이 된다.",
+     "do": "다른 백으로 따로", "src": "Xia 2004 Inorg Chem"},
+    {"id": "aa_b12", "a": "aa_base", "b": "b12h", "level": "bag",
+     "title": "써프라민 × 라노빈(B12)",
+     "why": "써프라민의 시스테인·아황산이 B12와 반응할 수 있다(글루타치온과 같은 원리, 추정).",
+     "do": "라노빈은 N/S 백에", "src": "써프라민 첨가제 · 약제학적 추정"},
+    {"id": "mg_bicarb", "a": "mg", "b": "bicarb", "level": "bag",
+     "title": "마시주(마그네슘) × 메리트씨·비치라이트",
+     "why": "두 약에 탄산수소나트륨이 들어 있다. 마시주 허가사항: 탄산수소염 든 약과 섞으면 침전 → 혼합을 피함.",
+     "do": "마시주는 다른 백으로", "src": "마시주·메리트씨·비치라이트 허가사항"},
+    {"id": "dipep_any", "a": "dipep", "b": "*", "level": "bag",
+     "title": "디펩티벤 × 다른 모든 약",
+     "why": "허가사항: 희석한 액에 다른 약을 넣지 않는다. 바탕액은 아미노산 수액만.",
+     "do": "써프라민 100mL + 디펩티벤 20mL 까지만", "src": "디펩티벤 허가사항"},
+    {"id": "ginkgo_any", "a": "ginkgo", "b": "*", "level": "bag",
+     "title": "진코발 × 다른 모든 약",
+     "why": "희석·배합 자료가 없는 식물 추출 주사(에탄올·소르비톨 함유).",
+     "do": "N/S에 진코발만 · 앞뒤로 식염수 흘리기", "src": "진코발 허가사항(배합 정보 없음)"},
+    {"id": "gsh_vitc", "a": "gsh", "b": "vitc", "level": "bag",
+     "title": "비치라이트 × 메리트씨",
+     "why": "섞어 둔 안정성 자료가 없다(위험은 낮은 편).",
+     "do": "다른 백으로 따로", "src": "자료 없음 → 보수적으로 분리"},
+    {"id": "gsh_bcx", "a": "gsh", "b": "bcx", "level": "bag",
+     "title": "비치라이트 × 삐콤헥사",
+     "why": "외국 글루타치온 허가사항에 B12·판토텐산과 배합 금지가 있다(국내 허가사항엔 없음).",
+     "do": "다른 백으로 따로", "src": "보수적으로 분리"},
+    {"id": "gsh_aa", "a": "gsh", "b": "aa_base", "level": "bag",
+     "title": "비치라이트 × 써프라민",
+     "why": "섞은 자료가 없다.", "do": "비치라이트는 N/S 백에", "src": "자료 없음 → 분리"},
+    {"id": "vitc_bcx", "a": "vitc", "b": "bcx", "level": "care",
+     "title": "메리트씨 × 삐콤헥사",
+     "why": "빛을 받으면 B2가 비타민C를 산화시키고, 비타민C가 B12를 분해한다.",
+     "do": "같은 백 가능 — 섞은 뒤 바로, 차광 커버", "src": "Silvers 2001 · Zaniolo 2010"},
+    {"id": "aa_bcx", "a": "aa_base", "b": "bcx", "level": "care",
+     "title": "써프라민 × 삐콤헥사",
+     "why": "아황산이 B1(티아민)을 분해한다.",
+     "do": "같은 백 가능 — 미리 섞어 두지 말고 섞은 뒤 바로", "src": "Bowman 1983 JPEN"},
+]
 
 # ───────────────────────── 오늘 확인 항목 (빠른 단추) ─────────────────────────
 CHECKS = [
-    {"key": "preg", "label": "임신·수유 가능", "stop": "원장님 확인 전 진행하지 않음"},
+    {"key": "preg", "label": "임신·수유 가능", "stop": "원장님 확인 전 진행하지 않음 (진코발·디펩티벤 금기)",
+     "remove": ["ginkgo", "dipep"]},
     {"key": "allergy", "label": "주사·수액 뒤 두드러기·쇼크 경험", "stop": "원장님 확인 전 진행하지 않음"},
+    {"key": "sulfite", "label": "아황산 과민·천식", "remove": ["sulfite"],
+     "warn": "써프라민·삐콤헥사(아황산 함유) 뺌 — 원장님 확인"},
     {"key": "renal", "label": "콩팥 기능 저하·투석", "remove": ["mg", "vitc_high", "dipep", "aa"],
      "warn": "원장님 확인"},
     {"key": "g6pd", "label": "G6PD 결핍·콩팥돌·통풍", "remove": ["vitc_high"]},
-    {"key": "heart", "label": "심부전·심한 부종", "warn": "총량 줄이기(바탕액 110mL)", "slow": True},
-    {"key": "dm", "label": "당뇨", "swap_dw": True,
-     "warn": "포도당 → 식염수 · 비타민C 뒤 손끝 혈당 높게 나옴 · 알파리포산은 저혈당 주의"},
+    {"key": "liver", "label": "심한 간질환(간경변 등)", "remove": ["dipep"], "warn": "원장님 확인"},
+    {"key": "anticoag", "label": "항응고·항혈소판제·수술 예정", "remove": ["ginkgo"]},
+    {"key": "heart", "label": "심부전·심한 부종", "warn": "백 수 줄이기", "slow": True},
+    {"key": "dm", "label": "당뇨", "warn": "비타민C 뒤 10시간 손끝 혈당이 높게 나옴 → 정맥혈·병원 기계로 확인"},
     {"key": "mgx", "label": "방실차단·근무력증·디곡신", "remove": ["mg"]},
-    {"key": "bph", "label": "혈압 조절 안 됨·저칼륨", "remove": ["licorice"]},
-    {"key": "liver", "label": "심한 간질환(간경변 등)", "remove": ["dipep", "aa"], "warn": "원장님 확인"},
-    {"key": "b1x", "label": "마늘주사 뒤 불편 경험", "remove": ["b1"]},
     {"key": "donate", "label": "1년 안 헌혈 계획", "remove": ["placenta"]},
     {"key": "first", "label": "처음 맞음·75세 이상", "slow": True},
 ]
@@ -90,20 +140,57 @@ def _bag(base, *add):
     return {"base": base, "add": [list(a) for a in add]}
 
 
-# 자주 쓰는 비타민 묶음 (원내 MC 기본형)
-def _vit(c=1, mg=5, b5=1, b6=0, b12=1):
-    out = []
-    if c:
-        out.append(("megagreen", c))
-    if mg:
-        out.append(("meganesium", mg))
-    if b5:
-        out.append(("vitao", b5))
-    if b6:
-        out.append(("vita6", b6))
-    if b12:
-        out.append(("vita12", b12))
-    return out
+def bag_minutes(bag):
+    """백 하나 권장 시간(분). 써프라민 100mL 36분↑, 마그네슘 1g당 30분↑."""
+    if ING.get(bag["base"], {}).get("shot"):
+        return 0
+    m = 40 if bag["base"] == "SUP100" else 20
+    for k, q in bag["add"]:
+        if k == "masi":
+            m = max(m, int(math.ceil(q / 10.0)) * 30)
+        elif k == "meritc" and q >= 20:
+            m = max(m, 30)
+        elif k in ("jinko", "dipeptiven"):
+            m = max(m, 30)
+    return m
+
+
+# 자주 쓰는 백 (원내 재고 조합 — 같은 백 금지 규칙을 모두 피함)
+def B_MGB():          # 마그네슘·비타민B 백
+    return _bag("NS100", ("masi", 10), ("bcx", 1), ("lanovin", 1))
+
+
+def B_C(ml=10):       # 비타민C 백 (10mL=5g, 20mL=10g)
+    return _bag("NS100", ("meritc", ml))
+
+
+def B_GSH(n=1):       # 백옥 백 (비치라이트 600mg × n)
+    return _bag("NS100", ("vichi", n))
+
+
+def B_AA():           # 아미노산 + 비타민B 백
+    return _bag("SUP100", ("bcx", 1))
+
+
+def B_MG12():         # 마그네슘 + B12 (B군은 아미노산 백에 있을 때)
+    return _bag("NS100", ("masi", 10), ("lanovin", 1))
+
+
+def B_GINKGO():       # 진코발 단독
+    return _bag("NS100", ("jinko", 1))
+
+
+def B_DIPEP(ml=20):   # 디펩티벤 단독 (써프라민 100mL에 20mL까지)
+    return _bag("SUP100", ("dipeptiven", ml))
+
+
+def SHOT_LAENNEC(n=2):
+    return _bag("SHOT", ("laennec", n))
+
+
+def _t(price, point, bags, frm=""):
+    return {"price": price, "point": point, "bags": bags, "from": frm,
+            "min": sum(bag_minutes(b) for b in bags)}
 
 
 # ───────────────────────── 프로그램 ─────────────────────────
@@ -112,25 +199,20 @@ def _vit(c=1, mg=5, b5=1, b6=0, b12=1):
 PROGRAMS = {
     "gi": {
         "name": "장염", "short": "장염", "color": "#3B8C7A", "icon": "💧",
-        "for": "설사·구토로 지치고 물을 못 마실 때",
+        "for": "설사·구토로 지치고 못 먹을 때",
         "course_options": [{"total": 1, "per_week": 0, "label": "1회"}],
-        "price_fixed": True,
         "tiers": {
-            "basic": {"price": 35000, "min": 60, "from": "원내 MC3",
-                      "point": "수분·전해질 + 비타민",
-                      "bags": [_bag("NS110", *_vit(b6=0)), _bag("DW250")]},
-            "plus": {"price": 60000, "min": 90, "from": "MC3 + 디펩티벤",
-                     "point": "+ 장 점막 회복(글루타민) · 구역 완화 B6",
-                     "bags": [_bag("NS110", *_vit(b6=1)), _bag("NS250", ("dipeptiven", 1))]},
-            "premium": {"price": 90000, "min": 120, "from": "MC3 + 디펩티벤 + NT2",
-                        "point": "+ 아미노산·B1 영양 보충(못 먹은 날)",
-                        "bags": [_bag("NS110", *_vit(c=0, b6=1)), _bag("NS250", ("dipeptiven", 1)),
-                                 _bag("DW250", ("megagreen", 1), ("drlamin", 1), ("fursul", 1))]},
+            "basic": _t(35000, "아미노산 + 마그네슘·비타민B", [B_AA(), B_MG12()]),
+            "plus": _t(60000, "+ 장 점막 글루타민(디펩티벤) + 비타민C",
+                       [B_DIPEP(), B_MGB(), B_C(10)]),
+            "premium": _t(90000, "+ 비타민C 10g·글루타치온",
+                          [B_DIPEP(), B_MGB(), B_C(20), B_GSH(1)]),
         },
-        "meds": ["구토 멎는 주사", "장 경련 주사", "지사제", "정장제"],
+        "meds": ["탈수 교정 수액(급여) 추가", "구토 멎는 주사", "장 경련 주사", "지사제", "정장제"],
         "oral": {
             "with": [{"sup": "ors", "weeks": 0.5, "why": "집에서 수분·전해질 이어가기"}],
-            "after": [{"sup": "probiotic_d", "weeks": 2, "why": "장염 뒤 장내 균 회복"}],
+            "after": [{"sup": "probiotic_d", "weeks": 2, "why": "장염 뒤 장내 균 회복"},
+                      {"sup": "glutamine", "weeks": 2, "why": "장 점막 회복"}],
         },
         "score": {"key": "gi", "label": "설사·복통 (0~10)", "max": 10},
         "followup_weeks": [],
@@ -143,18 +225,12 @@ PROGRAMS = {
         "for": "몸살·근육통으로 처질 때",
         "course_options": [{"total": 1, "per_week": 0, "label": "1회"}],
         "tiers": {
-            "basic": {"price": 40000, "min": 40, "from": "원내 MC1",
-                      "point": "비타민C·B군·마그네슘",
-                      "bags": [_bag("NS250", *_vit(b6=1))]},
-            "plus": {"price": 60000, "min": 40, "from": "원내 MC4",
-                     "point": "+ 감초(히시파겐)",
-                     "bags": [_bag("NS250", *_vit(b6=1), ("hisi", 1))]},
-            "premium": {"price": 90000, "min": 60, "from": "MC4 + BLUE",
-                        "point": "+ 마늘(B1)·태반 — 몸살·근육통 집중",
-                        "bags": [_bag("NS250", *_vit(b6=1), ("hisi", 1), ("fursul", 1),
-                                      ("laennec", 1), ("vibon", 1))]},
+            "basic": _t(40000, "비타민C 5g + 마그네슘·비타민B", [B_C(10), B_MGB()]),
+            "plus": _t(60000, "비타민C 10g + 글루타치온", [B_C(20), B_MGB(), B_GSH(1)]),
+            "premium": _t(90000, "+ 아미노산 + 태반주사",
+                          [B_AA(), B_MG12(), B_C(20), B_GSH(1), SHOT_LAENNEC(2)]),
         },
-        "meds": ["해열·진통 주사", "감기약 처방"],
+        "meds": ["급여 감기 수액(EMR 1870)", "해열·진통 주사", "감기약 처방"],
         "oral": {
             "after": [{"sup": "vitc", "weeks": 2, "why": "회복기 비타민C"},
                       {"sup": "zinc", "weeks": 2, "why": "회복기 아연"}],
@@ -170,16 +246,10 @@ PROGRAMS = {
         "course_options": [{"total": 4, "per_week": 2, "label": "2주 4회"},
                            {"total": 8, "per_week": 2, "label": "4주 8회"}],
         "tiers": {
-            "basic": {"price": 50000, "min": 40, "from": "원내 MC2",
-                      "point": "비타민C·B군·마그네슘",
-                      "bags": [_bag("NS250", *_vit(b6=2))]},
-            "plus": {"price": 70000, "min": 50, "from": "MC2 + 마늘(MC7)",
-                     "point": "+ 마늘주사(B1) — 에너지 대사",
-                     "bags": [_bag("NS250", *_vit(b6=2), ("fursul", 1), ("vibon", 1))]},
-            "premium": {"price": 100000, "min": 70, "from": "MC2 + 마늘 + 태반 + 백옥",
-                        "point": "+ 태반·글루타치온",
-                        "bags": [_bag("NS250", *_vit(b6=2), ("fursul", 1), ("laennec", 2), ("vibon", 1)),
-                                 _bag("NS110", ("tathion600", 1))]},
+            "basic": _t(50000, "마그네슘·비타민B + 비타민C 5g", [B_MGB(), B_C(10)]),
+            "plus": _t(70000, "+ 아미노산 · 비타민C 10g", [B_AA(), B_MG12(), B_C(20)]),
+            "premium": _t(100000, "+ 글루타치온 + 태반주사",
+                          [B_AA(), B_MG12(), B_C(20), B_GSH(1), SHOT_LAENNEC(2)]),
         },
         "meds": [],
         "oral": {
@@ -200,17 +270,12 @@ PROGRAMS = {
         "course_options": [{"total": 4, "per_week": 1, "label": "4주 4회 (주 1회)"},
                            {"total": 8, "per_week": 2, "label": "4주 8회 (주 2회)"}],
         "tiers": {
-            "basic": {"price": 60000, "min": 40, "from": "원내 MC6",
-                      "point": "비타민 + 태반",
-                      "bags": [_bag("NS250", *_vit(b6=2), ("laennec", 2))]},
-            "plus": {"price": 90000, "min": 60, "from": "MC6 + 백옥",
-                     "point": "+ 글루타치온 600",
-                     "bags": [_bag("NS250", *_vit(b6=2), ("laennec", 2)),
-                              _bag("NS110", ("tathion600", 1))]},
-            "premium": {"price": 130000, "min": 70, "from": "PINK + 신데렐라 + 백옥",
-                        "point": "+ 알파리포산 · 글루타치온 1200",
-                        "bags": [_bag("NS250", *_vit(b6=3), ("laennec", 2), ("thioctic", 1)),
-                                 _bag("NS110", ("tathion1200", 1))]},
+            "basic": _t(60000, "비타민C 5g + 글루타치온 600 + 태반주사",
+                        [B_C(10), B_GSH(1), SHOT_LAENNEC(2)]),
+            "plus": _t(90000, "비타민C 10g + 글루타치온 1200 + 태반주사",
+                       [B_C(20), B_GSH(2), SHOT_LAENNEC(2)]),
+            "premium": _t(130000, "+ 마그네슘·비타민B + 은행잎(혈액순환)",
+                          [B_MGB(), B_C(20), B_GSH(2), B_GINKGO(), SHOT_LAENNEC(2)]),
         },
         "meds": [],
         "oral": {
@@ -221,7 +286,7 @@ PROGRAMS = {
         "score": {"key": "vitality", "label": "활력 (0~10, 높을수록 좋음)", "max": 10, "higher_better": True},
         "followup_weeks": [0, 4, 12],
         "aftercare": ["근력 운동 주 2회", "단백질은 끼니마다 손바닥 하나",
-                      "태반 성분을 맞은 날부터 1년 동안 헌혈 제한"],
+                      "태반주사를 맞은 날부터 1년 동안 헌혈 제한"],
     },
     "white": {
         "name": "피부미백(백옥)", "short": "백옥", "color": "#C2669B", "icon": "✨",
@@ -229,17 +294,10 @@ PROGRAMS = {
         "course_options": [{"total": 10, "per_week": 2, "label": "5주 10회 (주 2회)"},
                            {"total": 8, "per_week": 2, "label": "4주 8회 (주 2회)"}],
         "tiers": {
-            "basic": {"price": 40000, "min": 20, "from": "백옥 600",
-                      "point": "글루타치온 600",
-                      "bags": [_bag("NS110", ("tathion600", 1))]},
-            "plus": {"price": 60000, "min": 40, "from": "비타민C + 백옥 1200",
-                     "point": "비타민C → 글루타치온 1200 순서대로",
-                     "bags": [_bag("NS250", ("megagreen", 1), ("vitao", 1), ("vibon", 1)),
-                              _bag("NS110", ("tathion1200", 1))]},
-            "premium": {"price": 90000, "min": 50, "from": "원내 PNT2 + 비타민C",
-                        "point": "감초·태반·비타민C → 글루타치온 1200 (따로 연결)",
-                        "bags": [_bag("NS110", ("hisi", 1), ("laennec", 4), ("megagreen", 1)),
-                                 _bag("NS110", ("tathion1200", 1))]},
+            "basic": _t(40000, "글루타치온 600", [B_GSH(1)]),
+            "plus": _t(60000, "비타민C 5g → 글루타치온 1200", [B_C(10), B_GSH(2)]),
+            "premium": _t(90000, "비타민C 10g → 글루타치온 1200 + 태반주사",
+                          [B_C(20), B_GSH(2), SHOT_LAENNEC(2)]),
         },
         "meds": [],
         "oral": {
@@ -260,16 +318,10 @@ PROGRAMS = {
                            {"total": 4, "per_week": 1, "label": "4주 4회 (주 1회)"},
                            {"total": 1, "per_week": 0, "label": "1회"}],
         "tiers": {
-            "basic": {"price": 45000, "min": 40, "from": "원내 MC2",
-                      "point": "마그네슘·B군·비타민C",
-                      "bags": [_bag("NS250", *_vit(b6=2))]},
-            "plus": {"price": 65000, "min": 50, "from": "MC2 + 마늘",
-                     "point": "+ 마늘주사(B1)",
-                     "bags": [_bag("NS250", *_vit(b6=2), ("fursul", 1), ("vibon", 1))]},
-            "premium": {"price": 90000, "min": 60, "from": "원내 ORANGE",
-                        "point": "B5·B6 3배 + 감초·태반",
-                        "bags": [_bag("NS250", ("laennec", 1), ("vitao", 3), ("vita6", 3), ("hisi", 1),
-                                      ("megagreen", 1), ("meganesium", 5), ("vibon", 1))]},
+            "basic": _t(45000, "마그네슘·비타민B", [B_MGB()]),
+            "plus": _t(65000, "+ 비타민C 5g", [B_MGB(), B_C(10)]),
+            "premium": _t(90000, "+ 아미노산 · 비타민C 10g · 은행잎(두통·순환)",
+                          [B_AA(), B_MG12(), B_C(20), B_GINKGO()]),
         },
         "meds": [],
         "oral": {
@@ -288,16 +340,10 @@ PROGRAMS = {
         "for": "환절기마다 감기를 달고 살 때",
         "course_options": [{"total": 6, "per_week": 2, "label": "3주 6회"}],
         "tiers": {
-            "basic": {"price": 50000, "min": 40, "from": "원내 MC4",
-                      "point": "비타민C·B군 + 감초",
-                      "bags": [_bag("NS250", *_vit(b6=1), ("hisi", 1))]},
-            "plus": {"price": 70000, "min": 50, "from": "MC4 + 아연",
-                     "point": "+ 아연",
-                     "bags": [_bag("NS250", *_vit(b6=1), ("hisi", 1), ("zinc", 1), ("vibon", 1))]},
-            "premium": {"price": 100000, "min": 60, "from": "원내 ORANGE + 아연",
-                        "point": "B군 3배·감초·태반 + 아연",
-                        "bags": [_bag("NS250", ("laennec", 1), ("vitao", 3), ("vita6", 3), ("hisi", 1),
-                                      ("megagreen", 1), ("meganesium", 5), ("zinc", 1), ("vibon", 1))]},
+            "basic": _t(50000, "비타민C 10g + 마그네슘·비타민B", [B_C(20), B_MGB()]),
+            "plus": _t(70000, "+ 글루타치온", [B_C(20), B_MGB(), B_GSH(1)]),
+            "premium": _t(100000, "+ 아미노산 + 태반주사",
+                          [B_AA(), B_MG12(), B_C(20), B_GSH(1), SHOT_LAENNEC(1)]),
         },
         "meds": [],
         "oral": {
@@ -319,17 +365,10 @@ PROGRAMS = {
         "course_options": [{"total": 4, "per_week": 1, "label": "4주 4회 (주 1회)"},
                            {"total": 4, "per_week": 2, "label": "2주 4회"}],
         "tiers": {
-            "basic": {"price": 50000, "min": 60, "from": "디펩티벤",
-                      "point": "글루타민(디펩티벤) 50mL",
-                      "bags": [_bag("NS250", ("dipeptiven", 1))]},
-            "plus": {"price": 70000, "min": 80, "from": "디펩티벤 + MC 비타민",
-                     "point": "+ 비타민C·B군",
-                     "bags": [_bag("NS250", ("dipeptiven", 1)),
-                              _bag("NS110", *_vit(mg=0, b6=1))]},
-            "premium": {"price": 100000, "min": 120, "from": "디펩티벤 2병 + 비타민 + 감초",
-                        "point": "글루타민 100mL + 비타민·감초",
-                        "bags": [_bag("NS500", ("dipeptiven", 2)),
-                                 _bag("NS110", *_vit(mg=0, b6=1), ("hisi", 1))]},
+            "basic": _t(50000, "글루타민(디펩티벤 20mL)", [B_DIPEP()]),
+            "plus": _t(70000, "+ 마그네슘·비타민B", [B_DIPEP(), B_MGB()]),
+            "premium": _t(100000, "글루타민 2배(써프라민 2백) + 마그네슘·비타민B",
+                          [B_DIPEP(), B_DIPEP(), B_MGB()]),
         },
         "meds": ["트리메부틴", "피나베리움", "라모세트론", "로페라마이드", "리나클로타이드",
                  "PEG(마크로골)", "산화마그네슘", "저용량 아미트립틸린", "리팍시민", "진경제"],
@@ -401,6 +440,7 @@ def default_catalog():
         "ingredients": copy.deepcopy(ING),
         "supplements": sups,
         "checks": copy.deepcopy(CHECKS),
+        "incompat": copy.deepcopy(INCOMPAT),
         "tier_name": dict(TIER_NAME),
         "tiers": list(TIERS),
         "flag_label": dict(FLAG_LABEL),

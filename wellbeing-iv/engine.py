@@ -70,6 +70,13 @@ def _vital_rules(v):
     return remove, warns, stops
 
 
+def _bag_min(ing, base, add):
+    try:
+        return C.bag_minutes({"base": base, "add": add})
+    except Exception:
+        return 20
+
+
 def _ml(it, qty):
     """섞을 때 늘어나는 양(mL)."""
     if it.get("unit") == "mL":
@@ -105,6 +112,8 @@ def mix_conflicts(bags, catalog):
     conflicts, notes, used = [], [], set()
     all_groups = set()
     for bi, b in enumerate(bags):
+        if b.get("removed"):
+            continue
         if "items" in b:
             keys = [r["key"] for r in b["items"] if not r.get("removed")]
         else:
@@ -203,13 +212,20 @@ def build_recipe(program_key, tier, vitals=None, checks=None, catalog=None, weig
             if alt:
                 base_note = "당뇨 → %s 대신 %s" % (ing[base]["name"], ing[alt]["name"])
                 base = alt
-        vol = ing[base].get("ml", 0)
+        bag_reason = None
+        for flag in ing[base].get("flags", []):
+            if flag in remove:
+                bag_reason = remove[flag] + " (%s 백 전체)" % ing[base]["name"]
+                break
+        vol = 0 if bag_reason else ing[base].get("ml", 0)
         total_ml += vol
         items = []
         for key, qty in bag["add"]:
             it = ing[key]
-            reason = None
+            reason = bag_reason
             for flag in it.get("flags", []):
+                if reason:
+                    break
                 if flag in remove:
                     reason = remove[flag]
                     break
@@ -217,7 +233,8 @@ def build_recipe(program_key, tier, vitals=None, checks=None, catalog=None, weig
                    "removed": bool(reason), "reason": reason}
             items.append(row)
             if reason:
-                removed.append({"name": it["name"], "reason": reason})
+                if not bag_reason:
+                    removed.append({"name": it["name"], "reason": reason})
                 continue
             total_ml += _ml(it, qty)
             n = it.get("notice")
@@ -233,21 +250,27 @@ def build_recipe(program_key, tier, vitals=None, checks=None, catalog=None, weig
                 if vol < need:
                     warns.append("%s %g%s 는 바탕액 %dmL 이상에 섞어야 함 (지금 %dmL)" % (
                         it["name"], row["qty"], it["unit"], need, vol))
+        if bag_reason:
+            removed.append({"name": ing[base]["name"], "reason": bag_reason})
         bags.append({"order": bi + 1, "base": base, "base_name": ing[base]["name"],
-                     "base_note": base_note, "items": items, "ml": vol})
+                     "base_note": base_note, "items": items, "ml": vol,
+                     "shot": bool(ing[base].get("shot")), "removed": bool(bag_reason),
+                     "minutes": 0 if bag_reason else _bag_min(ing, base, bag["add"])})
 
     # 몸무게 한도(디펩티벤 1일 2.5 mL/kg 이하 등)
     w = _num(weight if weight is not None else vitals.get("weight"))
     if w:
+        day = {}   # 하루 총량은 백을 모두 더해서
         for b in bags:
             for row in b["items"]:
                 it = ing[row["key"]]
-                lim = it.get("max_ml_per_kg")
-                if lim and not row["removed"]:
-                    ml = _ml(it, row["qty"])
-                    if ml > lim * w:
-                        warns.append("%s %dmL — 몸무게 %gkg 기준 하루 한도 %dmL 넘음" % (
-                            it["name"], ml, w, lim * w))
+                if it.get("max_ml_per_kg") and not row["removed"]:
+                    day[row["key"]] = day.get(row["key"], 0) + _ml(it, row["qty"])
+        for k, ml in day.items():
+            lim = ing[k]["max_ml_per_kg"] * w
+            if ml > lim:
+                warns.append("%s 오늘 %dmL — 몸무게 %gkg 기준 하루 한도 %dmL 넘음" % (
+                    ing[k]["name"], ml, w, lim))
 
     minutes = t.get("min", 30)
     if slow:
@@ -419,7 +442,13 @@ def emr_text(course, session, recipe):
     if vt:
         lines.append(" ".join(vt))
     for b in recipe["bags"]:
+        if b.get("removed"):
+            continue
         names = [("%s %g%s" % (r["name"], r["qty"], r["unit"])) for r in b["items"] if not r["removed"]]
+        if b.get("shot"):
+            if names:
+                lines.append("피하/근육: " + ", ".join(names))
+            continue
         head = ("%d) " % b["order"]) if len(recipe["bags"]) > 1 else ""
         lines.append(head + b["base_name"] + (" + " + " + ".join(names) if names else ""))
     for r in recipe["removed"]:

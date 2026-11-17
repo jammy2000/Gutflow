@@ -154,7 +154,7 @@ function go(view, opt={}){ Object.assign(S, opt); S.view = view; render(); windo
 document.getElementById("nav").addEventListener("click", e => { const b=e.target.closest("button"); if(b) go(b.dataset.go); });
 
 function recipeLines(bags){
-  return bags.map((b,i) => (bags.length>1 ? `<b style="color:var(--teal)">${i+1}백</b> ` : "") + esc(S.cat.ingredients[b.base].name) +
+  return bags.map((b,i) => (S.cat.ingredients[b.base].shot ? "💉 " : (bags.length>1 ? `<b style="color:var(--teal)">${i+1}백</b> ` : "")) + esc(S.cat.ingredients[b.base].name) +
     (S.cat.ingredients[b.base].stock===false ? '<span class="tag late">재고 확인</span>' : "") +
     (b.add.length ? " + " + b.add.map(([k,q]) => esc(S.cat.ingredients[k].name) + " " + q + esc(S.cat.ingredients[k].unit)).join(" + ") : "")).join("<br>");
 }
@@ -496,8 +496,9 @@ async function _refresh(){
     (r.conflicts||[]).map(x=>`<div class="alert stop">🚫 ${x.bag}번 백: ${esc(x.a)} × ${esc(x.b)} 같은 백 금지 → ${esc(x.do)}</div>`).join("") +
     r.warns.map(s=>`<div class="alert warn">⚠️ ${esc(s)}</div>`).join("") +
     (r.mix_notes||[]).map(x=>`<div class="alert warn">🧪 ${x.bag}번 백: ${esc(x.title)} → ${esc(x.do)}</div>`).join("") +
-    r.bags.map(b => `<div class="bag"><div class="row"><span class="base">${r.bags.length>1? `<span class="bagno">${b.order}</span>`:""}${esc(b.base_name)}</span>
-        ${b.base_note?`<span class="tag">${esc(b.base_note)}</span>`:""}<span class="sp"></span>${r.bags.length>1 && b.order>1 ? `<span class="small muted">앞 수액 끝난 뒤 따로 연결</span>`:""}</div>
+    r.bags.map(b => `<div class="bag" style="${b.shot?'border-style:solid;border-color:var(--amber)':''}${b.removed?';opacity:.5':''}"><div class="row"><span class="base">${b.shot?'💉 ':(r.bags.length>1? `<span class="bagno">${b.order}</span>`:"")}${esc(b.base_name)}</span>
+        ${b.base_note?`<span class="tag">${esc(b.base_note)}</span>`:""}${b.removed?'<span class="tag late">이 백 빠짐</span>':""}<span class="sp"></span>
+        ${b.shot ? `<span class="small muted">수액과 따로, 같은 날</span>` : `<span class="small"><b>${b.minutes}분↑</b>${r.bags.length>1 && b.order>1 ? ' · 앞 백 끝난 뒤 식염수 흘리고 연결':''}</span>`}</div>
       ${b.items.map(it => { const id = b.order+"_"+it.key; const info = ing[it.key];
         return `<div class="item ${it.removed?'removed':''}">${it.removed?'<span style="width:24px">✕</span>':`<input type="checkbox" data-mix="${id}" ${R.mixed[id]?"checked":""}>`}
           <b>${esc(it.name)}</b> <span>${it.qty}${esc(it.unit)}</span>
@@ -514,7 +515,7 @@ async function _refresh(){
       ${[15,20,60].map(g=>`<span class="chip ${R.gtt===g?'on':''}" data-g="${g}">${g} gtt/mL</span>`).join("")}
       <span class="sp"></span>
       <button class="btn ghost" id="st">▶ 시작 ${esc(R.start_time)}</button><button class="btn ghost" id="en">■ 끝 ${esc(R.end_time)}</button></div>
-    ${r.bags.length>1 ? `<p class="small muted">수액이 ${r.bags.length}개 — 분당 방울은 전체 총량·시간 기준. 순서대로 연결하세요.</p>`:""}`;
+    ${r.bags.filter(b=>!b.shot&&!b.removed).length>1 ? `<p class="small muted">수액 백이 ${r.bags.filter(b=>!b.shot&&!b.removed).length}개 — 분당 방울은 전체 총량·시간 기준입니다. 백마다 권장 시간(조제 칸)을 지키고, 번호 순서대로 따로 연결하세요.</p>`:""}`;
   $("#mins").onchange = e => { R.minutes = +e.target.value; refreshRecipe(); };
   document.querySelectorAll("[data-g]").forEach(x => x.onclick = () => { R.gtt = +x.dataset.g; refreshRecipe(); });
   $("#st").onclick = () => { R.start_time = hm(); refreshRecipe(); };
@@ -582,7 +583,7 @@ function viewTable(el){
      ${p.followup_weeks.length ? `<div class="small muted">증상 점수: ${esc(p.score.label)} — ${p.followup_weeks.map(w=>w+"주").join("·")}</div>`:""}
     </div>`; }).join("") +
    `<div class="card"><h2>성분 메모</h2><table class="matrix"><tr><th>원내 이름</th><th>성분</th><th>섞을 때</th></tr>` +
-     Object.entries(cat.ingredients).map(([k,v]) => `<tr><td><b>${esc(v.name)}</b>${v.stock===false?' <span class="tag late">재고 확인</span>':""}</td><td>${esc(v.generic)}</td><td class="small">${esc([v.mix,v.notice].filter(Boolean).join(" · "))}</td></tr>`).join("") +
+     Object.entries(cat.ingredients).map(([k,v]) => `<tr><td><b>${esc(v.name)}</b>${v.stock===false?' <span class="tag late">재고 확인</span>':""}${v.stock_note?` <span class="tag">${esc(v.stock_note)}</span>`:""}</td><td>${esc(v.generic)}</td><td class="small">${esc([v.mix,v.notice].filter(Boolean).join(" · "))}</td></tr>`).join("") +
    `</table></div></div>${sidePanel([])}</div>`;
 }
 
