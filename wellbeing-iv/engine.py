@@ -70,6 +70,13 @@ def _vital_rules(v):
     return remove, warns, stops
 
 
+def _ml(it, qty):
+    """섞을 때 늘어나는 양(mL)."""
+    if it.get("unit") == "mL":
+        return float(qty)
+    return float(it.get("add_ml", 0)) * float(qty)
+
+
 def _num(x):
     try:
         if x is None or x == "":
@@ -77,6 +84,77 @@ def _num(x):
         return float(x)
     except (TypeError, ValueError):
         return None
+
+
+def _groups(it):
+    return set(it.get("groups") or [])
+
+
+def mix_conflicts(bags, catalog):
+    """한 백(같은 바탕액) 안에서 섞으면 안 되는 조합을 찾는다.
+
+    bags: build_recipe의 bags (items에 removed 표시가 있는 것) 또는
+          catalog 형식 [{base, add:[[key,qty],...]}]
+    돌려주는 값: (conflicts, notes, rule_ids)
+      conflicts — 같은 백 금지(level "bag") 어긴 것
+      notes     — 같은 백 가능하지만 조건이 있는 것(level "care")
+      rule_ids  — 오늘 수액 전체에 해당하는 규칙(옆 칸에서 강조)
+    """
+    ing = catalog["ingredients"]
+    rules = catalog.get("incompat") or []
+    conflicts, notes, used = [], [], set()
+    all_groups = set()
+    for bi, b in enumerate(bags):
+        if "items" in b:
+            keys = [r["key"] for r in b["items"] if not r.get("removed")]
+        else:
+            keys = [k for k, q in b["add"] if q]
+        base = b["base"]
+        order = b.get("order", bi + 1)
+        gmap = {}
+        for g in _groups(ing.get(base, {})):
+            gmap.setdefault(g, []).append(ing[base]["name"])
+        for k in keys:
+            for g in _groups(ing.get(k, {})):
+                gmap.setdefault(g, []).append(ing[k]["name"])
+            car = ing.get(k, {}).get("carriers")
+            if car and base not in car:
+                conflicts.append({"bag": order, "a": ing[k]["name"], "b": ing[base]["name"],
+                                  "title": "%s × %s" % (ing[k]["name"], ing[base]["name"]),
+                                  "do": "바탕액은 " + ", ".join(ing[c]["name"] for c in car if c in ing) + "만",
+                                  "rule": "carrier"})
+        all_groups |= set(gmap)
+        for r in rules:
+            a, bb = r["a"], r["b"]
+            if a not in gmap:
+                continue
+            if bb == "*":
+                others = [k for k in keys if a not in _groups(ing[k])]
+                hit = bool(others)
+                names = (gmap[a][0], ", ".join(ing[k]["name"] for k in others))
+            else:
+                hit = bb in gmap
+                names = (gmap[a][0], gmap[bb][0] if hit else "")
+            if not hit:
+                continue
+            row = {"bag": order, "a": names[0], "b": names[1], "title": r["title"],
+                   "do": r.get("do", ""), "rule": r["id"]}
+            (conflicts if r.get("level") == "bag" else notes).append(row)
+    for r in rules:
+        if r["a"] in all_groups and (r["b"] == "*" or r["b"] in all_groups):
+            used.add(r["id"])
+    return conflicts, notes, sorted(used)
+
+
+def check_catalog(catalog):
+    """모든 프로그램·등급의 처음 조제가 금지 조합을 피했는지 (설정 화면·시험용)."""
+    out = []
+    for pk, p in catalog["programs"].items():
+        for tk, t in p["tiers"].items():
+            conf, _, _ = mix_conflicts(t["bags"], catalog)
+            for c in conf:
+                out.append(dict(c, program=pk, tier=tk))
+    return out
 
 
 def build_recipe(program_key, tier, vitals=None, checks=None, catalog=None, weight=None):
@@ -141,8 +219,7 @@ def build_recipe(program_key, tier, vitals=None, checks=None, catalog=None, weig
             if reason:
                 removed.append({"name": it["name"], "reason": reason})
                 continue
-            if it.get("add_ml"):
-                total_ml += it["add_ml"] * qty
+            total_ml += _ml(it, qty)
             n = it.get("notice")
             if n and n not in seen_notice:
                 seen_notice.add(n)
@@ -152,15 +229,13 @@ def build_recipe(program_key, tier, vitals=None, checks=None, catalog=None, weig
             it = ing[row["key"]]
             ratio = it.get("min_carrier_ratio")
             if ratio and not row["removed"]:
-                need = it.get("add_ml", 0) * row["qty"] * ratio
+                need = _ml(it, row["qty"]) * ratio
                 if vol < need:
                     warns.append("%s %g%s 는 바탕액 %dmL 이상에 섞어야 함 (지금 %dmL)" % (
                         it["name"], row["qty"], it["unit"], need, vol))
         bags.append({"order": bi + 1, "base": base, "base_name": ing[base]["name"],
                      "base_note": base_note, "items": items, "ml": vol})
 
-    if swap_dw and any(b["base_note"] for b in bags):
-        pass
     # 몸무게 한도(디펩티벤 1일 2.5 mL/kg 이하 등)
     w = _num(weight if weight is not None else vitals.get("weight"))
     if w:
@@ -169,7 +244,7 @@ def build_recipe(program_key, tier, vitals=None, checks=None, catalog=None, weig
                 it = ing[row["key"]]
                 lim = it.get("max_ml_per_kg")
                 if lim and not row["removed"]:
-                    ml = it.get("add_ml", 0) * row["qty"]
+                    ml = _ml(it, row["qty"])
                     if ml > lim * w:
                         warns.append("%s %dmL — 몸무게 %gkg 기준 하루 한도 %dmL 넘음" % (
                             it["name"], ml, w, lim * w))
@@ -183,7 +258,10 @@ def build_recipe(program_key, tier, vitals=None, checks=None, catalog=None, weig
     if active == 0:
         warns.append("섞을 약이 모두 빠짐 — 원장님과 등급·구성 다시 정하기")
 
+    conflicts, mix_notes, rule_ids = mix_conflicts(bags, cat)
+
     return {
+        "conflicts": conflicts, "mix_notes": mix_notes, "rules_today": rule_ids,
         "program": program_key, "program_name": prog["name"], "tier": tier,
         "tier_name": C.TIER_NAME[tier], "price": t.get("price"),
         "bags": bags, "removed": removed, "warns": warns, "stops": stops,

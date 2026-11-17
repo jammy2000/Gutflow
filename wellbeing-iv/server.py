@@ -92,7 +92,9 @@ class DB:
                       (json.dumps(ov, ensure_ascii=False),))
 
     def catalog(self):
-        return C.apply_overrides(C.default_catalog(), self.overrides())
+        cat = C.apply_overrides(C.default_catalog(), self.overrides())
+        cat["conflicts"] = E.check_catalog(cat)   # 같은 백 금지 조합을 어긴 등급
+        return cat
 
 
 def _row(r):
@@ -405,6 +407,8 @@ class App:
     # ── 설정 ──
     def set_catalog(self, b):
         ov = self.db.overrides()
+        for kk, vv in (b.get("ingredients") or {}).items():
+            ov.setdefault("ingredients", {})[kk] = vv
         for k in ("programs", "supplements"):
             for kk, vv in (b.get(k) or {}).items():
                 ov.setdefault(k, {}).setdefault(kk, {})

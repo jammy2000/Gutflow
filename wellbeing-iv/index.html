@@ -95,7 +95,18 @@ th{font-size:15px;color:var(--sub);font-weight:700}
 .swatch{width:12px;height:12px;border-radius:4px;display:inline-block}
 .matrix td{font-size:15px}
 .matrix .pn{font-weight:800;font-size:18px}
+/* 11-17 부원장님: 같이 섞으면 안 되는 조합은 옆 칸으로 따로 */
+.withside{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:16px;align-items:start}
+.side{position:sticky;top:76px;max-height:calc(100vh - 90px);overflow:auto}
+.side .rule{border:1.5px solid var(--line);border-radius:12px;padding:10px 12px;margin-bottom:8px;background:#fff}
+.side .rule.hit{border-color:var(--red);background:var(--redbg)}
+.side .rule .t{font-weight:800}
+.side .rule .lv{font-size:12px;font-weight:800;border-radius:6px;padding:1px 6px;margin-left:6px}
+.lv.bag{background:var(--red);color:#fff} .lv.care{background:var(--yel)}
+.bagno{display:inline-grid;place-items:center;min-width:28px;height:28px;border-radius:8px;background:var(--teal);color:#fff;font-weight:800;margin-right:6px}
+@media (max-width:1100px){.withside{grid-template-columns:1fr}.side{position:static;max-height:none}}
 @media print{
+  .side{position:static;max-height:none}
   header,nav,.noprint{display:none!important}
   body{background:#fff;font-size:13px}
   main{padding:0;max-width:none}
@@ -143,8 +154,25 @@ function go(view, opt={}){ Object.assign(S, opt); S.view = view; render(); windo
 document.getElementById("nav").addEventListener("click", e => { const b=e.target.closest("button"); if(b) go(b.dataset.go); });
 
 function recipeLines(bags){
-  return bags.map((b,i) => (bags.length>1 ? (i+1)+") " : "") + S.cat.ingredients[b.base].name +
-    (b.add.length ? " + " + b.add.map(([k,q]) => S.cat.ingredients[k].name + " " + q + S.cat.ingredients[k].unit).join(" + ") : "")).join("<br>");
+  return bags.map((b,i) => (bags.length>1 ? `<b style="color:var(--teal)">${i+1}백</b> ` : "") + esc(S.cat.ingredients[b.base].name) +
+    (S.cat.ingredients[b.base].stock===false ? '<span class="tag late">재고 확인</span>' : "") +
+    (b.add.length ? " + " + b.add.map(([k,q]) => esc(S.cat.ingredients[k].name) + " " + q + esc(S.cat.ingredients[k].unit)).join(" + ") : "")).join("<br>");
+}
+
+/* ───────── 같이 섞으면 안 되는 조합 (옆 칸) ───────── */
+function sidePanel(hitIds){
+  const rules = S.cat.incompat || [], hit = new Set(hitIds||[]);
+  const sorted = [...rules].sort((a,b) => (hit.has(b.id)-hit.has(a.id)) || ((b.level==="bag")-(a.level==="bag")));
+  return `<div class="card side"><h2>🚫 같이 섞으면 안 되는 조합</h2>
+    <p class="small muted" style="margin:0 0 8px">빨간 칸 = 오늘 수액에 들어 있는 조합 → 꼭 다른 백으로</p>
+    ${sorted.map(r => `<div class="rule ${hit.has(r.id)?'hit':''}">
+      <div><span class="t">${esc(r.title)}</span><span class="lv ${r.level}">${r.level==="bag"?"같은 백 금지":"주의"}</span></div>
+      <div class="small">${esc(r.why)}</div>
+      <div class="small"><b>→ ${esc(r.do)}</b></div>
+      ${r.src?`<div class="small muted">${esc(r.src)}</div>`:""}</div>`).join("") || `<div class="muted">규칙 없음</div>`}
+    <h3 style="margin-top:12px">한 백에 하나만</h3>
+    <div class="small">${Object.values(S.cat.ingredients).filter(i=>i.carriers).map(i=>`<b>${esc(i.name)}</b>: 바탕액 ${i.carriers.map(c=>esc((S.cat.ingredients[c]||{}).name||c)).join("·")}`).join("<br>")||"—"}</div>
+  </div>`;
 }
 
 /* ───────── 오늘 ───────── */
@@ -420,7 +448,7 @@ async function viewRun(el){
   const R = S.run, c = S.patient.courses.find(x=>x.id===R.cid), pr = P(c.program);
   el.innerHTML = `<div class="row"><h1>${pr.icon} ${esc(S.patient.name)} · ${esc(pr.name)} ${c.done+1}/${c.total}회</h1><span class="sp"></span>
     <button class="btn ghost" onclick="openPatient(${S.pid})">취소</button></div>
-   <div class="steps">
+   <div class="withside"><div class="steps">
    <div class="card step"><h2>오늘 확인</h2>
      <div class="row vital">
        <div><label>수축기</label><input type="number" data-v="sbp" value="${R.vitals.sbp??""}"></div>
@@ -442,7 +470,7 @@ async function viewRun(el){
      <textarea id="rnote" rows="2" style="width:100%;margin-top:10px" placeholder="메모">${esc(R.note)}</textarea>
      <div class="row" style="margin-top:12px"><span class="sp"></span><button class="btn" id="save" style="font-size:20px;padding:12px 26px">회차 저장</button></div>
      <div id="done"></div>
-   </div></div>`;
+   </div></div><div id="side">${sidePanel([])}</div></div>`;
   el.querySelectorAll("[data-v]").forEach(i => i.oninput = () => { R.vitals[i.dataset.v] = i.value; refreshRecipe(); });
   $("#rd").onchange = e => R.d = e.target.value;
   el.querySelectorAll("[data-c]").forEach(ch => ch.onclick = () => { const k=ch.dataset.c, i=R.checks.indexOf(k); i<0?R.checks.push(k):R.checks.splice(i,1); ch.classList.toggle("on"); R.doctor_ok=false; refreshRecipe(); });
@@ -460,12 +488,15 @@ async function _refresh(){
   const R = S.run, c = S.patient.courses.find(x=>x.id===R.cid);
   const r = await api("POST", "/api/preview", {program:c.program, tier:R.tier, vitals:R.vitals, checks:R.checks, minutes:R.minutes, gtt_set:R.gtt});
   R.last = r; if(R.minutes==null) R.minutes = r.minutes;
+  const sd = $("#side"); if(sd) sd.innerHTML = sidePanel(r.rules_today);
   const ing = S.cat.ingredients;
   $("#recipe").innerHTML =
     r.stops.map(s=>`<div class="alert stop">⛔ ${esc(s)}</div>`).join("") +
     (r.stops.length ? `<label class="row" style="margin:6px 0 12px"><input type="checkbox" id="dok" ${R.doctor_ok?"checked":""} style="width:24px;height:24px"> <b>원장님 확인 받음 — 진행</b></label>` : "") +
+    (r.conflicts||[]).map(x=>`<div class="alert stop">🚫 ${x.bag}번 백: ${esc(x.a)} × ${esc(x.b)} 같은 백 금지 → ${esc(x.do)}</div>`).join("") +
     r.warns.map(s=>`<div class="alert warn">⚠️ ${esc(s)}</div>`).join("") +
-    r.bags.map(b => `<div class="bag"><div class="row"><span class="base">${r.bags.length>1? b.order+") ":""}${esc(b.base_name)}</span>
+    (r.mix_notes||[]).map(x=>`<div class="alert warn">🧪 ${x.bag}번 백: ${esc(x.title)} → ${esc(x.do)}</div>`).join("") +
+    r.bags.map(b => `<div class="bag"><div class="row"><span class="base">${r.bags.length>1? `<span class="bagno">${b.order}</span>`:""}${esc(b.base_name)}</span>
         ${b.base_note?`<span class="tag">${esc(b.base_note)}</span>`:""}<span class="sp"></span>${r.bags.length>1 && b.order>1 ? `<span class="small muted">앞 수액 끝난 뒤 따로 연결</span>`:""}</div>
       ${b.items.map(it => { const id = b.order+"_"+it.key; const info = ing[it.key];
         return `<div class="item ${it.removed?'removed':''}">${it.removed?'<span style="width:24px">✕</span>':`<input type="checkbox" data-mix="${id}" ${R.mixed[id]?"checked":""}>`}
@@ -529,9 +560,11 @@ async function printHandout(cid){
 /* ───────── 프로그램표 (직원용·인쇄) ───────── */
 function viewTable(el){
   const cat = S.cat;
+  const mgNames = Object.values(cat.ingredients).filter(i=>(i.flags||[]).includes("mg")).map(i=>i.name).join("·") || "마그네슘";
   el.innerHTML = `<div class="row"><h1>프로그램표</h1><span class="sp"></span><button class="btn ghost noprint" onclick="print()">🖨 인쇄</button></div>
-   <p class="muted noprint">원내 조제표(MC·PNT·색 프로그램)를 바탕으로 짠 초안입니다. 값·구성은 「설정」에서 바꿉니다.</p>
-   <div class="alert warn noprint">※ 수축기혈압 ${cat.sbp_no_mg} 이하면 메가네슘 섞지 않기 (자동으로 빠짐)</div>` +
+   <p class="muted noprint">원내 수액 재고(EMR 목록)로 짠 초안입니다. 값·구성은 「설정」에서 바꿉니다. 번호가 다른 백은 섞지 않고 순서대로 따로 연결합니다.</p>
+   <div class="alert warn">※ 수축기혈압 ${cat.sbp_no_mg} 이하면 ${esc(mgNames)} 섞지 않기 (자동으로 빠짐)</div>
+   <div class="withside"><div>` +
    cat.order.map(k => { const p = P(k), plan = oralPlan(k, k==="gut"?"D":null, []);
     return `<div class="card" style="border-left:8px solid ${p.color}">
      <div class="row"><span style="font-size:26px">${p.icon}</span><h2 style="margin:0">${esc(p.name)}</h2>
@@ -549,30 +582,49 @@ function viewTable(el){
      ${p.followup_weeks.length ? `<div class="small muted">증상 점수: ${esc(p.score.label)} — ${p.followup_weeks.map(w=>w+"주").join("·")}</div>`:""}
     </div>`; }).join("") +
    `<div class="card"><h2>성분 메모</h2><table class="matrix"><tr><th>원내 이름</th><th>성분</th><th>섞을 때</th></tr>` +
-     Object.entries(cat.ingredients).filter(([k,v])=>!v.base).map(([k,v]) => `<tr><td><b>${esc(v.name)}</b></td><td>${esc(v.generic)}</td><td class="small">${esc([v.mix,v.notice].filter(Boolean).join(" · "))}</td></tr>`).join("") +
-   `</table></div>`;
+     Object.entries(cat.ingredients).map(([k,v]) => `<tr><td><b>${esc(v.name)}</b>${v.stock===false?' <span class="tag late">재고 확인</span>':""}</td><td>${esc(v.generic)}</td><td class="small">${esc([v.mix,v.notice].filter(Boolean).join(" · "))}</td></tr>`).join("") +
+   `</table></div></div>${sidePanel([])}</div>`;
 }
 
 /* ───────── 설정 ───────── */
 function viewSettings(el){
-  const cat = S.cat, ingOpts = Object.entries(cat.ingredients).filter(([k,v])=>!v.base).map(([k,v])=>`<option value="${k}">${esc(v.name)}</option>`).join("");
+  const cat = S.cat;
+  const ingOpts = Object.entries(cat.ingredients).filter(([k,v])=>!v.base).map(([k,v])=>`<option value="${k}">${esc(v.name)}</option>`).join("");
   const baseOpts = sel => Object.entries(cat.ingredients).filter(([k,v])=>v.base).map(([k,v])=>`<option value="${k}" ${k===sel?"selected":""}>${esc(v.name)}</option>`).join("");
+  const conf = cat.conflicts || [];
+  const confOf = (pk,tk) => conf.filter(c=>c.program===pk && c.tier===tk);
+  const groupOpts = [...new Set((cat.incompat||[]).flatMap(r=>[r.a,r.b]).filter(g=>g!=="*"))];
   el.innerHTML = `<div class="row"><h1>설정</h1><span class="sp"></span>
      <button class="btn ghost" id="reset">처음 값으로</button><button class="btn" id="saveSet">저장</button></div>
+   ${conf.length ? `<div class="alert stop">🚫 같은 백 금지 조합 ${conf.length}곳 — 아래 빨간 표시를 다른 백으로 옮겨 주세요</div>` : `<div class="alert info">✅ 모든 등급이 「같이 섞으면 안 되는 조합」을 피했습니다</div>`}
+   <div class="withside"><div>
    <div class="card"><div class="row"><b>회차권 할인</b><input type="number" id="disc" value="${cat.package_discount}" style="width:80px">%</div></div>` +
    cat.order.map(k => { const p = P(k); return `<div class="card" style="border-left:8px solid ${p.color}"><h2>${p.icon} ${esc(p.name)}</h2>` +
-     cat.tiers.map(t => { const T = p.tiers[t]; return `<div class="tierbox tier-${t}" style="margin-bottom:10px;cursor:default" data-p="${k}" data-tier="${t}">
+     cat.tiers.map(t => { const T = p.tiers[t]; const cf = confOf(k,t); return `<div class="tierbox tier-${t}" style="margin-bottom:10px;cursor:default" data-p="${k}" data-tier="${t}">
        <div class="row"><b>${TN(t)}</b><span class="muted">1회</span><input type="number" data-f="price" value="${T.price}" style="width:120px">원
-         <span class="muted">시간</span><input type="number" data-f="min" value="${T.min}" style="width:80px">분</div>
-       ${T.bags.map((b,bi) => `<div class="bag" data-bag="${bi}" style="margin-top:8px"><div class="row"><select data-base>${baseOpts(b.base)}</select>
+         <span class="muted">시간</span><input type="number" data-f="min" value="${T.min}" style="width:80px">분
+         <span class="sp"></span><button class="btn sm ghost" data-addbag>＋ 백 추가</button></div>
+       ${cf.map(c=>`<div class="alert stop small">🚫 ${c.bag}번 백: ${esc(c.a)} × ${esc(c.b)} → ${esc(c.do)}</div>`).join("")}
+       ${T.bags.map((b,bi) => `<div class="bag" data-bag="${bi}" style="margin-top:8px"><div class="row"><span class="bagno">${bi+1}</span><select data-base>${baseOpts(b.base)}</select>
           ${b.add.map(([ik,q],ii)=>`<span class="chip" style="cursor:default">${esc(cat.ingredients[ik].name)} <input type="number" step="0.5" data-ing="${ik}" value="${q}" style="width:64px;padding:4px"> ${esc(cat.ingredients[ik].unit)}
-             <span style="cursor:pointer;color:var(--red)" data-del="${ii}">✕</span></span>`).join("")}
-          <select data-addsel><option value="">＋ 넣기</option>${ingOpts}</select></div></div>`).join("")}
+             <span style="cursor:pointer;color:var(--red)" data-del>✕</span></span>`).join("")}
+          <select data-addsel><option value="">＋ 넣기</option>${ingOpts}</select>
+          ${T.bags.length>1?`<span class="sp"></span><button class="btn sm ghost" data-delbag>백 지우기</button>`:""}</div></div>`).join("")}
        </div>`; }).join("") + `</div>`; }).join("") +
-   `<div class="card"><h2>보충제 값</h2><table><tr><th>보충제</th><th>먹는 법</th><th>1통 며칠</th><th>1통 값</th></tr>` +
+   `<div class="card"><h2>원내 약 추가 (새로 들인 재고)</h2><div class="row">
+      <input type="text" id="ni_name" placeholder="원내 이름" style="width:160px">
+      <input type="text" id="ni_gen" placeholder="성분·함량" style="width:220px">
+      <select id="ni_unit"><option>A</option><option>V</option><option>mL</option><option>병</option></select>
+      <label class="chip"><input type="checkbox" id="ni_base"> 바탕액</label>
+      <input type="number" id="ni_ml" placeholder="mL" style="width:90px" title="바탕액 용량 또는 1개당 늘어나는 양">
+      <select id="ni_grp"><option value="">섞기 묶음 없음</option>${groupOpts.map(g=>`<option>${g}</option>`).join("")}</select>
+      <button class="btn" id="ni_add">추가</button></div>
+      <p class="small muted">섞기 묶음을 고르면 그 묶음의 「같이 섞으면 안 되는 조합」 규칙이 똑같이 적용됩니다.</p></div>
+   <div class="card"><h2>보충제 값</h2><table><tr><th>보충제</th><th>먹는 법</th><th>1통 며칠</th><th>1통 값</th></tr>` +
      Object.entries(cat.supplements).map(([k,s]) => `<tr data-sup="${k}"><td><b>${esc(s.name)}</b></td><td><input type="text" data-sf="dose" value="${esc(s.dose)}" style="width:100%"></td>
        <td><input type="number" data-sf="days_per_pack" value="${s.days_per_pack}" style="width:80px"></td>
-       <td><input type="number" data-sf="price" value="${s.price??""}" placeholder="입력" style="width:120px"></td></tr>`).join("") + `</table></div>`;
+       <td><input type="number" data-sf="price" value="${s.price??""}" placeholder="입력" style="width:120px"></td></tr>`).join("") + `</table></div>
+   </div>${sidePanel(conf.map(c=>c.rule))}</div>`;
   const collect = () => {
     const out = {programs:{}, supplements:{}, package_discount:+$("#disc").value};
     el.querySelectorAll("[data-tier]").forEach(box => {
@@ -587,11 +639,24 @@ function viewSettings(el){
       out.supplements[tr.dataset.sup] = o; });
     return out;
   };
-  el.querySelectorAll("[data-del]").forEach(x => x.onclick = () => { x.closest(".chip").querySelector("[data-ing]").value = 0; x.closest(".chip").style.opacity=.3; });
-  el.querySelectorAll("[data-addsel]").forEach(s => s.onchange = () => { if(!s.value) return;
-    const box = s.closest("[data-tier]"), bi = +s.closest("[data-bag]").dataset.bag;
-    const T = S.cat.programs[box.dataset.p].tiers[box.dataset.tier]; T.bags[bi].add.push([s.value, 1]); viewSettings(el); toast("넣었습니다 — 저장을 눌러 주세요"); });
-  $("#saveSet").onclick = async () => { S.cat = await api("PUT", "/api/catalog", collect()); toast("저장했습니다"); viewSettings(el); };
+  // 화면에서 고친 값을 지우지 않고 다시 그리기
+  const sync = () => { const o = collect(); for(const [pk,pv] of Object.entries(o.programs)) for(const [tk,tv] of Object.entries(pv.tiers)) Object.assign(S.cat.programs[pk].tiers[tk], tv); };
+  const tierOf = x => { const box = x.closest("[data-tier]"); return S.cat.programs[box.dataset.p].tiers[box.dataset.tier]; };
+  el.querySelectorAll("[data-del]").forEach(x => x.onclick = () => { x.closest(".chip").querySelector("[data-ing]").value = 0; sync(); viewSettings(el); });
+  el.querySelectorAll("[data-addsel]").forEach(x => x.onchange = () => { if(!x.value) return; const v = x.value, bi = +x.closest("[data-bag]").dataset.bag;
+    sync(); tierOf(x).bags[bi].add.push([v, 1]); viewSettings(el); toast("넣었습니다 — 저장을 눌러야 검사·반영됩니다"); });
+  el.querySelectorAll("[data-addbag]").forEach(x => x.onclick = () => { sync(); const T = tierOf(x);
+    const nb = Object.entries(S.cat.ingredients).find(([k,v])=>v.base && v.stock!==false); T.bags.push({base: nb ? nb[0] : T.bags[0].base, add:[]}); viewSettings(el); });
+  el.querySelectorAll("[data-delbag]").forEach(x => x.onclick = () => { const bi = +x.closest("[data-bag]").dataset.bag; sync(); tierOf(x).bags.splice(bi,1); viewSettings(el); });
+  $("#ni_add").onclick = async () => {
+    const name = $("#ni_name").value.trim(); if(!name) return toast("이름을 넣어 주세요");
+    const body = {ingredients:{["x_"+Date.now().toString(36)]:{name, generic:$("#ni_gen").value, unit:$("#ni_unit").value,
+      base:$("#ni_base").checked, ml:+$("#ni_ml").value||0, add_ml:$("#ni_base").checked?0:(+$("#ni_ml").value||0),
+      groups:$("#ni_grp").value?[$("#ni_grp").value]:[]}}};
+    const o = collect(); Object.assign(body, o);
+    S.cat = await api("PUT", "/api/catalog", body); toast("추가했습니다"); viewSettings(el); };
+  $("#saveSet").onclick = async () => { S.cat = await api("PUT", "/api/catalog", collect());
+    toast((S.cat.conflicts||[]).length ? "저장 — 같은 백 금지 조합이 남아 있습니다" : "저장했습니다"); viewSettings(el); };
   $("#reset").onclick = async () => { if(!confirm("설정을 모두 처음 값으로 되돌릴까요?")) return; S.cat = await api("PUT","/api/catalog",{reset:true}); viewSettings(el); };
 }
 

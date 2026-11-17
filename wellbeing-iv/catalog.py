@@ -415,6 +415,18 @@ def apply_overrides(cat, ov):
           "supplements": {"vitd": {"price":..}}, "package_discount": 15}
     """
     ov = ov or {}
+    # 새로 들인 약 (설정 → 원내 약 추가)
+    for ik, iv in (ov.get("ingredients") or {}).items():
+        if ik in cat["ingredients"]:
+            cat["ingredients"][ik].update({f: iv[f] for f in ("name", "generic") if iv.get(f)})
+        else:
+            row = {"name": iv.get("name") or ik, "unit": iv.get("unit") or "A", "generic": iv.get("generic") or "",
+                   "groups": list(iv.get("groups") or []), "custom": True}
+            if iv.get("base"):
+                row.update(base=True, ml=int(iv.get("ml") or 0))
+            elif iv.get("add_ml"):
+                row["add_ml"] = iv["add_ml"]
+            cat["ingredients"][ik] = row
     for pk, pv in (ov.get("programs") or {}).items():
         if pk not in cat["programs"]:
             continue
