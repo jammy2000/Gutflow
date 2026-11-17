@@ -1,0 +1,617 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>웰빙내과 수액실</title>
+<style>
+/* 11-17 부원장님: 수액 프로그램 — 웰빙 그린 + 딥네이비 글자, 등급색은 홍보영상 가격카드와 같게 */
+:root{
+  --green:#195C3B; --teal:#3B8C7A; --mint:#D7ECE8; --ink:#16233F; --sub:#5E6F66; --amber:#D9822B;
+  --bg:#F6F0E4; --card:#FFFDF8; --line:#E4DCCB; --red:#C0392B; --redbg:#FBE3E0; --yel:#FFF3CF;
+  --t-basic:#D3DCF1; --t-plus:#CDEFF5; --t-premium:#F8D3E7;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:Pretendard,"Pretendard Variable","Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  font-size:18px;line-height:1.5}
+button,input,select,textarea{font:inherit;color:inherit}
+header{position:sticky;top:0;z-index:5;background:var(--green);color:#fff;display:flex;align-items:center;
+  gap:18px;padding:10px 22px;flex-wrap:wrap}
+header .logo{font-weight:800;font-size:22px;letter-spacing:-.5px;display:flex;align-items:center;gap:10px}
+header .logo b{display:inline-grid;place-items:center;width:34px;height:34px;border-radius:10px;background:#fff;color:var(--green)}
+nav{display:flex;gap:6px;flex-wrap:wrap}
+nav button{background:transparent;border:0;color:#fff;opacity:.8;padding:8px 14px;border-radius:10px;cursor:pointer;font-weight:700}
+nav button.on{background:rgba(255,255,255,.18);opacity:1}
+main{max-width:1280px;margin:0 auto;padding:22px}
+h1{font-size:28px;margin:0 0 14px;letter-spacing:-.5px}
+h2{font-size:22px;margin:0 0 10px;letter-spacing:-.3px}
+h3{font-size:19px;margin:0 0 8px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px 20px;margin-bottom:16px}
+.grid{display:grid;gap:14px}
+.g2{grid-template-columns:repeat(auto-fit,minmax(360px,1fr))}
+.g3{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+.g4{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.sp{flex:1}
+.muted{color:var(--sub)}
+.small{font-size:15px}
+.big{font-size:34px;font-weight:800;letter-spacing:-1px}
+.btn{border:0;border-radius:12px;padding:10px 18px;font-weight:700;cursor:pointer;background:var(--green);color:#fff}
+.btn.ghost{background:#fff;color:var(--ink);border:1.5px solid var(--line)}
+.btn.warn{background:var(--red)}
+.btn.sm{padding:6px 12px;font-size:15px;border-radius:10px}
+.btn:disabled{opacity:.4;cursor:default}
+.chip{display:inline-flex;align-items:center;gap:6px;border:1.5px solid var(--line);background:#fff;border-radius:999px;
+  padding:7px 14px;cursor:pointer;font-weight:600;user-select:none}
+.chip.on{background:var(--ink);border-color:var(--ink);color:#fff}
+.chip.red.on{background:var(--red);border-color:var(--red)}
+.pill{display:inline-block;border-radius:999px;padding:2px 12px;font-weight:700;font-size:15px}
+.tier-basic{background:var(--t-basic)} .tier-plus{background:var(--t-plus)} .tier-premium{background:var(--t-premium)}
+input[type=text],input[type=number],input[type=date],input[type=time],select,textarea{
+  border:1.5px solid var(--line);border-radius:12px;padding:9px 12px;background:#fff;min-width:0}
+input[type=number]{width:110px}
+.vital input{width:120px;font-size:24px;font-weight:700;text-align:center}
+.vital label{display:block;font-size:15px;color:var(--sub);margin-bottom:4px}
+table{border-collapse:collapse;width:100%}
+td,th{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{font-size:15px;color:var(--sub);font-weight:700}
+.prog{border-radius:18px;padding:16px;cursor:pointer;border:2px solid transparent;background:#fff;transition:.1s}
+.prog:hover{transform:translateY(-2px)}
+.prog.on{border-color:var(--ink)}
+.prog .ic{font-size:30px}
+.prog .nm{font-weight:800;font-size:21px}
+.tierbox{border-radius:16px;padding:14px 16px;cursor:pointer;border:2px solid transparent}
+.tierbox.on{border-color:var(--ink)}
+.tierbox .price{font-size:24px;font-weight:800}
+.dots{display:flex;gap:6px;flex-wrap:wrap}
+.dot{width:26px;height:26px;border-radius:50%;border:2.5px solid var(--teal);display:grid;place-items:center;font-size:13px;font-weight:800;color:var(--teal)}
+.dot.done{background:var(--teal);color:#fff}
+.bag{border:1.5px dashed var(--teal);border-radius:14px;padding:12px 14px;margin-bottom:10px;background:#fff}
+.bag .base{font-weight:800;font-size:20px}
+.item{display:flex;align-items:center;gap:10px;padding:6px 0;font-size:20px}
+.item input[type=checkbox]{width:24px;height:24px}
+.item.removed{color:#9aa;text-decoration:line-through}
+.item .why{font-size:14px;text-decoration:none;color:var(--red);display:inline-block}
+.alert{border-radius:12px;padding:10px 14px;margin:6px 0;font-weight:600}
+.alert.stop{background:var(--redbg);color:var(--red)}
+.alert.warn{background:var(--yel)}
+.alert.info{background:var(--mint)}
+.kpi{background:var(--mint);border-radius:16px;padding:14px 18px;text-align:center}
+.kpi .v{font-size:40px;font-weight:800;line-height:1.1}
+.list-item{display:flex;gap:12px;align-items:center;padding:12px 4px;border-bottom:1px solid var(--line);cursor:pointer}
+.list-item:hover{background:#fff}
+.tag{font-size:13px;border-radius:8px;padding:2px 8px;background:var(--mint);font-weight:700}
+.tag.late{background:var(--redbg);color:var(--red)}
+.emr{white-space:pre;font-family:ui-monospace,Consolas,monospace;font-size:15px;background:#fff;border:1.5px solid var(--line);
+  border-radius:12px;padding:12px;overflow:auto}
+.steps{counter-reset:s}
+.step h2::before{counter-increment:s;content:counter(s);display:inline-grid;place-items:center;width:32px;height:32px;
+  border-radius:50%;background:var(--green);color:#fff;margin-right:10px;font-size:18px}
+.toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:12px 22px;
+  border-radius:14px;font-weight:700;z-index:50;opacity:0;transition:.2s;pointer-events:none}
+.toast.show{opacity:1}
+.empty{color:var(--sub);padding:20px;text-align:center}
+.swatch{width:12px;height:12px;border-radius:4px;display:inline-block}
+.matrix td{font-size:15px}
+.matrix .pn{font-weight:800;font-size:18px}
+@media print{
+  header,nav,.noprint{display:none!important}
+  body{background:#fff;font-size:13px}
+  main{padding:0;max-width:none}
+  .card{border:0;padding:6px 0;break-inside:avoid}
+  .matrix td{font-size:12px}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo"><b>W</b>웰빙내과 수액실</div>
+  <nav id="nav">
+    <button data-go="board">오늘</button>
+    <button data-go="patients">환자</button>
+    <button data-go="table">프로그램표</button>
+    <button data-go="settings">설정</button>
+  </nav>
+</header>
+<main id="main"></main>
+<div class="toast" id="toast"></div>
+
+<script>
+"use strict";
+/* ───────── 공통 ───────── */
+const S = {cat:null, view:"board", pid:null, cid:null, draft:null, run:null};
+const $ = (s, el=document) => el.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const won = n => (n == null || n === "") ? "—" : Number(n).toLocaleString("ko-KR") + "원";
+const today = () => { const d = new Date(); d.setMinutes(d.getMinutes() - d.getTimezoneOffset()); return d.toISOString().slice(0,10); };
+const hm = () => new Date().toTimeString().slice(0,5);
+const md = s => s ? (+s.slice(5,7)) + "/" + (+s.slice(8,10)) : "";
+const DOW = ["일","월","화","수","목","금","토"];
+const mdw = s => s ? md(s) + "(" + DOW[new Date(s + "T00:00").getDay()] + ")" : "";
+function toast(m){ const t=$("#toast"); t.textContent=m; t.classList.add("show"); clearTimeout(t._h); t._h=setTimeout(()=>t.classList.remove("show"),1800); }
+async function api(method, url, body){
+  const r = await fetch(url, {method, headers:{"Content-Type":"application/json"}, body: body ? JSON.stringify(body) : undefined});
+  const j = await r.json().catch(()=>({}));
+  if(!r.ok){ toast(j.error || "오류"); throw new Error(j.error || r.status); }
+  return j;
+}
+const P = k => S.cat.programs[k];
+const TN = t => S.cat.tier_name[t];
+const SUP = k => S.cat.supplements[k] || {name:k};
+function go(view, opt={}){ Object.assign(S, opt); S.view = view; render(); window.scrollTo(0,0); }
+document.getElementById("nav").addEventListener("click", e => { const b=e.target.closest("button"); if(b) go(b.dataset.go); });
+
+function recipeLines(bags){
+  return bags.map((b,i) => (bags.length>1 ? (i+1)+") " : "") + S.cat.ingredients[b.base].name +
+    (b.add.length ? " + " + b.add.map(([k,q]) => S.cat.ingredients[k].name + " " + q + S.cat.ingredients[k].unit).join(" + ") : "")).join("<br>");
+}
+
+/* ───────── 오늘 ───────── */
+async function viewBoard(el){
+  const b = await api("GET", "/api/board?days=7");
+  const sec = (title, rows, fn, emptyMsg) => `<div class="card"><h2>${title} <span class="muted small">${rows.length}명</span></h2>
+    ${rows.length ? rows.map(fn).join("") : `<div class="empty">${emptyMsg}</div>`}</div>`;
+  const who = r => `<b>${esc(r.name)}</b> <span class="muted small">${esc(r.chart_no)}</span>`;
+  el.innerHTML = `<div class="row"><h1>오늘 · ${mdw(b.on)}</h1><span class="sp"></span>
+     <button class="btn" onclick="go('patients')">＋ 환자 찾기·등록</button></div>
+   <div class="grid g3">
+    ${sec("💧 수액 회차", b.due, r => `<div class="list-item" onclick="openPatient(${r.patient_id})">
+        <span class="swatch" style="background:${P(r.program).color}"></span>
+        <div class="sp">${who(r)}<br><span class="small">${esc(r.program_name)} · <span class="pill tier-${r.tier}">${TN(r.tier)}</span> · ${r.done+1}/${r.total}회</span></div>
+        <span class="tag ${r.late?'late':''}">${r.d<=b.on? (r.late?'지남 ':'')+mdw(r.d) : mdw(r.d)}</span></div>`, "이번 주 예정 회차 없음")}
+    ${sec("🛒 보충제 다 떨어질 때", b.refill, r => `<div class="list-item" onclick="openPatient(${r.patient_id})">
+        <div class="sp">${who(r)}<br><span class="small">${esc(r.sup_name)}</span></div>
+        <span class="tag ${r.late?'late':''}">${mdw(r.d)}</span></div>`, "이번 주 재구매 대상 없음")}
+    ${sec("📈 증상 점수 다시 재기", b.followup, r => `<div class="list-item" onclick="openPatient(${r.patient_id})">
+        <div class="sp">${who(r)}<br><span class="small">${esc(r.program_name)} · ${r.week}주차</span></div>
+        <span class="tag">${mdw(r.d)}</span></div>`, "이번 주 없음")}
+   </div>`;
+}
+
+/* ───────── 환자 ───────── */
+async function viewPatients(el){
+  el.innerHTML = `<h1>환자</h1>
+   <div class="card"><div class="row"><input type="text" id="q" placeholder="차트번호·이름" style="flex:1;font-size:20px">
+     <button class="btn" id="qb">찾기</button></div><div id="plist"></div></div>
+   <div class="card"><h2>새 환자</h2><div class="row">
+     <input type="text" id="n_chart" placeholder="차트번호" style="width:140px">
+     <input type="text" id="n_name" placeholder="이름" style="width:140px">
+     <input type="date" id="n_birth" title="생년월일">
+     <span class="chip" data-sex="M">남</span><span class="chip" data-sex="F">여</span>
+     <button class="btn" id="n_add">등록</button></div>
+     <p class="muted small">실제 운영 전에는 시험용 가짜 환자만 넣어 주세요.</p></div>`;
+  let sex = "";
+  el.querySelectorAll("[data-sex]").forEach(c => c.onclick = () => { sex=c.dataset.sex; el.querySelectorAll("[data-sex]").forEach(x=>x.classList.toggle("on", x===c)); });
+  const load = async () => {
+    const rows = await api("GET", "/api/patients?q=" + encodeURIComponent($("#q").value.trim()));
+    $("#plist").innerHTML = rows.length ? rows.map(p => `<div class="list-item" onclick="openPatient(${p.id})">
+      <b>${esc(p.name)}</b><span class="muted">${esc(p.chart_no)}</span><span class="muted small">${esc(p.birth||"")} ${p.sex==="M"?"남":p.sex==="F"?"여":""}</span></div>`).join("")
+      : `<div class="empty">없음</div>`;
+  };
+  $("#qb").onclick = load; $("#q").onkeydown = e => { if(e.key==="Enter") load(); };
+  $("#n_add").onclick = async () => {
+    const r = await api("POST", "/api/patients", {chart_no:$("#n_chart").value, name:$("#n_name").value, birth:$("#n_birth").value, sex});
+    toast(r.existing ? "이미 있는 차트번호 — 그 환자로 엽니다" : "등록했습니다"); openPatient(r.id);
+  };
+  load();
+}
+function openPatient(id){ go("patient", {pid:id}); }
+
+async function viewPatient(el){
+  const p = await api("GET", "/api/patients/" + S.pid);
+  S.patient = p;
+  const active = p.courses.filter(c => c.status==="수액중" || c.status==="경구유지");
+  const past = p.courses.filter(c => !(c.status==="수액중" || c.status==="경구유지"));
+  el.innerHTML = `<div class="row"><h1>${esc(p.name)} <span class="muted" style="font-size:20px">${esc(p.chart_no)} · ${esc(p.birth||"")} ${p.sex==="M"?"남":p.sex==="F"?"여":""}</span></h1>
+     <span class="sp"></span><button class="btn" onclick="newCourse()">＋ 새 프로그램</button></div>
+   ${active.length ? active.map(courseCard).join("") : `<div class="card empty">진행 중인 프로그램 없음 — 「새 프로그램」으로 시작하세요</div>`}
+   ${past.length ? `<h2 style="margin-top:24px">지난 프로그램</h2>` + past.map(courseCard).join("") : ""}`;
+  p.courses.forEach(c => { const el2 = document.getElementById("chart"+c.id); if(el2) drawScores(el2, c); });
+}
+
+function courseCard(c){
+  const pr = P(c.program);
+  const dots = Array.from({length:c.total}, (_,i) => `<span class="dot ${i<c.done?'done':''}" title="${c.sessions[i]? c.sessions[i].d : (c.plan_dates[i]||'')}">${i+1}</span>`).join("");
+  const plan = c.oral_plan || {with:[], after:[]};
+  const lastBy = {}; c.refills.forEach(r => lastBy[r.sup] = r);
+  const supRow = (r, phase) => { const rf = lastBy[r.sup];
+    return `<tr><td><b>${esc(r.name)}</b><br><span class="small muted">${esc(r.dose)} · ${r.weeks}주 · ${esc(r.why)}</span></td>
+     <td class="small">${phase}</td>
+     <td class="small">${rf ? "지급 "+md(rf.last)+"<br>다음 "+mdw(rf.due) : "—"}</td>
+     <td class="noprint"><button class="btn sm ghost" onclick="giveOral(${c.id},'${r.sup}')">지급</button></td></tr>`; };
+  const stColor = {"수액중":"var(--teal)","경구유지":"var(--amber)","종료":"#889","중단":"var(--red)"}[c.status] || "#889";
+  const sc = pr.score;
+  const lastScore = c.scores.length ? c.scores[c.scores.length-1] : null;
+  return `<div class="card" style="border-left:8px solid ${pr.color}">
+   <div class="row"><span style="font-size:28px">${pr.icon}</span>
+     <h2 style="margin:0">${esc(pr.name)}</h2><span class="pill tier-${c.tier}">${TN(c.tier)}</span>
+     <span class="pill" style="background:${stColor};color:#fff">${c.status}</span>
+     ${c.subtype ? `<span class="pill" style="background:var(--mint)">${esc(pr.subtypes[c.subtype].label)}</span>` : ""}
+     <span class="sp"></span>
+     ${c.status==="수액중" ? `<button class="btn" onclick="startRun(${c.id})">💧 오늘 ${c.done+1}회차 진행</button>` : ""}
+     <select class="noprint" onchange="setStatus(${c.id}, this.value)">
+       ${["수액중","경구유지","종료","중단"].map(s=>`<option ${s===c.status?"selected":""}>${s}</option>`).join("")}</select>
+   </div>
+   <div class="grid g3" style="margin-top:12px">
+    <div><div class="muted small">수액 ${c.done}/${c.total}회 · 시작 ${mdw(c.start_date)}</div><div class="dots" style="margin:6px 0">${dots}</div>
+      ${c.next_due ? `<div>다음 권장 <b>${mdw(c.next_due)}</b></div>` : `<div class="muted">수액 회차 끝</div>`}
+      <div class="small muted">값 ${won(c.price)}${c.total>1 ? ` (1회 ${won(c.price_each)})` : ""}</div></div>
+    <div><div class="muted small">${esc(sc.label)}</div>
+      <div class="row"><span class="big">${lastScore ? lastScore.value : "—"}</span>${lastScore&&lastScore.detail&&lastScore.detail.grade?`<span class="tag">${esc(lastScore.detail.grade)}</span>`:""}
+      <span class="sp"></span><button class="btn sm ghost noprint" onclick="scoreDlg(${c.id})">점수 넣기</button></div>
+      <div id="chart${c.id}"></div></div>
+    <div><div class="muted small">처방약·메모</div><div>${esc(c.meds||"—")}</div><div class="small muted">${esc(c.note||"")}</div>
+      <button class="btn sm ghost noprint" style="margin-top:6px" onclick="printHandout(${c.id})">🖨 환자 안내문</button></div>
+   </div>
+   <h3 style="margin-top:14px">경구 보충제 — 수액 뒤에도 이어가기</h3>
+   <table><tr><th>보충제</th><th>단계</th><th>지급</th><th class="noprint"></th></tr>
+     ${plan.with.map(r=>supRow(r,"수액과 함께")).join("")}${plan.after.map(r=>supRow(r,"수액 뒤 유지")).join("")}
+     ${(!plan.with.length && !plan.after.length) ? `<tr><td colspan=4 class="muted">없음</td></tr>` : ""}</table>
+   <details style="margin-top:10px"><summary class="muted">회차 기록 ${c.sessions.length}건</summary>
+    <table><tr><th>회</th><th>날짜</th><th>등급·조제</th><th>시간</th><th>반응</th><th></th></tr>
+    ${c.sessions.map(s => `<tr><td>${s.n}</td><td>${mdw(s.d)}</td>
+      <td class="small"><span class="pill tier-${s.recipe.tier}">${esc(s.recipe.tier_name)}</span>
+        ${(s.recipe.removed||[]).map(r=>`<br><span style="color:var(--red)">제외 ${esc(r.name)}</span>`).join("")}</td>
+      <td class="small">${esc(s.start_time||"")}~${esc(s.end_time||"")}</td>
+      <td class="small">${esc((s.reactions||[]).join(", ")||"없음")}</td>
+      <td class="noprint"><button class="btn sm ghost" onclick="showEmr(${s.id})">EMR</button>
+        <button class="btn sm ghost" onclick="delSession(${s.id})">×</button></td></tr>`).join("")}</table>
+   </details>
+  </div>`;
+}
+
+function drawScores(el, c){
+  const pts = c.scores; if(pts.length < 1){ el.innerHTML = ""; return; }
+  const max = P(c.program).score.max, W = 300, H = 90, pad = 14;
+  const x = i => pad + (pts.length===1 ? (W-2*pad)/2 : i*(W-2*pad)/(pts.length-1));
+  const y = v => H - pad - (v/max)*(H-2*pad);
+  const path = pts.map((p,i)=>(i?"L":"M")+x(i)+","+y(p.value)).join(" ");
+  el.innerHTML = `<svg viewBox="0 0 ${W} ${H}" width="100%" style="max-width:${W}px">
+    <path d="${path}" fill="none" stroke="var(--amber)" stroke-width="3"/>
+    ${pts.map((p,i)=>`<circle cx="${x(i)}" cy="${y(p.value)}" r="5" fill="var(--amber)"><title>${p.d} ${p.value}</title></circle>
+      <text x="${x(i)}" y="${H-1}" font-size="11" text-anchor="middle" fill="#5E6F66">${md(p.d)}</text>`).join("")}</svg>`;
+}
+
+async function setStatus(cid, st){ await api("PATCH", "/api/courses/"+cid, {status:st}); toast("상태: "+st); render(); }
+async function delSession(sid){ if(!confirm("이 회차 기록을 지울까요?")) return; await api("DELETE","/api/sessions/"+sid); render(); }
+async function showEmr(sid){ const r = await api("GET","/api/sessions/"+sid+"/emr"); emrDlg(r.emr); }
+function emrDlg(text){
+  const d = document.createElement("div");
+  d.style.cssText = "position:fixed;inset:0;background:rgba(0,0,0,.35);display:grid;place-items:center;z-index:40";
+  d.innerHTML = `<div class="card" style="max-width:560px;width:92%"><h2>EMR 붙여넣기</h2><div class="emr">${esc(text)}</div>
+    <div class="row" style="margin-top:10px"><span class="sp"></span><button class="btn" id="cp">복사</button><button class="btn ghost" id="cl">닫기</button></div></div>`;
+  document.body.appendChild(d);
+  $("#cp",d).onclick = async () => { try{ await navigator.clipboard.writeText(text); toast("복사했습니다"); }catch(e){ toast("복사 안 됨 — 글을 직접 선택해 주세요"); } };
+  $("#cl",d).onclick = () => d.remove();
+}
+
+async function giveOral(cid, sup){
+  const s = SUP(sup);
+  const packs = prompt(`${s.name}\n몇 통 드릴까요? (1통 ${s.days_per_pack||30}일분${s.price? " · "+won(s.price):""})`, "1");
+  if(!packs) return;
+  const r = await api("POST", `/api/courses/${cid}/oral`, {sup, packs:+packs});
+  toast("지급 — 다음 구매 " + mdw(r.due)); render();
+}
+
+function scoreDlg(cid){
+  const c = S.patient.courses.find(x=>x.id===cid), pr = P(c.program);
+  const d = document.createElement("div");
+  d.style.cssText = "position:fixed;inset:0;background:rgba(0,0,0,.35);display:grid;place-items:center;z-index:40";
+  let body;
+  if(c.program === "gut"){
+    const q = [["pain","배가 아픈 정도","0 없음 · 100 아주 심함"],["pain_days","최근 10일 중 아팠던 날","0~10일"],
+      ["bloat","배가 더부룩·빵빵한 정도","0~100"],["bowel_unsat","배변 습관이 불만족스러운 정도","0~100"],
+      ["life","장 증상이 생활에 주는 지장","0~100"]];
+    body = q.map(([k,l,h]) => `<div style="margin:10px 0"><div><b>${l}</b> <span class="muted small">${h}</span></div>
+      <div class="row"><input type="range" min="0" max="${k==="pain_days"?10:100}" step="${k==="pain_days"?1:5}" value="0" data-k="${k}" style="flex:1">
+      <b data-v="${k}" style="width:44px;text-align:right">0</b></div></div>`).join("") +
+      `<div class="kpi" style="margin-top:10px">IBS-SSS <div class="v" id="sss">0</div><div id="sssg" class="small"></div></div>`;
+  } else {
+    body = `<div class="muted">${esc(pr.score.label)}</div><div class="row" style="margin:12px 0">` +
+      Array.from({length:11},(_,i)=>`<span class="chip" data-s="${i}" style="min-width:48px;justify-content:center;font-size:20px">${i}</span>`).join("") + `</div>`;
+  }
+  d.innerHTML = `<div class="card" style="max-width:640px;width:94%"><h2>${esc(pr.name)} 점수</h2>
+    <div class="row"><span class="muted">날짜</span><input type="date" id="sd" value="${today()}"></div>${body}
+    <div class="row" style="margin-top:12px"><span class="sp"></span><button class="btn" id="ok">저장</button><button class="btn ghost" id="cl">닫기</button></div></div>`;
+  document.body.appendChild(d);
+  let val = null; const det = {pain:0,pain_days:0,bloat:0,bowel_unsat:0,life:0};
+  d.querySelectorAll("[data-s]").forEach(ch => ch.onclick = () => { val=+ch.dataset.s; d.querySelectorAll("[data-s]").forEach(x=>x.classList.toggle("on",x===ch)); });
+  d.querySelectorAll("input[type=range]").forEach(r => r.oninput = () => {
+    det[r.dataset.k] = +r.value; $(`[data-v=${r.dataset.k}]`,d).textContent = r.value;
+    const t = det.pain + det.pain_days*10 + det.bloat + det.bowel_unsat + det.life;
+    $("#sss",d).textContent = t; $("#sssg",d).textContent = t<75?"정상 범위":t<175?"가벼움":t<300?"중간":"심함"; });
+  $("#cl",d).onclick = () => d.remove();
+  $("#ok",d).onclick = async () => {
+    const body = c.program==="gut" ? {d:$("#sd",d).value, detail:det} : {d:$("#sd",d).value, value:val};
+    if(c.program!=="gut" && val==null) return toast("점수를 골라 주세요");
+    await api("POST", `/api/courses/${cid}/scores`, body); d.remove(); toast("저장"); render(); };
+}
+
+/* ───────── 새 프로그램 ───────── */
+function newCourse(){ S.draft = {program:null, tier:"basic", option:0, start_date:today(), subtype:null, focus:[], meds:[], price:null}; go("new"); }
+function viewNew(el){
+  const D = S.draft, cat = S.cat;
+  const pr = D.program ? P(D.program) : null;
+  let h = `<div class="row"><h1>새 프로그램 — ${esc(S.patient.name)}</h1><span class="sp"></span>
+    <button class="btn ghost" onclick="openPatient(${S.pid})">취소</button></div>
+   <div class="card"><h2>① 프로그램</h2><div class="grid g4">` +
+   cat.order.map(k => { const p=P(k); return `<div class="prog ${D.program===k?'on':''}" style="background:${p.color}14" onclick="pick('program','${k}')">
+      <div class="ic">${p.icon}</div><div class="nm">${esc(p.name)}</div>
+      <div class="small muted">${esc(p.for)}</div>
+      <div class="small" style="margin-top:6px"><b>${esc(p.course_options[0].label)}</b></div></div>`; }).join("") + `</div></div>`;
+  if(pr){
+    h += `<div class="card"><h2>② 등급</h2><div class="grid g3">` + cat.tiers.map(t => { const T = pr.tiers[t];
+      return `<div class="tierbox tier-${t} ${D.tier===t?'on':''}" onclick="pick('tier','${t}')">
+        <div class="row"><b style="font-size:21px">${TN(t)}</b><span class="sp"></span><span class="price">${won(T.price)}</span></div>
+        <div style="font-weight:700">${esc(T.point)}</div>
+        <div class="small" style="margin-top:6px">${recipeLines(T.bags)}</div>
+        <div class="small muted">약 ${T.min}분 · ${esc(T.from)}</div></div>`; }).join("") + `</div></div>`;
+    h += `<div class="card"><h2>③ 일정</h2><div class="row">` +
+      pr.course_options.map((o,i) => `<span class="chip ${D.option===i?'on':''}" onclick="pick('option',${i})">${esc(o.label)}</span>`).join("") +
+      `<span class="muted" style="margin-left:14px">시작일</span><input type="date" value="${D.start_date}" onchange="S.draft.start_date=this.value;render()"></div>`;
+    const o = pr.course_options[D.option];
+    if(o.total > 1){
+      const dates = planDates(D.start_date, o.total, o.per_week);
+      h += `<div class="row" style="margin-top:10px">` + dates.map((d,i)=>`<span class="tag">${i+1}회 ${mdw(d)}</span>`).join("") + `</div>`;
+    }
+    h += `</div>`;
+    if(D.program === "gut"){
+      h += `<div class="card"><h2>④ 과민성장 유형 · 주된 불편</h2>
+        <div class="row">` + Object.entries(pr.subtypes).map(([k,s]) => `<span class="chip ${D.subtype===k?'on':''}" onclick="pick('subtype','${k}')">${esc(s.label)}</span>`).join("") + `</div>
+        <div class="row small" style="margin-top:10px"><span class="muted">유형 도우미 — 최근 변이 굳은 날(브리스톨 1·2)</span><input type="number" id="hp" placeholder="%" style="width:80px">
+          <span class="muted">묽은 날(6·7)</span><input type="number" id="lp" placeholder="%" style="width:80px"><button class="btn sm ghost" onclick="guessSub()">유형 계산</button></div>
+        <div class="row" style="margin-top:10px">` + Object.entries(pr.focus).map(([k,f]) => `<span class="chip ${D.focus.includes(k)?'on':''}" onclick="toggleArr('focus','${k}')">${esc(f.label)}</span>`).join("") + `</div>
+        <h3 style="margin-top:14px">처방약 (원장님)</h3><div class="row">` +
+        pr.meds.map(m => `<span class="chip ${D.meds.includes(m)?'on':''}" onclick="toggleArr('meds','${m}')">${esc(m)}</span>`).join("") + `</div></div>`;
+    } else if(pr.meds && pr.meds.length){
+      h += `<div class="card"><h2>④ 함께 처방 (원장님)</h2><div class="row">` +
+        pr.meds.map(m => `<span class="chip ${D.meds.includes(m)?'on':''}" onclick="toggleArr('meds','${m}')">${esc(m)}</span>`).join("") + `</div></div>`;
+    }
+    const plan = oralPlan(D.program, D.subtype, D.focus);
+    h += `<div class="card"><h2>⑤ 경구 보충제 이어가기</h2>
+      <table><tr><th>보충제</th><th>먹는 법</th><th>기간</th><th>단계</th></tr>` +
+      plan.with.map(r=>`<tr><td><b>${esc(r.name)}</b><br><span class="small muted">${esc(r.why)}</span></td><td class="small">${esc(r.dose)}</td><td>${r.weeks}주</td><td class="small">수액과 함께</td></tr>`).join("") +
+      plan.after.map(r=>`<tr><td><b>${esc(r.name)}</b><br><span class="small muted">${esc(r.why)}</span></td><td class="small">${esc(r.dose)}</td><td>${r.weeks}주</td><td class="small">수액 뒤 유지</td></tr>`).join("") +
+      `</table>${D.program==="gut" && !D.subtype ? `<div class="alert warn">유형을 고르면 유산균·섬유가 맞춰집니다</div>` : ""}</div>`;
+    const T = pr.tiers[D.tier], pkg = pkgPrice(T.price, o.total, cat.package_discount);
+    h += `<div class="card"><h2>⑥ 값</h2><div class="row">
+      <span>1회 ${won(T.price)} × ${o.total}회${o.total>1? ` − ${cat.package_discount}%`:""} =</span>
+      <input type="number" id="price" value="${D.price ?? pkg}" style="width:150px;font-size:22px;font-weight:800">원
+      <span class="sp"></span><button class="btn" style="font-size:20px;padding:12px 26px" onclick="saveCourse()">시작하기</button></div></div>`;
+  }
+  el.innerHTML = h;
+}
+function pick(k, v){ S.draft[k] = v; if(k==="program"){ S.draft.tier="basic"; S.draft.option=0; S.draft.subtype=null; S.draft.focus=[]; S.draft.meds=[]; } S.draft.price=null; render(); }
+function toggleArr(k, v){ const a=S.draft[k]; const i=a.indexOf(v); i<0?a.push(v):a.splice(i,1); render(); }
+function guessSub(){ const h=+$("#hp").value||0, l=+$("#lp").value||0;
+  const st = (h>25&&l>25)?"M":(h>25&&l<25)?"C":(l>25&&h<25)?"D":"U"; pick("subtype", st); toast("유형: "+P("gut").subtypes[st].label); }
+function planDates(start, total, perWeek){
+  if(total<=1||perWeek<=0) return [start];
+  const gaps = perWeek>=2?[3,4]:[7]; const out=[start]; let d=new Date(start+"T00:00");
+  for(let i=0;i<total-1;i++){ d.setDate(d.getDate()+gaps[i%gaps.length]); const x=new Date(d); x.setMinutes(x.getMinutes()-x.getTimezoneOffset()); out.push(x.toISOString().slice(0,10)); }
+  return out;
+}
+function pkgPrice(p, n, disc){ if(!p||n<=1) return p; return Math.round(p*n*(100-disc)/100/1000)*1000; }
+function oralPlan(prog, sub, focus){
+  const pr = P(prog), o = pr.oral||{};
+  let w = [...(o.with||[])], a = [...(o.after||[])];
+  if(prog==="gut" && sub){ w = w.concat(pr.subtypes[sub].with||[]); a = a.concat(pr.subtypes[sub].after||[]); }
+  if(prog==="gut") (focus||[]).forEach(f => a = a.concat(pr.focus[f].after||[]));
+  const u = l => { const s=new Set(); return l.filter(r => s.has(r.sup)?false:(s.add(r.sup),true)).map(r => ({...r, name:SUP(r.sup).name, dose:r.dose||SUP(r.sup).dose})); };
+  return {with:u(w), after:u(a)};
+}
+async function saveCourse(){
+  const D = S.draft;
+  if(D.program==="gut" && !D.subtype) return toast("과민성장 유형을 골라 주세요");
+  const r = await api("POST", `/api/patients/${S.pid}/courses`, {program:D.program, tier:D.tier, option:D.option,
+    start_date:D.start_date, subtype:D.subtype, focus:D.focus, meds:D.meds.join(", "), price:+$("#price").value});
+  toast("시작했습니다"); openPatient(S.pid);
+}
+
+/* ───────── 회차 진행 ───────── */
+const REACTIONS = ["없음","혈관통","열감·화끈","어지러움","메스꺼움","두드러기·가려움","마늘 냄새","속도 줄임","중단"];
+function startRun(cid){
+  const c = S.patient.courses.find(x=>x.id===cid);
+  S.run = {cid, tier:c.tier, vitals:{}, checks:[], gtt:20, minutes:null, start_time:"", end_time:"", reactions:[], note:"", doctor_ok:false, mixed:{}, d:today()};
+  go("run");
+}
+async function viewRun(el){
+  const R = S.run, c = S.patient.courses.find(x=>x.id===R.cid), pr = P(c.program);
+  el.innerHTML = `<div class="row"><h1>${pr.icon} ${esc(S.patient.name)} · ${esc(pr.name)} ${c.done+1}/${c.total}회</h1><span class="sp"></span>
+    <button class="btn ghost" onclick="openPatient(${S.pid})">취소</button></div>
+   <div class="steps">
+   <div class="card step"><h2>오늘 확인</h2>
+     <div class="row vital">
+       <div><label>수축기</label><input type="number" data-v="sbp" value="${R.vitals.sbp??""}"></div>
+       <div><label>이완기</label><input type="number" data-v="dbp" value="${R.vitals.dbp??""}"></div>
+       <div><label>맥박</label><input type="number" data-v="hr" value="${R.vitals.hr??""}"></div>
+       <div><label>체온</label><input type="number" step="0.1" data-v="temp" value="${R.vitals.temp??""}"></div>
+       ${c.program==="gut" ? `<div><label>몸무게 kg</label><input type="number" data-v="weight" value="${R.vitals.weight??""}"></div>` : ""}
+       <div><label>날짜</label><input type="date" id="rd" value="${R.d}" style="font-size:18px;width:170px"></div>
+     </div>
+     <p class="muted small" style="margin:8px 0">해당하는 것만 누르세요</p>
+     <div class="row">${S.cat.checks.map(k => `<span class="chip red ${R.checks.includes(k.key)?'on':''}" data-c="${k.key}">${esc(k.label)}</span>`).join("")}</div>
+     <div class="row" style="margin-top:12px"><span class="muted">오늘 등급</span>
+       ${S.cat.tiers.map(t => `<span class="chip ${R.tier===t?'on':''}" data-t="${t}">${TN(t)} ${won(pr.tiers[t].price)}</span>`).join("")}</div>
+   </div>
+   <div class="card step"><h2>조제</h2><div id="recipe">계산 중…</div></div>
+   <div class="card step"><h2>주입</h2><div id="infuse"></div></div>
+   <div class="card step"><h2>반응 · 저장</h2>
+     <div class="row">${REACTIONS.map(x => `<span class="chip ${R.reactions.includes(x)?'on':''}" data-r="${x}">${x}</span>`).join("")}</div>
+     <textarea id="rnote" rows="2" style="width:100%;margin-top:10px" placeholder="메모">${esc(R.note)}</textarea>
+     <div class="row" style="margin-top:12px"><span class="sp"></span><button class="btn" id="save" style="font-size:20px;padding:12px 26px">회차 저장</button></div>
+     <div id="done"></div>
+   </div></div>`;
+  el.querySelectorAll("[data-v]").forEach(i => i.oninput = () => { R.vitals[i.dataset.v] = i.value; refreshRecipe(); });
+  $("#rd").onchange = e => R.d = e.target.value;
+  el.querySelectorAll("[data-c]").forEach(ch => ch.onclick = () => { const k=ch.dataset.c, i=R.checks.indexOf(k); i<0?R.checks.push(k):R.checks.splice(i,1); ch.classList.toggle("on"); R.doctor_ok=false; refreshRecipe(); });
+  el.querySelectorAll("[data-t]").forEach(ch => ch.onclick = () => { R.tier=ch.dataset.t; R.minutes=null; el.querySelectorAll("[data-t]").forEach(x=>x.classList.toggle("on",x===ch)); refreshRecipe(); });
+  el.querySelectorAll("[data-r]").forEach(ch => ch.onclick = () => { const k=ch.dataset.r, i=R.reactions.indexOf(k);
+    if(k==="없음"){ R.reactions = i<0?["없음"]:[]; } else { R.reactions = R.reactions.filter(x=>x!=="없음"); const j=R.reactions.indexOf(k); j<0?R.reactions.push(k):R.reactions.splice(j,1); }
+    el.querySelectorAll("[data-r]").forEach(x=>x.classList.toggle("on", R.reactions.includes(x.dataset.r))); });
+  $("#rnote").oninput = e => R.note = e.target.value;
+  $("#save").onclick = saveRun;
+  refreshRecipe();
+}
+let _rt = null;
+function refreshRecipe(){ clearTimeout(_rt); _rt = setTimeout(_refresh, 120); }
+async function _refresh(){
+  const R = S.run, c = S.patient.courses.find(x=>x.id===R.cid);
+  const r = await api("POST", "/api/preview", {program:c.program, tier:R.tier, vitals:R.vitals, checks:R.checks, minutes:R.minutes, gtt_set:R.gtt});
+  R.last = r; if(R.minutes==null) R.minutes = r.minutes;
+  const ing = S.cat.ingredients;
+  $("#recipe").innerHTML =
+    r.stops.map(s=>`<div class="alert stop">⛔ ${esc(s)}</div>`).join("") +
+    (r.stops.length ? `<label class="row" style="margin:6px 0 12px"><input type="checkbox" id="dok" ${R.doctor_ok?"checked":""} style="width:24px;height:24px"> <b>원장님 확인 받음 — 진행</b></label>` : "") +
+    r.warns.map(s=>`<div class="alert warn">⚠️ ${esc(s)}</div>`).join("") +
+    r.bags.map(b => `<div class="bag"><div class="row"><span class="base">${r.bags.length>1? b.order+") ":""}${esc(b.base_name)}</span>
+        ${b.base_note?`<span class="tag">${esc(b.base_note)}</span>`:""}<span class="sp"></span>${r.bags.length>1 && b.order>1 ? `<span class="small muted">앞 수액 끝난 뒤 따로 연결</span>`:""}</div>
+      ${b.items.map(it => { const id = b.order+"_"+it.key; const info = ing[it.key];
+        return `<div class="item ${it.removed?'removed':''}">${it.removed?'<span style="width:24px">✕</span>':`<input type="checkbox" data-mix="${id}" ${R.mixed[id]?"checked":""}>`}
+          <b>${esc(it.name)}</b> <span>${it.qty}${esc(it.unit)}</span>
+          <span class="small muted">${esc(info.generic||"")}${info.mix? " · "+esc(info.mix):""}</span>
+          ${it.removed?`<span class="why">${esc(it.reason)}</span>`:""}</div>`; }).join("") || `<div class="muted">섞는 약 없음</div>`}</div>`).join("") +
+    (r.notices.length ? `<h3 style="margin-top:12px">환자에게 미리 말하기</h3>` + r.notices.map(n=>`<div class="alert info">💬 ${esc(n)}</div>`).join("") : "");
+  const dok = $("#dok"); if(dok) dok.onchange = () => R.doctor_ok = dok.checked;
+  document.querySelectorAll("[data-mix]").forEach(x => x.onchange = () => R.mixed[x.dataset.mix] = x.checked);
+  $("#infuse").innerHTML = `<div class="grid g3">
+     <div class="kpi"><div class="small">총량</div><div class="v">${r.volume_ml}<span style="font-size:18px">mL</span></div></div>
+     <div class="kpi"><div class="small">시간</div><div class="v" style="display:flex;justify-content:center;align-items:baseline"><input type="number" id="mins" value="${R.minutes}" style="width:90px;font-size:34px;font-weight:800;text-align:right;border:0;background:transparent;padding:0"><span style="font-size:18px">분</span></div></div>
+     <div class="kpi" style="background:var(--t-plus)"><div class="small">분당 방울 (${R.gtt}gtt 세트)</div><div class="v">${r.drip.gtt_per_min}</div><div class="small">${r.drip.ml_per_hr} mL/시 · ${r.drip.sec_per_drop}초에 1방울</div></div></div>
+    <div class="row" style="margin-top:12px"><span class="muted">수액 세트</span>
+      ${[15,20,60].map(g=>`<span class="chip ${R.gtt===g?'on':''}" data-g="${g}">${g} gtt/mL</span>`).join("")}
+      <span class="sp"></span>
+      <button class="btn ghost" id="st">▶ 시작 ${esc(R.start_time)}</button><button class="btn ghost" id="en">■ 끝 ${esc(R.end_time)}</button></div>
+    ${r.bags.length>1 ? `<p class="small muted">수액이 ${r.bags.length}개 — 분당 방울은 전체 총량·시간 기준. 순서대로 연결하세요.</p>`:""}`;
+  $("#mins").onchange = e => { R.minutes = +e.target.value; refreshRecipe(); };
+  document.querySelectorAll("[data-g]").forEach(x => x.onclick = () => { R.gtt = +x.dataset.g; refreshRecipe(); });
+  $("#st").onclick = () => { R.start_time = hm(); refreshRecipe(); };
+  $("#en").onclick = () => { R.end_time = hm(); refreshRecipe(); };
+}
+async function saveRun(){
+  const R = S.run, r = R.last;
+  if(r && r.stops.length && !R.doctor_ok) return toast("원장님 확인을 먼저 받아 주세요");
+  if(!R.vitals.sbp) return toast("수축기 혈압을 넣어 주세요");
+  const res = await api("POST", `/api/courses/${R.cid}/sessions`, {tier:R.tier, vitals:R.vitals, checks:R.checks, d:R.d,
+    minutes:R.minutes, gtt_set:R.gtt, start_time:R.start_time, end_time:R.end_time,
+    reactions:R.reactions.filter(x=>x!=="없음"), note:R.note, doctor_ok:R.doctor_ok});
+  toast(res.n + "회차 저장");
+  $("#save").disabled = true;
+  $("#done").innerHTML = `<div class="alert info" style="margin-top:12px">저장 · ${res.next_due ? "다음 권장 <b>"+mdw(res.next_due)+"</b>" : "수액 회차 끝 → <b>"+esc(res.status)+"</b>"}</div>
+    <div class="emr">${esc(res.emr)}</div>
+    <div class="row" style="margin-top:10px"><button class="btn" id="cpe">EMR 복사</button>
+      <button class="btn ghost" onclick="printHandout(${R.cid})">🖨 환자 안내문</button><span class="sp"></span>
+      <button class="btn ghost" onclick="openPatient(${S.pid})">환자 화면으로</button></div>`;
+  $("#cpe").onclick = async () => { try{ await navigator.clipboard.writeText(res.emr); toast("복사했습니다"); }catch(e){ toast("복사 안 됨"); } };
+}
+
+/* ───────── 환자 안내문 (성분명·약 이름 없이) ───────── */
+async function printHandout(cid){
+  const c = await api("GET", "/api/courses/"+cid), pr = P(c.program), plan = c.oral_plan || {with:[],after:[]};
+  const w = window.open("", "_blank");
+  const left = c.plan_dates.slice(c.done);
+  w.document.write(`<!doctype html><meta charset="utf-8"><title>안내문</title>
+   <style>body{font-family:Pretendard,"Noto Sans KR","Malgun Gothic",sans-serif;color:#16233F;max-width:680px;margin:24px auto;font-size:17px;line-height:1.6}
+   h1{color:#195C3B;font-size:24px;margin:0}table{border-collapse:collapse;width:100%}td,th{border-bottom:1px solid #ddd;padding:6px;text-align:left}
+   .box{background:#F6F0E4;border-radius:12px;padding:12px 16px;margin:12px 0}</style>
+   <h1>웰빙내과 · ${esc(S.patient ? S.patient.name : "")}님 ${esc(pr.name)} 관리 안내</h1>
+   <div class="box">수액 <b>${c.done}/${c.total}회</b> 맞으셨습니다.
+     ${left.length && c.status==="수액중" ? "<br>다음 권장일: <b>" + left.map(mdw).join(", ") + "</b>" : ""}</div>
+   <h3>집에서 이렇게</h3><ul>${pr.aftercare.map(a=>`<li>${esc(a)}</li>`).join("")}</ul>
+   ${(plan.with.length||plan.after.length) ? `<h3>보충제</h3><table><tr><th>이름</th><th>먹는 법</th><th>기간</th></tr>
+     ${plan.with.concat(plan.after).map(r=>`<tr><td>${esc(r.name)}</td><td>${esc(r.dose)}</td><td>${r.weeks}주</td></tr>`).join("")}</table>` : ""}
+   <p style="margin-top:20px">불편한 점이 있으면 언제든 연락 주세요. 웰빙내과의원 · 일산서구 중앙로 1426</p>
+   <script>window.onload=()=>window.print()<\/script>`);
+  w.document.close();
+}
+
+/* ───────── 프로그램표 (직원용·인쇄) ───────── */
+function viewTable(el){
+  const cat = S.cat;
+  el.innerHTML = `<div class="row"><h1>프로그램표</h1><span class="sp"></span><button class="btn ghost noprint" onclick="print()">🖨 인쇄</button></div>
+   <p class="muted noprint">원내 조제표(MC·PNT·색 프로그램)를 바탕으로 짠 초안입니다. 값·구성은 「설정」에서 바꿉니다.</p>
+   <div class="alert warn noprint">※ 수축기혈압 ${cat.sbp_no_mg} 이하면 메가네슘 섞지 않기 (자동으로 빠짐)</div>` +
+   cat.order.map(k => { const p = P(k), plan = oralPlan(k, k==="gut"?"D":null, []);
+    return `<div class="card" style="border-left:8px solid ${p.color}">
+     <div class="row"><span style="font-size:26px">${p.icon}</span><h2 style="margin:0">${esc(p.name)}</h2>
+       <span class="muted">${esc(p.for)}</span><span class="sp"></span><b>${p.course_options.map(o=>esc(o.label)).join(" / ")}</b></div>
+     <table class="matrix" style="margin-top:8px"><tr><th style="width:120px">등급</th><th>조제</th><th style="width:90px">시간</th><th style="width:150px">값</th></tr>
+      ${cat.tiers.map(t => { const T = p.tiers[t], o = p.course_options[0];
+        return `<tr><td><span class="pill tier-${t}">${TN(t)}</span><div class="small">${esc(T.point)}</div></td>
+          <td>${recipeLines(T.bags)}<div class="small muted">${esc(T.from)}</div></td><td>${T.min}분</td>
+          <td><b>${won(T.price)}</b>${o.total>1? `<div class="small">${o.total}회 ${won(pkgPrice(T.price,o.total,cat.package_discount))}</div>`:""}</td></tr>`; }).join("")}
+     </table>
+     <div class="small" style="margin-top:8px"><b>경구 이어가기</b>
+       ${plan.with.length ? `<br>수액과 함께: ${plan.with.map(r=>esc(r.name)+" "+r.weeks+"주").join(" · ")}` : ""}
+       ${plan.after.length ? `<br>수액 뒤 유지: ${plan.after.map(r=>esc(r.name)+" "+r.weeks+"주").join(" · ")}` : ""}
+       ${k==="gut" ? `<br><span class="muted">유형별: 설사형 보울라디 / 변비형 비피더스+차전자피 / 혼합형 복합 유산균+차전자피 · 복통·팽만 → 페퍼민트 오일</span>`:""}</div>
+     ${p.followup_weeks.length ? `<div class="small muted">증상 점수: ${esc(p.score.label)} — ${p.followup_weeks.map(w=>w+"주").join("·")}</div>`:""}
+    </div>`; }).join("") +
+   `<div class="card"><h2>성분 메모</h2><table class="matrix"><tr><th>원내 이름</th><th>성분</th><th>섞을 때</th></tr>` +
+     Object.entries(cat.ingredients).filter(([k,v])=>!v.base).map(([k,v]) => `<tr><td><b>${esc(v.name)}</b></td><td>${esc(v.generic)}</td><td class="small">${esc([v.mix,v.notice].filter(Boolean).join(" · "))}</td></tr>`).join("") +
+   `</table></div>`;
+}
+
+/* ───────── 설정 ───────── */
+function viewSettings(el){
+  const cat = S.cat, ingOpts = Object.entries(cat.ingredients).filter(([k,v])=>!v.base).map(([k,v])=>`<option value="${k}">${esc(v.name)}</option>`).join("");
+  const baseOpts = sel => Object.entries(cat.ingredients).filter(([k,v])=>v.base).map(([k,v])=>`<option value="${k}" ${k===sel?"selected":""}>${esc(v.name)}</option>`).join("");
+  el.innerHTML = `<div class="row"><h1>설정</h1><span class="sp"></span>
+     <button class="btn ghost" id="reset">처음 값으로</button><button class="btn" id="saveSet">저장</button></div>
+   <div class="card"><div class="row"><b>회차권 할인</b><input type="number" id="disc" value="${cat.package_discount}" style="width:80px">%</div></div>` +
+   cat.order.map(k => { const p = P(k); return `<div class="card" style="border-left:8px solid ${p.color}"><h2>${p.icon} ${esc(p.name)}</h2>` +
+     cat.tiers.map(t => { const T = p.tiers[t]; return `<div class="tierbox tier-${t}" style="margin-bottom:10px;cursor:default" data-p="${k}" data-tier="${t}">
+       <div class="row"><b>${TN(t)}</b><span class="muted">1회</span><input type="number" data-f="price" value="${T.price}" style="width:120px">원
+         <span class="muted">시간</span><input type="number" data-f="min" value="${T.min}" style="width:80px">분</div>
+       ${T.bags.map((b,bi) => `<div class="bag" data-bag="${bi}" style="margin-top:8px"><div class="row"><select data-base>${baseOpts(b.base)}</select>
+          ${b.add.map(([ik,q],ii)=>`<span class="chip" style="cursor:default">${esc(cat.ingredients[ik].name)} <input type="number" step="0.5" data-ing="${ik}" value="${q}" style="width:64px;padding:4px"> ${esc(cat.ingredients[ik].unit)}
+             <span style="cursor:pointer;color:var(--red)" data-del="${ii}">✕</span></span>`).join("")}
+          <select data-addsel><option value="">＋ 넣기</option>${ingOpts}</select></div></div>`).join("")}
+       </div>`; }).join("") + `</div>`; }).join("") +
+   `<div class="card"><h2>보충제 값</h2><table><tr><th>보충제</th><th>먹는 법</th><th>1통 며칠</th><th>1통 값</th></tr>` +
+     Object.entries(cat.supplements).map(([k,s]) => `<tr data-sup="${k}"><td><b>${esc(s.name)}</b></td><td><input type="text" data-sf="dose" value="${esc(s.dose)}" style="width:100%"></td>
+       <td><input type="number" data-sf="days_per_pack" value="${s.days_per_pack}" style="width:80px"></td>
+       <td><input type="number" data-sf="price" value="${s.price??""}" placeholder="입력" style="width:120px"></td></tr>`).join("") + `</table></div>`;
+  const collect = () => {
+    const out = {programs:{}, supplements:{}, package_discount:+$("#disc").value};
+    el.querySelectorAll("[data-tier]").forEach(box => {
+      const pk = box.dataset.p, tk = box.dataset.tier;
+      const bags = [...box.querySelectorAll("[data-bag]")].map(bg => ({base:$("[data-base]",bg).value,
+        add:[...bg.querySelectorAll("[data-ing]")].map(i=>[i.dataset.ing, +i.value]).filter(x=>x[1]>0)}));
+      out.programs[pk] = out.programs[pk] || {tiers:{}};
+      out.programs[pk].tiers[tk] = {price:+$("[data-f=price]",box).value, min:+$("[data-f=min]",box).value, bags};
+    });
+    el.querySelectorAll("[data-sup]").forEach(tr => { const o = {};
+      tr.querySelectorAll("[data-sf]").forEach(i => { const f=i.dataset.sf; o[f] = f==="dose" ? i.value : (i.value===""?null:+i.value); });
+      out.supplements[tr.dataset.sup] = o; });
+    return out;
+  };
+  el.querySelectorAll("[data-del]").forEach(x => x.onclick = () => { x.closest(".chip").querySelector("[data-ing]").value = 0; x.closest(".chip").style.opacity=.3; });
+  el.querySelectorAll("[data-addsel]").forEach(s => s.onchange = () => { if(!s.value) return;
+    const box = s.closest("[data-tier]"), bi = +s.closest("[data-bag]").dataset.bag;
+    const T = S.cat.programs[box.dataset.p].tiers[box.dataset.tier]; T.bags[bi].add.push([s.value, 1]); viewSettings(el); toast("넣었습니다 — 저장을 눌러 주세요"); });
+  $("#saveSet").onclick = async () => { S.cat = await api("PUT", "/api/catalog", collect()); toast("저장했습니다"); viewSettings(el); };
+  $("#reset").onclick = async () => { if(!confirm("설정을 모두 처음 값으로 되돌릴까요?")) return; S.cat = await api("PUT","/api/catalog",{reset:true}); viewSettings(el); };
+}
+
+/* ───────── 그리기 ───────── */
+async function render(){
+  const el = $("#main");
+  document.querySelectorAll("#nav button").forEach(b => b.classList.toggle("on", b.dataset.go === S.view ||
+    (b.dataset.go==="patients" && ["patient","new","run"].includes(S.view))));
+  try{
+    if(!S.cat) S.cat = await api("GET", "/api/catalog");
+    if(S.view==="board") await viewBoard(el);
+    else if(S.view==="patients") await viewPatients(el);
+    else if(S.view==="patient") await viewPatient(el);
+    else if(S.view==="new") viewNew(el);
+    else if(S.view==="run") await viewRun(el);
+    else if(S.view==="table") viewTable(el);
+    else if(S.view==="settings") viewSettings(el);
+  }catch(e){ console.error(e); el.innerHTML = `<div class="card alert stop">불러오지 못했습니다: ${esc(e.message)}</div>`; }
+}
+render();
+</script>
+</body>
+</html>
