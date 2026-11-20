@@ -59,10 +59,32 @@ class CatalogTest(unittest.TestCase):
                 self.assertNotIn("laennec", self.all_keys(pk, tk), (pk, tk))
 
     def test_only_clinic_stock(self):
-        stock = {"NS100", "SUP100", "SHOT", "meritc", "masi", "bcx", "lanovin", "jinko", "vichi",
+        stock = {"NS100", "SUP100", "SHOT", "meritc", "masi", "bcx", "lanovin", "fursul", "jinko", "vichi",
                  "dipeptiven", "laennec"}
         self.assertEqual(set(C.ING), stock)
         self.assertNotIn("hisi", C.ING)
+
+    def test_b1_b12_added(self):
+        """11-20: 라노빈(B12)·푸르설타민(마늘주사)"""
+        for pk in ["fatigue", "vitality", "hangover", "cold"]:
+            for tk in ["basic", "premium"]:
+                self.assertIn("fursul", self.all_keys(pk, tk), pk)
+        for pk, tk in [("dizzy", "basic"), ("dizzy", "premium"), ("fatigue", "premium"), ("vitality", "premium")]:
+            self.assertIn("lanovin", self.all_keys(pk, tk), (pk, tk))
+
+    def test_lanovin_never_with_c_gsh_or_surpramin(self):
+        for pk in self.cat["order"]:
+            for tk, t in self.cat["programs"][pk]["tiers"].items():
+                for b in t["bags"]:
+                    keys = [k for k, _ in b["add"]]
+                    if "lanovin" in keys:
+                        self.assertNotIn("meritc", keys, (pk, tk))
+                        self.assertNotIn("vichi", keys, (pk, tk))
+                        self.assertNotEqual(b["base"], "SUP100", (pk, tk))
+
+    def test_b1_check_removes_fursul(self):
+        r = E.build_recipe("fatigue", "basic", {"sbp": 120}, ["b1x"])
+        self.assertIn("fursul", [i["key"] for b in r["bags"] for i in b["items"] if i["removed"]])
 
     def test_requested_schedules(self):
         P = C.PROGRAMS
@@ -144,10 +166,13 @@ class RecipeTest(unittest.TestCase):
         self.assertIn("meritc", self.names(r, removed=True))
 
     def test_renal_removes_whole_amino_bag(self):
-        r = E.build_recipe("fatigue", "premium", {"sbp": 120}, ["renal"])
+        r = E.build_recipe("cold", "premium", {"sbp": 120}, ["renal"])
         self.assertTrue(r["bags"][0]["removed"])
         self.assertTrue(any("모두 빠짐" in w for w in r["warns"]))
         self.assertEqual(r["volume_ml"], 0)
+        r = E.build_recipe("fatigue", "premium", {"sbp": 120}, ["renal"])   # 라노빈 백은 남음
+        self.assertTrue(r["bags"][0]["removed"])
+        self.assertFalse(r["bags"][1]["removed"])
 
     def test_sulfite_removes_bcomplex_and_surpramin(self):
         r = E.build_recipe("fatigue", "premium", {"sbp": 120}, ["sulfite"])

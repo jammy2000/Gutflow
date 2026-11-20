@@ -4,6 +4,7 @@
 11-20 부원장님: 다니는 병원 「맞춤형 영양주사 구성표」처럼 당장 할 수 있는 10종.
   기본 = N/S 100 + 삐콤 + 마그네슘, 프리미엄 = 써프라민 100 + 삐콤 + 마그네슘,
   여기에 비타민C·글루타치온·진코발을 붙인다. 라이넥은 아직 조합하지 않는다.
+  11-20 추가: 라노빈(B12)·푸르설타민(마늘주사). 라노빈은 비타민C·글루타치온·써프라민과 떨어뜨린다.
 11-17: 「지금 웰빙내과에 있는 수액 자원」(EMR 수액 목록)으로 짠다.
   써프라민 · N/S 100mL · 삐콤헥사 · 메리트씨 · 마시주 · 라노빈 · 진코발 · 비치라이트
   + 디펩티벤(장면역강화) · 라이넥(입고 예정). 히시파겐C는 허가 취하로 뺌.
@@ -48,7 +49,10 @@ ING = {
             "flags": ["sulfite"], "groups": ["bcx"], "mix": "차광 · 섞은 뒤 바로",
             "notice": "비타민B: 소변이 진한 노란색이 될 수 있음"},
     "lanovin": {"name": "라노빈", "unit": "A", "add_ml": 2, "generic": "히드록소코발라민(B12) 5mg/2mL",
-                "groups": ["b12h"], "mix": "차광"},
+                "groups": ["b12h"], "mix": "차광 · 비타민C·글루타치온·써프라민과 같은 백 금지"},
+    "fursul": {"name": "푸르설타민", "unit": "A", "add_ml": 10, "generic": "푸르설티아민(B1) 50mg/10mL — 마늘주사",
+               "flags": ["b1"], "groups": ["b1"], "mix": "천천히(혈관통)",
+               "notice": "마늘주사: 입에서 마늘 냄새가 날 수 있음 · 팔이 아프면 속도 줄이기"},
     "jinko": {"name": "진코발", "unit": "A", "add_ml": 5, "generic": "은행엽엑스 17.5mg/5mL",
               "flags": ["ginkgo"], "groups": ["ginkgo"], "mix": "다른 약과 섞지 않고 단독 · 앞뒤로 식염수 흘리기"},
     "vichi": {"name": "비치라이트", "unit": "V", "generic": "글루타치온 600mg (가루, 녹여서)",
@@ -66,7 +70,7 @@ ING = {
 
 FLAG_LABEL = {
     "mg": "마그네슘", "vitc_high": "고용량 비타민C", "gsh": "글루타치온", "ginkgo": "진코발",
-    "placenta": "태반(라이넥)", "aa": "아미노산(써프라민)", "dipep": "디펩티벤", "sulfite": "아황산 든 약",
+    "placenta": "태반(라이넥)", "b1": "푸르설타민(마늘주사)", "aa": "아미노산(써프라민)", "dipep": "디펩티벤", "sulfite": "아황산 든 약",
 }
 
 # ───────────────────────── 같이 섞으면 안 되는 조합 ─────────────────────────
@@ -118,6 +122,10 @@ INCOMPAT = [
      "title": "메리트씨 × 삐콤헥사",
      "why": "빛을 받으면 B2가 비타민C를 산화시키고, 비타민C가 B12를 분해한다.",
      "do": "같은 백 가능 — 섞은 뒤 바로, 차광 커버", "src": "Silvers 2001 · Zaniolo 2010"},
+    {"id": "aa_b1", "a": "aa_base", "b": "b1", "level": "care",
+     "title": "써프라민 × 푸르설타민",
+     "why": "써프라민의 아황산이 B1(티아민 계열)을 분해한다.",
+     "do": "같은 백 가능 — 미리 섞어 두지 말고 섞은 뒤 바로", "src": "Bowman 1983 JPEN"},
     {"id": "aa_bcx", "a": "aa_base", "b": "bcx", "level": "care",
      "title": "써프라민 × 삐콤헥사",
      "why": "아황산이 B1(티아민)을 분해한다.",
@@ -139,6 +147,7 @@ CHECKS = [
     {"key": "heart", "label": "심부전·심한 부종", "warn": "백 수 줄이기", "slow": True},
     {"key": "dm", "label": "당뇨", "warn": "비타민C 뒤 10시간 손끝 혈당이 높게 나옴 → 정맥혈·병원 기계로 확인"},
     {"key": "mgx", "label": "방실차단·근무력증·디곡신", "remove": ["mg"]},
+    {"key": "b1x", "label": "마늘주사 뒤 불편·쇼크 경험", "remove": ["b1"]},
     {"key": "donate", "label": "1년 안 헌혈 계획", "remove": ["placenta"]},
     {"key": "first", "label": "처음 맞음·75세 이상", "slow": True},
 ]
@@ -158,7 +167,7 @@ def bag_minutes(bag):
             m = max(m, int(math.ceil(q * 3)))
         elif k == "meritc" and q >= 20:
             m = max(m, 30)
-        elif k in ("jinko", "dipeptiven"):
+        elif k in ("jinko", "dipeptiven", "fursul"):
             m = max(m, 30)
     return m
 
@@ -171,22 +180,33 @@ def bag_minutes(bag):
 MG = 5   # 마시주 5mL = 0.5g
 
 
-def BASE(c=False, b12=False):
-    """기본 백: N/S 100 + 삐콤헥사 + 마시주 (+ 메리트씨 1V)"""
+def BASE(c=False, b1=False, b12=False):
+    """기본 백: N/S 100 + 삐콤헥사 + 마시주 (+ 메리트씨 1V, 푸르설타민, 라노빈)
+    라노빈(B12)은 메리트씨와 같은 백 금지 → b12는 c가 없을 때만"""
+    assert not (c and b12), "라노빈은 메리트씨와 같은 백에 넣지 않음 — LANO() 따로 백"
     add = [("bcx", 1), ("masi", MG)]
     if c:
         add.append(("meritc", 20))
+    if b1:
+        add.append(("fursul", 1))
     if b12:
         add.append(("lanovin", 1))
     return _bag("NS100", *add)
 
 
-def PREM(c=False):
-    """프리미엄 백: 써프라민 100 + 삐콤헥사 + 마시주 (+ 메리트씨 1V)"""
+def PREM(c=False, b1=False):
+    """프리미엄 백: 써프라민 100 + 삐콤헥사 + 마시주 (+ 메리트씨 1V, 푸르설타민)
+    라노빈은 써프라민과 같은 백 금지 → LANO() 따로 백"""
     add = [("bcx", 1), ("masi", MG)]
     if c:
         add.append(("meritc", 20))
+    if b1:
+        add.append(("fursul", 1))
     return _bag("SUP100", *add)
+
+
+def LANO():           # 라노빈(B12) 단독 백 — 비타민C·글루타치온·써프라민과 떨어뜨림
+    return _bag("NS100", ("lanovin", 1))
 
 
 def GSH(n=1):         # 글루타치온은 다른 약과 섞지 않고 따로 (N/S 100 + 비치라이트)
@@ -206,12 +226,12 @@ def _t(price, point, bags, frm=""):
             "min": sum(bag_minutes(b) for b in bags)}
 
 
-def _two(pb, pp, point, extra=(), c=False, prem_extra=None):
+def _two(pb, pp, point, extra=(), c=False, prem_extra=None, b1=False, b12_basic=False, ppoint=None):
     """기본/프리미엄 두 등급. extra = 덧붙이는 따로 백"""
     pe = prem_extra if prem_extra is not None else extra
     return {
-        "basic": _t(pb, point, [BASE(c=c)] + list(extra), "N/S 100 + 삐콤 + 마그네슘"),
-        "premium": _t(pp, point, [PREM(c=c)] + list(pe), "써프라민 100 + 삐콤 + 마그네슘"),
+        "basic": _t(pb, point, [BASE(c=c, b1=b1, b12=b12_basic)] + list(extra), "N/S 100 + 삐콤 + 마그네슘"),
+        "premium": _t(pp, ppoint or point, [PREM(c=c, b1=b1)] + list(pe), "써프라민 100 + 삐콤 + 마그네슘"),
     }
 
 
@@ -241,7 +261,9 @@ PROGRAMS = {
         "name": "활력(기력증진)", "short": "활력", "color": "#D9822B", "icon": "⚡",
         "for": "기운이 없고 처질 때",
         "course_options": [{"total": 4, "per_week": 2, "label": "2주 4회"}, ONE],
-        "tiers": _two(60000, 90000, "비타민B·마그네슘·비타민C + 글루타치온(따로)", c=True, extra=[GSH(1)]),
+        "tiers": _two(60000, 90000, "비타민B·마그네슘·비타민C·마늘주사 + 글루타치온(따로)", c=True, b1=True,
+                      extra=[GSH(1)], prem_extra=[GSH(1), LANO()],
+                      ppoint="비타민B·마그네슘·비타민C·마늘주사 + 글루타치온·B12(따로)"),
         "meds": [],
         "oral": {
             "with": [{"sup": "bcomplex", "weeks": 2, "why": "수액 사이 날 B군 유지"}],
@@ -258,7 +280,8 @@ PROGRAMS = {
         "for": "쉬어도 계속 피곤할 때 (빈혈·갑상선 등 원인 확인과 함께)",
         "course_options": [{"total": 4, "per_week": 2, "label": "2주 4회"},
                            {"total": 8, "per_week": 2, "label": "4주 8회"}, ONE],
-        "tiers": _two(50000, 80000, "비타민B·마그네슘 + 비타민C 10g", c=True),
+        "tiers": _two(50000, 80000, "비타민B·마그네슘·비타민C 10g + 마늘주사", c=True, b1=True,
+                      prem_extra=[LANO()], ppoint="비타민B·마그네슘·비타민C 10g + 마늘주사 + B12(따로)"),
         "meds": [],
         "oral": {
             "with": [{"sup": "bcomplex", "weeks": 2, "why": "수액 사이 날 B군 유지"},
@@ -276,7 +299,9 @@ PROGRAMS = {
         "name": "어지러움(혈류개선)", "short": "어지러움", "color": "#5B7DB1", "icon": "🌀",
         "for": "어지럽고 손발이 차거나 머리가 맑지 않을 때 (원인 진료와 함께)",
         "course_options": [ONE, {"total": 4, "per_week": 2, "label": "2주 4회"}],
-        "tiers": _two(50000, 80000, "비타민B·마그네슘 + 은행잎(진코발, 따로)", extra=[GINKGO()]),
+        "tiers": _two(50000, 80000, "비타민B·마그네슘·B12(라노빈) + 은행잎(진코발, 따로)", b12_basic=True,
+                      extra=[GINKGO()], prem_extra=[GINKGO(), LANO()],
+                      ppoint="비타민B·마그네슘 + 은행잎(진코발)·B12(라노빈) 각각 따로"),
         "meds": ["어지럼 약 처방", "혈압·빈혈 확인"],
         "oral": {
             "after": [{"sup": "omega3", "weeks": 12, "why": "혈액순환"},
@@ -325,7 +350,8 @@ PROGRAMS = {
         "name": "숙취회복", "short": "숙취", "color": "#4F9A6B", "icon": "🍶",
         "for": "과음 다음 날 속이 불편하고 처질 때",
         "course_options": [ONE],
-        "tiers": _two(60000, 90000, "비타민B·마그네슘·비타민C + 글루타치온(따로)", c=True, extra=[GSH(1)]),
+        "tiers": _two(60000, 90000, "비타민B·마그네슘·비타민C·마늘주사 + 글루타치온(따로)", c=True, b1=True,
+                      extra=[GSH(1)]),
         "meds": ["위장약", "구토 멎는 주사"],
         "oral": {
             "after": [{"sup": "silymarin", "weeks": 4, "why": "간 관리"},
@@ -375,7 +401,7 @@ PROGRAMS = {
         "name": "감기몸살", "short": "감기몸살", "color": "#4A7FB5", "icon": "🤒",
         "for": "몸살·근육통으로 처질 때",
         "course_options": [ONE],
-        "tiers": _two(50000, 80000, "비타민B·마그네슘 + 비타민C 10g", c=True),
+        "tiers": _two(50000, 80000, "비타민B·마그네슘·비타민C 10g + 마늘주사", c=True, b1=True),
         "meds": ["급여 감기 수액(EMR 1870)", "해열·진통 주사", "감기약 처방"],
         "oral": {
             "after": [{"sup": "vitc", "weeks": 2, "why": "회복기 비타민C"},
