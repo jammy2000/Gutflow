@@ -187,7 +187,7 @@ class App:
         tier = b.get("tier") or "basic"
         if prog not in cat["programs"]:
             raise ValueError("프로그램을 골라 주세요")
-        if tier not in C.TIERS:
+        if tier not in cat["programs"][prog]["tiers"]:
             raise ValueError("등급을 골라 주세요")
         P = cat["programs"][prog]
         opt = P["course_options"][int(b.get("option") or 0)]

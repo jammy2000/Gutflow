@@ -17,25 +17,59 @@ import server as SV  # noqa: E402
 
 
 class CatalogTest(unittest.TestCase):
-    def test_all_programs_present(self):
-        cat = C.default_catalog()
-        names = [cat["programs"][k]["name"] for k in cat["order"]]
-        for want in ["장염", "감기몸살", "만성피로", "항노화", "피부미백(백옥)", "스트레스", "환절기 면역강화"]:
+    cat = C.default_catalog()
+
+    def test_ten_programs(self):
+        names = [self.cat["programs"][k]["name"] for k in self.cat["order"]]
+        self.assertEqual(len(names), 10)
+        for want in ["면역증강", "활력(기력증진)", "피로회복", "어지러움(혈류개선)", "갱년기",
+                     "백옥(피부미백)", "숙취회복", "간기능개선", "장염", "감기몸살"]:
             self.assertIn(want, names)
-        self.assertIn("gut", cat["order"])  # 장면역강화(IBS)
+        self.assertIn("gut", self.cat["later"])          # 장면역강화: 디펩티벤 입고 뒤
+        self.assertNotIn("gut", self.cat["order"])
+
+    def bags(self, pk, tk):
+        return self.cat["programs"][pk]["tiers"][tk]["bags"]
+
+    def test_base_rule(self):
+        """기본 = N/S 100 + 삐콤 + 마그네슘, 프리미엄 = 써프라민 100 + 삐콤 + 마그네슘"""
+        for pk in self.cat["order"]:
+            for tk, t in self.cat["programs"][pk]["tiers"].items():
+                first = t["bags"][0]
+                keys = [k for k, _ in first["add"]]
+                self.assertIn("bcx", keys, (pk, tk))
+                self.assertIn("masi", keys, (pk, tk))
+                self.assertEqual(first["base"], "SUP100" if tk == "premium" else "NS100", (pk, tk))
+
+    def all_keys(self, pk, tk):
+        return [k for b in self.bags(pk, tk) for k, _ in b["add"]]
+
+    def test_additions(self):
+        for pk in ["fatigue", "immune", "vitality", "cold", "meno", "hangover"]:
+            for tk in ["basic", "premium"]:
+                self.assertIn("meritc", self.all_keys(pk, tk), pk)
+        for pk in ["white", "hangover", "liver", "vitality"]:
+            for tk in ["basic", "premium"]:
+                self.assertIn("vichi", self.all_keys(pk, tk), pk)
+        self.assertIn("jinko", self.all_keys("dizzy", "basic"))
+
+    def test_no_laennec_yet(self):
+        for pk in self.cat["order"]:
+            for tk in self.cat["programs"][pk]["tiers"]:
+                self.assertNotIn("laennec", self.all_keys(pk, tk), (pk, tk))
+
+    def test_only_clinic_stock(self):
+        stock = {"NS100", "SUP100", "SHOT", "meritc", "masi", "bcx", "lanovin", "jinko", "vichi",
+                 "dipeptiven", "laennec"}
+        self.assertEqual(set(C.ING), stock)
+        self.assertNotIn("hisi", C.ING)
 
     def test_requested_schedules(self):
         P = C.PROGRAMS
         self.assertEqual(P["gi"]["course_options"][0]["total"], 1)
         self.assertEqual(P["cold"]["course_options"][0]["total"], 1)
         self.assertEqual(P["white"]["course_options"][0]["per_week"], 2)
-        self.assertIn(P["aging"]["course_options"][0]["per_week"], (1, 2))
         self.assertEqual((P["immune"]["course_options"][0]["total"], P["immune"]["course_options"][0]["per_week"]), (6, 2))
-
-    def test_only_clinic_stock(self):
-        stock = {"NS100", "SUP100", "SHOT", "meritc", "masi", "bcx", "lanovin", "jinko", "vichi",
-                 "dipeptiven", "laennec"}
-        self.assertEqual(set(C.ING), stock)
 
     def test_gi_prices_fixed_by_director(self):
         t = C.PROGRAMS["gi"]["tiers"]
@@ -43,8 +77,8 @@ class CatalogTest(unittest.TestCase):
 
     def test_every_recipe_uses_known_ingredients(self):
         for pk, p in C.PROGRAMS.items():
-            for tk in C.TIERS:
-                for bag in p["tiers"][tk]["bags"]:
+            for tk, t in p["tiers"].items():
+                for bag in t["bags"]:
                     self.assertTrue(C.ING[bag["base"]].get("base"), (pk, tk, bag["base"]))
                     for k, q in bag["add"]:
                         self.assertIn(k, C.ING, (pk, tk, k))
@@ -59,13 +93,12 @@ class CatalogTest(unittest.TestCase):
                 self.assertIn(r["sup"], C.SUPPLEMENTS, (pk, r["sup"]))
 
     def test_gut_uses_dipeptiven_every_tier(self):
-        for tk in C.TIERS:
-            keys = [k for b in C.PROGRAMS["gut"]["tiers"][tk]["bags"] for k, _ in b["add"]]
-            self.assertIn("dipeptiven", keys)
+        for tk in C.PROGRAMS["gut"]["tiers"]:
+            self.assertIn("dipeptiven", self.all_keys("gut", tk))
 
     def test_dipeptiven_carrier_ratio_ok_in_defaults(self):
-        for pk in C.PROGRAMS:
-            for tk in C.TIERS:
+        for pk, p in C.PROGRAMS.items():
+            for tk in p["tiers"]:
                 r = E.build_recipe(pk, tk, {"sbp": 120})
                 self.assertFalse([w for w in r["warns"] if "바탕액" in w], (pk, tk, r["warns"]))
 
@@ -82,6 +115,11 @@ class CatalogTest(unittest.TestCase):
         self.assertEqual(cat["package_discount"], 20)
         self.assertEqual(C.PROGRAMS["fatigue"]["tiers"]["basic"]["price"], 50000)  # 원본은 그대로
 
+    def test_custom_ingredient(self):
+        cat = C.apply_overrides(C.default_catalog(), {"ingredients": {"x_1": {
+            "name": "라에넥", "unit": "A", "generic": "태반", "groups": ["placenta"]}}})
+        self.assertEqual(cat["ingredients"]["x_1"]["name"], "라에넥")
+
 
 class RecipeTest(unittest.TestCase):
     def names(self, r, removed=False):
@@ -94,11 +132,10 @@ class RecipeTest(unittest.TestCase):
         self.assertIn("masi", self.names(r))
 
     def test_very_low_bp_stops(self):
-        r = E.build_recipe("cold", "basic", {"sbp": 85})
-        self.assertTrue(r["stops"])
+        self.assertTrue(E.build_recipe("cold", "basic", {"sbp": 85})["stops"])
 
     def test_pregnancy_stops_and_removes_ginkgo(self):
-        r = E.build_recipe("aging", "premium", {"sbp": 120}, ["preg"])
+        r = E.build_recipe("dizzy", "basic", {"sbp": 120}, ["preg"])
         self.assertTrue(r["stops"])
         self.assertIn("jinko", self.names(r, removed=True))
 
@@ -107,18 +144,19 @@ class RecipeTest(unittest.TestCase):
         self.assertIn("meritc", self.names(r, removed=True))
 
     def test_renal_removes_whole_amino_bag(self):
-        r = E.build_recipe("gut", "basic", {"sbp": 120}, ["renal"])
+        r = E.build_recipe("fatigue", "premium", {"sbp": 120}, ["renal"])
         self.assertTrue(r["bags"][0]["removed"])
-        self.assertIn("dipeptiven", self.names(r, removed=True))
         self.assertTrue(any("모두 빠짐" in w for w in r["warns"]))
         self.assertEqual(r["volume_ml"], 0)
 
     def test_sulfite_removes_bcomplex_and_surpramin(self):
-        r = E.build_recipe("fatigue", "plus", {"sbp": 120}, ["sulfite"])
-        self.assertTrue(any(b["base"] == "SUP100" and b["removed"] for b in r["bags"]))
+        r = E.build_recipe("fatigue", "premium", {"sbp": 120}, ["sulfite"])
+        self.assertTrue(r["bags"][0]["removed"])
+        r = E.build_recipe("fatigue", "basic", {"sbp": 120}, ["sulfite"])
+        self.assertIn("bcx", self.names(r, removed=True))
 
     def test_anticoag_removes_ginkgo(self):
-        r = E.build_recipe("stress", "premium", {"sbp": 120}, ["anticoag"])
+        r = E.build_recipe("dizzy", "premium", {"sbp": 120}, ["anticoag"])
         self.assertIn("jinko", self.names(r, removed=True))
 
     def test_dipeptiven_weight_limit(self):
@@ -127,19 +165,11 @@ class RecipeTest(unittest.TestCase):
         r = E.build_recipe("gut", "premium", {"sbp": 120, "weight": 60})
         self.assertFalse(any("한도" in w for w in r["warns"]))
 
-    def test_donation_removes_laennec(self):
-        r = E.build_recipe("aging", "basic", {"sbp": 120}, ["donate"])
+    def test_donation_removes_laennec_when_added(self):
+        cat = C.apply_overrides(C.default_catalog(), {"programs": {"meno": {"tiers": {"basic": {"bags": [
+            {"base": "NS100", "add": [["bcx", 1], ["masi", 5]]}, {"base": "SHOT", "add": [["laennec", 2]]}]}}}}})
+        r = E.build_recipe("meno", "basic", {"sbp": 120}, ["donate"], cat)
         self.assertIn("laennec", self.names(r, removed=True))
-
-    def test_laennec_is_separate_shot(self):
-        for pk, p in C.PROGRAMS.items():
-            for tk in C.TIERS:
-                for bag in p["tiers"][tk]["bags"]:
-                    if any(k == "laennec" for k, _ in bag["add"]):
-                        self.assertEqual(bag["base"], "SHOT", (pk, tk))
-
-    def test_no_hisifagen(self):
-        self.assertNotIn("hisi", C.ING)
 
     def test_notices(self):
         r = E.build_recipe("fatigue", "basic", {"sbp": 120})
@@ -151,8 +181,8 @@ class RecipeTest(unittest.TestCase):
         self.assertEqual(r["minutes"], int(round(base * 1.5)))
 
     def test_volume(self):
-        r = E.build_recipe("white", "plus", {"sbp": 120})
-        self.assertEqual(r["volume_ml"], 100 + 10 + 100)
+        r = E.build_recipe("white", "basic", {"sbp": 120})
+        self.assertEqual(r["volume_ml"], 100 + 2 + 5 + 100)
 
 
 class MixTest(unittest.TestCase):
@@ -179,8 +209,9 @@ class MixTest(unittest.TestCase):
     def test_mg_with_bicarbonate_products(self):
         c, _, _ = self.conf([{"base": "NS100", "add": [["masi", 10], ["vichi", 1]]}])
         self.assertIn("mg_bicarb", [x["rule"] for x in c])
-        c, _, _ = self.conf([{"base": "NS100", "add": [["masi", 10], ["meritc", 10]]}])
-        self.assertIn("mg_bicarb", [x["rule"] for x in c])
+        c, notes, _ = self.conf([{"base": "NS100", "add": [["masi", 10], ["meritc", 10]]}])
+        self.assertEqual(c, [])                                   # 11-20: 같은 백 가능(주의)
+        self.assertIn("mg_vitc", [x["rule"] for x in notes])
 
     def test_gsh_with_b12(self):
         c, _, _ = self.conf([{"base": "NS100", "add": [["vichi", 1], ["lanovin", 1]]}])
@@ -258,14 +289,14 @@ class MathTest(unittest.TestCase):
         self.assertIn("peppermint", [r["sup"] for r in E.oral_plan("gut", subtype="D", focus=["pain"])["after"]])
 
     def test_emr_width(self):
-        r = E.build_recipe("aging", "premium", {"sbp": 98})
+        r = E.build_recipe("vitality", "premium", {"sbp": 98})
         t = E.emr_text({"total": 4}, {"n": 1, "vitals": {"sbp": 98, "dbp": 60}, "start_time": "10:00",
                                       "end_time": "10:45", "reactions": ["혈관통"]}, r)
         for line in t.split("\n"):
             self.assertLessEqual(E._w(line), E.EMR_WIDTH, line)
         self.assertIn("45분", t)
         self.assertIn("제외: 마시주", t)
-        self.assertIn("피하/근육: 라이넥", t)
+        self.assertIn("2) N/S 100mL + 비치라이트", t)
 
 
 class AppTest(unittest.TestCase):
@@ -304,7 +335,7 @@ class AppTest(unittest.TestCase):
         self.assertTrue(s["recipe"]["removed"])
 
     def test_delete_session_renumbers(self):
-        cid = self.app.add_course(self.pid, {"program": "immune", "tier": "plus", "start_date": "2026-11-16"})["id"]
+        cid = self.app.add_course(self.pid, {"program": "immune", "tier": "premium", "start_date": "2026-11-16"})["id"]
         ids = [self.app.add_session(cid, {"vitals": {"sbp": 120}, "d": d})["id"]
                for d in ["2026-11-16", "2026-11-19", "2026-11-23"]]
         self.app.delete_session(ids[0])
@@ -335,11 +366,16 @@ class AppTest(unittest.TestCase):
         self.assertNotIn("psyllium", sups)
 
     def test_settings_override_price(self):
-        self.app.set_catalog({"programs": {"stress": {"tiers": {"basic": {"price": 47000}}}}})
-        cid = self.app.add_course(self.pid, {"program": "stress", "tier": "basic", "option": 2})["id"]
+        self.app.set_catalog({"programs": {"dizzy": {"tiers": {"basic": {"price": 47000}}}}})
+        cid = self.app.add_course(self.pid, {"program": "dizzy", "tier": "basic", "option": 0})["id"]
         self.assertEqual(self.app.course(cid)["price"], 47000)
         cat = self.app.set_catalog({"reset": True})
-        self.assertEqual(cat["programs"]["stress"]["tiers"]["basic"]["price"], 45000)
+        self.assertEqual(cat["programs"]["dizzy"]["tiers"]["basic"]["price"], 50000)
+
+    def test_tier_must_exist_for_program(self):
+        with self.assertRaises(ValueError):
+            self.app.add_course(self.pid, {"program": "fatigue", "tier": "plus"})
+        self.assertTrue(self.app.add_course(self.pid, {"program": "gi", "tier": "plus"})["id"])
 
     def test_bad_input(self):
         with self.assertRaises(ValueError):
