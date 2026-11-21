@@ -19,38 +19,66 @@ import server as SV  # noqa: E402
 class CatalogTest(unittest.TestCase):
     cat = C.default_catalog()
 
-    def test_ten_programs(self):
+    def test_merged_programs(self):
+        """11-21: 같은 조합은 하나로 — 면역·갱년기 / 피로·감기 / 활력·숙취 / 백옥·간 / 어지러움 / 장염"""
         names = [self.cat["programs"][k]["name"] for k in self.cat["order"]]
-        self.assertEqual(len(names), 10)
-        for want in ["면역증강", "활력(기력증진)", "피로회복", "어지러움(혈류개선)", "갱년기",
-                     "백옥(피부미백)", "숙취회복", "간기능개선", "장염", "감기몸살"]:
-            self.assertIn(want, names)
+        self.assertEqual(names, ["면역증강 · 갱년기", "피로회복 · 감기몸살", "활력 · 숙취회복",
+                                 "백옥 · 간기능개선", "어지러움 (혈류개선)", "장염"])
         self.assertIn("gut", self.cat["later"])          # 장면역강화: 디펩티벤 입고 뒤
-        self.assertNotIn("gut", self.cat["order"])
+        for old in ["meno", "cold", "hangover", "liver"]:  # 이미 시작한 옛 코스도 열림
+            self.assertIn(old, self.cat["programs"])
+            self.assertNotIn(old, self.cat["order"])
+
+    def test_no_duplicate_recipes(self):
+        seen = {}
+        for pk in self.cat["order"]:
+            for tk, t in self.cat["programs"][pk]["tiers"].items():
+                key = json.dumps(t["bags"], sort_keys=True)
+                seen.setdefault(key, []).append((pk, tk))
+        dups = [v for v in seen.values() if len(v) > 1 and len({p for p, _ in v}) > 1]
+        # 장염 플러스·프리미엄만 면역증강과 같음(장염은 원장님 가격·홍보영상이 따로 있어 남김)
+        for v in dups:
+            self.assertIn("gi", [p for p, _ in v], v)
 
     def bags(self, pk, tk):
         return self.cat["programs"][pk]["tiers"][tk]["bags"]
 
     def test_base_rule(self):
-        """기본 = N/S 100 + 삐콤 + 마그네슘, 프리미엄 = 써프라민 100 + 삐콤 + 마그네슘"""
+        """기본 = N/S 100 한 백에 삐콤 + 마그네슘, 프리미엄 = 같은 백 + 써프라민 100 단독"""
         for pk in self.cat["order"]:
             for tk, t in self.cat["programs"][pk]["tiers"].items():
                 first = t["bags"][0]
                 keys = [k for k, _ in first["add"]]
+                self.assertEqual(first["base"], "NS100", (pk, tk))
                 self.assertIn("bcx", keys, (pk, tk))
                 self.assertIn("masi", keys, (pk, tk))
-                self.assertEqual(first["base"], "SUP100" if tk == "premium" else "NS100", (pk, tk))
+                sup = [b for b in t["bags"] if b["base"] == "SUP100"]
+                if tk == "premium":
+                    self.assertEqual(len(sup), 1, (pk, tk))
+                    self.assertEqual(sup[0]["add"], [], (pk, tk))      # 써프라민은 단독
+                else:
+                    self.assertEqual(sup, [], (pk, tk))
+
+    def test_vitc_separate_when_glutathione(self):
+        for pk in self.cat["order"]:
+            for tk, t in self.cat["programs"][pk]["tiers"].items():
+                for b in t["bags"]:
+                    keys = [k for k, _ in b["add"]]
+                    self.assertFalse("vichi" in keys and "meritc" in keys, (pk, tk))
+        keys = [[k for k, _ in b["add"]] for b in self.bags("vitality", "basic")]
+        self.assertEqual(keys[1], ["meritc"])                             # C 따로 백
 
     def all_keys(self, pk, tk):
         return [k for b in self.bags(pk, tk) for k, _ in b["add"]]
 
     def test_additions(self):
-        for pk in ["fatigue", "immune", "vitality", "cold", "meno", "hangover"]:
+        for pk in ["immune", "fatigue", "vitality"]:
             for tk in ["basic", "premium"]:
                 self.assertIn("meritc", self.all_keys(pk, tk), pk)
-        for pk in ["white", "hangover", "liver", "vitality"]:
+        for pk in ["white", "vitality"]:
             for tk in ["basic", "premium"]:
                 self.assertIn("vichi", self.all_keys(pk, tk), pk)
+        self.assertEqual(dict(self.bags("white", "premium")[0]["add"])["vichi"], 2)   # 백옥 프리미엄 1200
         self.assertIn("jinko", self.all_keys("dizzy", "basic"))
 
     def test_no_laennec_yet(self):
@@ -65,12 +93,12 @@ class CatalogTest(unittest.TestCase):
         self.assertNotIn("hisi", C.ING)
 
     def test_b1_b12_added(self):
-        """11-20: 라노빈(B12)·푸르설타민(마늘주사)"""
-        for pk in ["fatigue", "vitality", "hangover", "cold"]:
+        """라노빈(B12)·푸르설타민(마늘주사)"""
+        for pk in ["fatigue", "vitality"]:
             for tk in ["basic", "premium"]:
                 self.assertIn("fursul", self.all_keys(pk, tk), pk)
-        for pk, tk in [("dizzy", "basic"), ("dizzy", "premium"), ("fatigue", "premium"), ("vitality", "premium")]:
-            self.assertIn("lanovin", self.all_keys(pk, tk), (pk, tk))
+        for tk in ["basic", "premium"]:
+            self.assertIn("lanovin", self.all_keys("dizzy", tk))
 
     def test_lanovin_never_with_c_gsh_or_surpramin(self):
         for pk in self.cat["order"]:
@@ -89,7 +117,6 @@ class CatalogTest(unittest.TestCase):
     def test_requested_schedules(self):
         P = C.PROGRAMS
         self.assertEqual(P["gi"]["course_options"][0]["total"], 1)
-        self.assertEqual(P["cold"]["course_options"][0]["total"], 1)
         self.assertEqual(P["white"]["course_options"][0]["per_week"], 2)
         self.assertEqual((P["immune"]["course_options"][0]["total"], P["immune"]["course_options"][0]["per_week"]), (6, 2))
 
@@ -165,19 +192,19 @@ class RecipeTest(unittest.TestCase):
         r = E.build_recipe("cold", "basic", {"sbp": 120}, ["g6pd"])
         self.assertIn("meritc", self.names(r, removed=True))
 
-    def test_renal_removes_whole_amino_bag(self):
-        r = E.build_recipe("cold", "premium", {"sbp": 120}, ["renal"])
-        self.assertTrue(r["bags"][0]["removed"])
-        self.assertTrue(any("모두 빠짐" in w for w in r["warns"]))
+    def test_renal_removes_surpramin_bag(self):
+        r = E.build_recipe("fatigue", "premium", {"sbp": 120}, ["renal"])
+        self.assertTrue(r["bags"][-1]["removed"])                         # 써프라민 백
+        self.assertIn("masi", self.names(r, removed=True))
+        cat = C.apply_overrides(C.default_catalog(), {"programs": {"gi": {"tiers": {"basic": {"bags": [
+            {"base": "SUP100", "add": []}]}}}}})
+        r = E.build_recipe("gi", "basic", {"sbp": 120}, ["renal"], cat)
         self.assertEqual(r["volume_ml"], 0)
-        r = E.build_recipe("fatigue", "premium", {"sbp": 120}, ["renal"])   # 라노빈 백은 남음
-        self.assertTrue(r["bags"][0]["removed"])
-        self.assertFalse(r["bags"][1]["removed"])
+        self.assertTrue(any("모두 빠짐" in w for w in r["warns"]))
 
     def test_sulfite_removes_bcomplex_and_surpramin(self):
         r = E.build_recipe("fatigue", "premium", {"sbp": 120}, ["sulfite"])
-        self.assertTrue(r["bags"][0]["removed"])
-        r = E.build_recipe("fatigue", "basic", {"sbp": 120}, ["sulfite"])
+        self.assertTrue(r["bags"][-1]["removed"])
         self.assertIn("bcx", self.names(r, removed=True))
 
     def test_anticoag_removes_ginkgo(self):
@@ -207,6 +234,8 @@ class RecipeTest(unittest.TestCase):
 
     def test_volume(self):
         r = E.build_recipe("white", "basic", {"sbp": 120})
+        self.assertEqual(r["volume_ml"], 100 + 2 + 5)
+        r = E.build_recipe("white", "premium", {"sbp": 120})
         self.assertEqual(r["volume_ml"], 100 + 2 + 5 + 100)
 
 
@@ -232,8 +261,11 @@ class MixTest(unittest.TestCase):
         self.assertIn("vitc_b12", ids)  # 옆 칸에서 강조
 
     def test_mg_with_bicarbonate_products(self):
-        c, _, _ = self.conf([{"base": "NS100", "add": [["masi", 10], ["vichi", 1]]}])
-        self.assertIn("mg_bicarb", [x["rule"] for x in c])
+        c, notes, _ = self.conf([{"base": "NS100", "add": [["masi", 10], ["vichi", 1], ["bcx", 1]]}])
+        self.assertEqual(c, [])                                   # 11-21: 삐콤·비치라이트·Mg 같은 백 가능
+        self.assertIn("mg_bicarb", [x["rule"] for x in notes])
+        c, _, _ = self.conf([{"base": "NS100", "add": [["vichi", 1], ["meritc", 20]]}])
+        self.assertIn("gsh_vitc", [x["rule"] for x in c])        # 비치라이트 × C 는 금지
         c, notes, _ = self.conf([{"base": "NS100", "add": [["masi", 10], ["meritc", 10]]}])
         self.assertEqual(c, [])                                   # 11-20: 같은 백 가능(주의)
         self.assertIn("mg_vitc", [x["rule"] for x in notes])
@@ -314,14 +346,15 @@ class MathTest(unittest.TestCase):
         self.assertIn("peppermint", [r["sup"] for r in E.oral_plan("gut", subtype="D", focus=["pain"])["after"]])
 
     def test_emr_width(self):
-        r = E.build_recipe("vitality", "premium", {"sbp": 98})
+        r = E.build_recipe("dizzy", "premium", {"sbp": 98})
         t = E.emr_text({"total": 4}, {"n": 1, "vitals": {"sbp": 98, "dbp": 60}, "start_time": "10:00",
                                       "end_time": "10:45", "reactions": ["혈관통"]}, r)
         for line in t.split("\n"):
             self.assertLessEqual(E._w(line), E.EMR_WIDTH, line)
         self.assertIn("45분", t)
         self.assertIn("제외: 마시주", t)
-        self.assertIn("2) N/S 100mL + 비치라이트", t)
+        self.assertIn("2) N/S 100mL + 진코발", t)
+        self.assertIn("3) 써프라민 100mL", t)
 
 
 class AppTest(unittest.TestCase):

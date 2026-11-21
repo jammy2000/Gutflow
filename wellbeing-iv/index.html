@@ -564,7 +564,7 @@ function viewTable(el){
   const cat = S.cat;
   const mgNames = Object.values(cat.ingredients).filter(i=>(i.flags||[]).includes("mg")).map(i=>i.name).join("·") || "마그네슘";
   el.innerHTML = `<div class="row"><h1>프로그램표</h1><span class="sp"></span><button class="btn ghost noprint" onclick="print()">🖨 인쇄</button></div>
-   <p class="muted noprint">웰빙내과 맞춤 수액 10종 — 기본 = N/S 100 + 삐콤 + 마그네슘, 프리미엄 = 써프라민 100 + 삐콤 + 마그네슘. 값·구성은 「설정」에서 바꿉니다. 번호가 다른 백은 섞지 않고 순서대로 따로 연결합니다.</p>
+   <p class="muted noprint">웰빙내과 맞춤 수액 — 기본 = N/S 100 한 백에 삐콤 + 마그네슘(+ 처방별 약), 프리미엄 = 같은 N/S 백 + 써프라민 100 단독 한 백. 비치라이트가 있으면 비타민C는 N/S 100에 따로. 값·구성은 「설정」에서 바꿉니다. 번호가 다른 백은 순서대로 따로 연결합니다.</p>
    <div class="alert warn">※ 수축기혈압 ${cat.sbp_no_mg} 이하면 ${esc(mgNames)} 섞지 않기 (자동으로 빠짐)</div>
    <div class="withside"><div>` +
    cat.order.map(k => { const p = P(k), plan = oralPlan(k, k==="gut"?"D":null, []);

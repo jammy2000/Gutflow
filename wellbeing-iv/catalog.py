@@ -5,6 +5,8 @@
   기본 = N/S 100 + 삐콤 + 마그네슘, 프리미엄 = 써프라민 100 + 삐콤 + 마그네슘,
   여기에 비타민C·글루타치온·진코발을 붙인다. 라이넥은 아직 조합하지 않는다.
   11-20 추가: 라노빈(B12)·푸르설타민(마늘주사). 라노빈은 비타민C·글루타치온·써프라민과 떨어뜨린다.
+  11-21: 프리미엄은 써프라민 100을 단독 백으로 하나 더 주고, 약은 모두 N/S 100에.
+         비치라이트가 있으면 비타민C는 따로. 같은 조합은 하나로 합쳐 6종.
 11-17: 「지금 웰빙내과에 있는 수액 자원」(EMR 수액 목록)으로 짠다.
   써프라민 · N/S 100mL · 삐콤헥사 · 메리트씨 · 마시주 · 라노빈 · 진코발 · 비치라이트
   + 디펩티벤(장면역강화) · 라이넥(입고 예정). 히시파겐C는 허가 취하로 뺌.
@@ -90,10 +92,11 @@ INCOMPAT = [
      "title": "써프라민 × 라노빈(B12)",
      "why": "써프라민의 시스테인·아황산이 B12와 반응할 수 있다(글루타치온과 같은 원리, 추정).",
      "do": "라노빈은 N/S 백에", "src": "써프라민 첨가제 · 약제학적 추정"},
-    {"id": "mg_bicarb", "a": "mg", "b": "bicarb", "level": "bag",
-     "title": "마시주(마그네슘) × 비치라이트",
-     "why": "비치라이트에 탄산수소나트륨이 들어 있다. 마시주 허가사항: 탄산수소염 든 약과 섞으면 침전 → 혼합을 피함.",
-     "do": "비치라이트는 다른 백으로", "src": "마시주·비치라이트 허가사항"},
+    {"id": "mg_bicarb", "a": "mg", "b": "bicarb", "level": "care",
+     "title": "마시주 × 비치라이트",
+     "why": "비치라이트의 탄산수소나트륨(산도 맞춤용)이 마시주 허가사항 문구(탄산수소염 든 약과 혼합 피함)에 글자로는 해당. "
+            "원내에서는 N/S에 삐콤·비치라이트·마그네슘을 함께 섞어 씀(11-21 부원장님).",
+     "do": "같은 백 가능 — 섞은 뒤 바로, 뿌옇거나 알갱이 보이면 버리기", "src": "마시주·비치라이트 허가사항"},
     {"id": "dipep_any", "a": "dipep", "b": "*", "level": "bag",
      "title": "디펩티벤 × 다른 모든 약",
      "why": "허가사항: 희석한 액에 다른 약을 넣지 않는다. 바탕액은 아미노산 수액만.",
@@ -103,13 +106,9 @@ INCOMPAT = [
      "why": "희석·배합 자료가 없는 식물 추출 주사(에탄올·소르비톨 함유).",
      "do": "N/S에 진코발만 · 앞뒤로 식염수 흘리기", "src": "진코발 허가사항(배합 정보 없음)"},
     {"id": "gsh_vitc", "a": "gsh", "b": "vitc", "level": "bag",
-     "title": "비치라이트 × 메리트씨",
-     "why": "섞어 둔 안정성 자료가 없다(위험은 낮은 편).",
-     "do": "다른 백으로 따로", "src": "자료 없음 → 보수적으로 분리"},
-    {"id": "gsh_bcx", "a": "gsh", "b": "bcx", "level": "bag",
-     "title": "비치라이트 × 삐콤헥사",
-     "why": "외국 글루타치온 허가사항에 B12·판토텐산과 배합 금지가 있다(국내 허가사항엔 없음).",
-     "do": "다른 백으로 따로", "src": "보수적으로 분리"},
+     "title": "비치라이트(글루타치온) × 메리트씨(비타민C)",
+     "why": "원내 규칙(11-21 부원장님) — 같이 섞지 않는다.",
+     "do": "메리트씨는 N/S 100에 따로", "src": "원내 규칙"},
     {"id": "gsh_aa", "a": "gsh", "b": "aa_base", "level": "bag",
      "title": "비치라이트 × 써프라민",
      "why": "섞은 자료가 없다.", "do": "비치라이트는 N/S 백에", "src": "자료 없음 → 분리"},
@@ -180,13 +179,20 @@ def bag_minutes(bag):
 MG = 5   # 마시주 5mL = 0.5g
 
 
-def BASE(c=False, b1=False, b12=False):
-    """기본 백: N/S 100 + 삐콤헥사 + 마시주 (+ 메리트씨 1V, 푸르설타민, 라노빈)
-    라노빈(B12)은 메리트씨와 같은 백 금지 → b12는 c가 없을 때만"""
-    assert not (c and b12), "라노빈은 메리트씨와 같은 백에 넣지 않음 — LANO() 따로 백"
+# ── 11-21 부원장님 규칙 ──
+#  기본    = N/S 100 한 백에 삐콤 + 마그네슘 (+ 비타민C / 글루타치온 / 마늘주사 / B12)
+#  프리미엄 = 기본과 같은 N/S 백 + 써프라민 100 단독 한 백 더
+#  N/S에 삐콤·C·Mg 같이 OK, 삐콤·비치라이트·Mg 같이 OK, 비치라이트 × C 는 금지 → C 따로 백
+#  라노빈은 C·글루타치온 없는 백에만, 진코발은 단독 백, 라이넥은 아직 조합하지 않음
+def MAIN(c=False, b1=False, gsh=0, b12=False):
+    """N/S 100 + 삐콤헥사 + 마시주 (+ 메리트씨 / 푸르설타민 / 비치라이트 / 라노빈)"""
+    assert not (c and gsh), "비치라이트와 메리트씨는 같은 백 금지 — C_BAG() 따로"
+    assert not (b12 and (c or gsh)), "라노빈은 메리트씨·비치라이트와 같은 백 금지"
     add = [("bcx", 1), ("masi", MG)]
     if c:
         add.append(("meritc", 20))
+    if gsh:
+        add.append(("vichi", gsh))
     if b1:
         add.append(("fursul", 1))
     if b12:
@@ -194,23 +200,12 @@ def BASE(c=False, b1=False, b12=False):
     return _bag("NS100", *add)
 
 
-def PREM(c=False, b1=False):
-    """프리미엄 백: 써프라민 100 + 삐콤헥사 + 마시주 (+ 메리트씨 1V, 푸르설타민)
-    라노빈은 써프라민과 같은 백 금지 → LANO() 따로 백"""
-    add = [("bcx", 1), ("masi", MG)]
-    if c:
-        add.append(("meritc", 20))
-    if b1:
-        add.append(("fursul", 1))
-    return _bag("SUP100", *add)
+def C_BAG():          # 비타민C 따로 (글루타치온이 있을 때)
+    return _bag("NS100", ("meritc", 20))
 
 
-def LANO():           # 라노빈(B12) 단독 백 — 비타민C·글루타치온·써프라민과 떨어뜨림
-    return _bag("NS100", ("lanovin", 1))
-
-
-def GSH(n=1):         # 글루타치온은 다른 약과 섞지 않고 따로 (N/S 100 + 비치라이트)
-    return _bag("NS100", ("vichi", n))
+def SUP():            # 써프라민 100 단독 (프리미엄)
+    return _bag("SUP100")
 
 
 def GINKGO():         # 진코발 단독
@@ -221,87 +216,121 @@ def DIPEP(ml=20):     # 디펩티벤 단독 (써프라민 100mL에 20mL까지)
     return _bag("SUP100", ("dipeptiven", ml))
 
 
+def LANO():           # 라노빈(B12) 단독 백 (설정에서 쓸 때)
+    return _bag("NS100", ("lanovin", 1))
+
+
+def bags_for(c=False, b1=False, gsh=0, b12=False, ginkgo=False):
+    """규칙대로 백 나누기: C와 글루타치온이 같이 있으면 C는 따로"""
+    if c and gsh:
+        out = [MAIN(b1=b1, gsh=gsh), C_BAG()]
+    else:
+        out = [MAIN(c=c, b1=b1, gsh=gsh, b12=b12)]
+    if ginkgo:
+        out.append(GINKGO())
+    return out
+
+
 def _t(price, point, bags, frm=""):
     return {"price": price, "point": point, "bags": bags, "from": frm,
             "min": sum(bag_minutes(b) for b in bags)}
 
 
-def _two(pb, pp, point, extra=(), c=False, prem_extra=None, b1=False, b12_basic=False, ppoint=None):
-    """기본/프리미엄 두 등급. extra = 덧붙이는 따로 백"""
-    pe = prem_extra if prem_extra is not None else extra
+def _two(pb, pp, point, prem_gsh=None, **kw):
+    """기본 = N/S 백(들), 프리미엄 = 같은 N/S 백(들) + 써프라민 100 단독"""
+    pkw = dict(kw)
+    if prem_gsh is not None:
+        pkw["gsh"] = prem_gsh
     return {
-        "basic": _t(pb, point, [BASE(c=c, b1=b1, b12=b12_basic)] + list(extra), "N/S 100 + 삐콤 + 마그네슘"),
-        "premium": _t(pp, ppoint or point, [PREM(c=c, b1=b1)] + list(pe), "써프라민 100 + 삐콤 + 마그네슘"),
+        "basic": _t(pb, point, bags_for(**kw), "N/S 100 + 삐콤 + 마그네슘"),
+        "premium": _t(pp, point + " + 써프라민", bags_for(**pkw) + [SUP()], "기본 + 써프라민 100 단독"),
     }
 
 
 ONE = {"total": 1, "per_week": 0, "label": "1회"}
 
-# ───────────────────────── 프로그램 10종 (+ 준비 중) ─────────────────────────
+# ───────────────────────── 프로그램 (같은 조합은 하나로 합침) ─────────────────────────
 PROGRAMS = {
     "immune": {
-        "name": "면역증강", "short": "면역", "color": "#2E8BA6", "icon": "🛡️",
-        "for": "환절기마다 감기를 달고 살 때, 면역 관리",
-        "course_options": [{"total": 6, "per_week": 2, "label": "3주 6회"}, ONE],
-        "tiers": _two(50000, 80000, "비타민B·마그네슘 + 비타민C 10g", c=True),
+        "name": "면역증강 · 갱년기", "short": "면역·갱년기", "color": "#2E8BA6", "icon": "🛡️",
+        "for": "환절기 면역 관리, 열감·피로·잠 설침 등 갱년기 불편 (라이넥은 입고 뒤 추가)",
+        "course_options": [{"total": 6, "per_week": 2, "label": "3주 6회"},
+                           {"total": 4, "per_week": 2, "label": "2주 4회"}, ONE],
+        "tiers": _two(50000, 80000, "비타민B·마그네슘·비타민C", c=True),
         "meds": [],
         "oral": {
-            "with": [{"sup": "vitd", "weeks": 3, "why": "면역 기본"},
-                     {"sup": "zinc", "weeks": 3, "why": "면역 기본"}],
-            "after": [{"sup": "vitd", "weeks": 12, "why": "환절기 내내"},
-                      {"sup": "zinc", "weeks": 8, "why": "환절기"},
-                      {"sup": "probiotic", "weeks": 8, "why": "장 면역"},
-                      {"sup": "vitc", "weeks": 8, "why": "환절기"}],
+            "with": [{"sup": "vitd", "weeks": 3, "why": "면역·뼈 건강 기본"}],
+            "after": [{"sup": "vitd", "weeks": 12, "why": "면역·뼈 건강"},
+                      {"sup": "zinc", "weeks": 8, "why": "면역"},
+                      {"sup": "mg_oral", "weeks": 8, "why": "수면·긴장"},
+                      {"sup": "omega3", "weeks": 12, "why": "혈관 관리"}],
         },
         "score": {"key": "immune", "label": "컨디션 (0~10, 높을수록 좋음)", "max": 10, "higher_better": True},
         "followup_weeks": [0, 3, 12],
-        "aftercare": ["손 씻기·실내 습도 40~60%", "수면 7시간", "다음 회차는 3~4일 뒤 (3주 6회)"],
-    },
-    "vitality": {
-        "name": "활력(기력증진)", "short": "활력", "color": "#D9822B", "icon": "⚡",
-        "for": "기운이 없고 처질 때",
-        "course_options": [{"total": 4, "per_week": 2, "label": "2주 4회"}, ONE],
-        "tiers": _two(60000, 90000, "비타민B·마그네슘·비타민C·마늘주사 + 글루타치온(따로)", c=True, b1=True,
-                      extra=[GSH(1)], prem_extra=[GSH(1), LANO()],
-                      ppoint="비타민B·마그네슘·비타민C·마늘주사 + 글루타치온·B12(따로)"),
-        "meds": [],
-        "oral": {
-            "with": [{"sup": "bcomplex", "weeks": 2, "why": "수액 사이 날 B군 유지"}],
-            "after": [{"sup": "bcomplex", "weeks": 8, "why": "활력 유지"},
-                      {"sup": "coq10", "weeks": 8, "why": "에너지 대사"},
-                      {"sup": "vitd", "weeks": 12, "why": "비타민D 낮을 때"}],
-        },
-        "score": {"key": "vitality", "label": "활력 (0~10, 높을수록 좋음)", "max": 10, "higher_better": True},
-        "followup_weeks": [0, 2, 8],
-        "aftercare": ["단백질은 끼니마다 손바닥 하나", "가벼운 걷기 20분부터", "다음 회차는 3~4일 뒤"],
+        "aftercare": ["손 씻기·실내 습도 40~60%", "수면 7시간", "근력 운동 주 2회",
+                      "다음 회차는 3~4일 뒤"],
     },
     "fatigue": {
-        "name": "피로회복", "short": "피로", "color": "#C9792A", "icon": "🔋",
-        "for": "쉬어도 계속 피곤할 때 (빈혈·갑상선 등 원인 확인과 함께)",
+        "name": "피로회복 · 감기몸살", "short": "피로·감기", "color": "#C9792A", "icon": "🔋",
+        "for": "쉬어도 피곤할 때(원인 확인과 함께), 몸살·근육통으로 처질 때",
         "course_options": [{"total": 4, "per_week": 2, "label": "2주 4회"},
                            {"total": 8, "per_week": 2, "label": "4주 8회"}, ONE],
-        "tiers": _two(50000, 80000, "비타민B·마그네슘·비타민C 10g + 마늘주사", c=True, b1=True,
-                      prem_extra=[LANO()], ppoint="비타민B·마그네슘·비타민C 10g + 마늘주사 + B12(따로)"),
-        "meds": [],
+        "tiers": _two(50000, 80000, "비타민B·마그네슘·비타민C + 마늘주사", c=True, b1=True),
+        "meds": ["급여 감기 수액(EMR 1870)", "해열·진통 주사", "감기약 처방"],
         "oral": {
             "with": [{"sup": "bcomplex", "weeks": 2, "why": "수액 사이 날 B군 유지"},
                      {"sup": "mg_oral", "weeks": 2, "why": "근육 긴장·수면"}],
             "after": [{"sup": "bcomplex", "weeks": 8, "why": "피로 관리 유지"},
-                      {"sup": "mg_oral", "weeks": 8, "why": "근육 긴장·수면"},
+                      {"sup": "vitc", "weeks": 2, "why": "회복기 비타민C"},
                       {"sup": "vitd", "weeks": 12, "why": "비타민D 낮을 때"}],
         },
-        "score": {"key": "fatigue", "label": "피로 (0~10)", "max": 10},
+        "score": {"key": "fatigue", "label": "피로·몸살 (0~10)", "max": 10},
         "followup_weeks": [0, 2, 4, 12],
-        "aftercare": ["잠자는 시각을 일정하게", "카페인은 오후 2시 전까지",
-                      "다음 회차는 3~4일 뒤", "가벼운 걷기 20분부터"],
+        "aftercare": ["잠자는 시각을 일정하게", "오늘은 땀 흘리는 운동·사우나·술 피하기",
+                      "열이 3일 넘거나 숨이 차면 다시 진료", "다음 회차는 3~4일 뒤"],
+    },
+    "vitality": {
+        "name": "활력 · 숙취회복", "short": "활력·숙취", "color": "#D9822B", "icon": "⚡",
+        "for": "기운이 없고 처질 때, 과음 다음 날 속이 불편하고 처질 때",
+        "course_options": [{"total": 4, "per_week": 2, "label": "2주 4회"}, ONE],
+        "tiers": _two(60000, 90000, "비타민B·마그네슘·마늘주사·글루타치온 + 비타민C(따로)",
+                      c=True, b1=True, gsh=1),
+        "meds": ["위장약", "구토 멎는 주사"],
+        "oral": {
+            "with": [{"sup": "bcomplex", "weeks": 2, "why": "수액 사이 날 B군 유지"}],
+            "after": [{"sup": "bcomplex", "weeks": 8, "why": "활력 유지"},
+                      {"sup": "silymarin", "weeks": 4, "why": "간 관리"},
+                      {"sup": "coq10", "weeks": 8, "why": "에너지 대사"}],
+        },
+        "score": {"key": "vitality", "label": "활력 (0~10, 높을수록 좋음)", "max": 10, "higher_better": True},
+        "followup_weeks": [0, 2, 8],
+        "aftercare": ["물·이온음료 충분히", "오늘은 술 금지", "단백질은 끼니마다 손바닥 하나",
+                      "다음 회차는 3~4일 뒤"],
+    },
+    "white": {
+        "name": "백옥 · 간기능개선", "short": "백옥·간", "color": "#C2669B", "icon": "✨",
+        "for": "칙칙한 피부·톤 관리, 간 수치 관리(간 검사와 함께)",
+        "course_options": [{"total": 10, "per_week": 2, "label": "5주 10회 (주 2회)"},
+                           {"total": 4, "per_week": 2, "label": "2주 4회"}, ONE],
+        "tiers": _two(50000, 90000, "비타민B·마그네슘 + 글루타치온", gsh=1, prem_gsh=2),
+        "meds": ["간장약 처방"],
+        "oral": {
+            "with": [{"sup": "vitc", "weeks": 5, "why": "수액 사이 비타민C"}],
+            "after": [{"sup": "gsh_oral", "weeks": 8, "why": "톤 관리 유지"},
+                      {"sup": "silymarin", "weeks": 8, "why": "간 관리"},
+                      {"sup": "collagen", "weeks": 8, "why": "피부 탄력"}],
+        },
+        "score": {"key": "skin", "label": "만족도·컨디션 (0~10, 높을수록 좋음)", "max": 10, "higher_better": True},
+        "followup_weeks": [0, 4, 12],
+        "aftercare": ["자외선 차단제 매일(흐린 날도)", "술 줄이기·체중 관리",
+                      "유지기에는 2~4주에 1회", "간 검사 다시 보기 (원장님 안내)"],
     },
     "dizzy": {
-        "name": "어지러움(혈류개선)", "short": "어지러움", "color": "#5B7DB1", "icon": "🌀",
+        "name": "어지러움 (혈류개선)", "short": "어지러움", "color": "#5B7DB1", "icon": "🌀",
         "for": "어지럽고 손발이 차거나 머리가 맑지 않을 때 (원인 진료와 함께)",
         "course_options": [ONE, {"total": 4, "per_week": 2, "label": "2주 4회"}],
-        "tiers": _two(50000, 80000, "비타민B·마그네슘·B12(라노빈) + 은행잎(진코발, 따로)", b12_basic=True,
-                      extra=[GINKGO()], prem_extra=[GINKGO(), LANO()],
-                      ppoint="비타민B·마그네슘 + 은행잎(진코발)·B12(라노빈) 각각 따로"),
+        "tiers": _two(50000, 80000, "비타민B·마그네슘·B12(라노빈) + 은행잎(진코발, 따로)",
+                      b12=True, ginkgo=True),
         "meds": ["어지럼 약 처방", "혈압·빈혈 확인"],
         "oral": {
             "after": [{"sup": "omega3", "weeks": 12, "why": "혈액순환"},
@@ -312,78 +341,14 @@ PROGRAMS = {
         "aftercare": ["갑자기 일어나지 말고 천천히", "물 충분히",
                       "말이 어눌하거나 한쪽 힘이 빠지면 바로 119"],
     },
-    "meno": {
-        "name": "갱년기", "short": "갱년기", "color": "#B5577F", "icon": "🌸",
-        "for": "열감·피로·잠 설침 등 갱년기 불편 (라이넥은 입고 뒤 추가)",
-        "course_options": [{"total": 4, "per_week": 2, "label": "2주 4회"},
-                           {"total": 4, "per_week": 1, "label": "4주 4회 (주 1회)"}],
-        "tiers": _two(50000, 80000, "비타민B·마그네슘 + 비타민C 10g", c=True),
-        "meds": [],
-        "oral": {
-            "after": [{"sup": "vitd", "weeks": 12, "why": "뼈 건강"},
-                      {"sup": "mg_oral", "weeks": 8, "why": "수면·긴장"},
-                      {"sup": "omega3", "weeks": 12, "why": "혈관 관리"}],
-        },
-        "score": {"key": "meno", "label": "갱년기 불편 (0~10)", "max": 10},
-        "followup_weeks": [0, 2, 8],
-        "aftercare": ["근력 운동 주 2회", "카페인·술 줄이기", "잠자는 방은 시원하게"],
-    },
-    "white": {
-        "name": "백옥(피부미백)", "short": "백옥", "color": "#C2669B", "icon": "✨",
-        "for": "칙칙한 피부·톤 관리",
-        "course_options": [{"total": 10, "per_week": 2, "label": "5주 10회 (주 2회)"},
-                           {"total": 8, "per_week": 2, "label": "4주 8회 (주 2회)"}, ONE],
-        "tiers": _two(50000, 90000, "비타민B·마그네슘 + 글루타치온(따로)",
-                      extra=[GSH(1)], prem_extra=[GSH(2)]),
-        "meds": [],
-        "oral": {
-            "with": [{"sup": "vitc", "weeks": 5, "why": "수액 사이 비타민C"}],
-            "after": [{"sup": "gsh_oral", "weeks": 8, "why": "톤 관리 유지"},
-                      {"sup": "vitc", "weeks": 8, "why": "톤 관리 유지"},
-                      {"sup": "collagen", "weeks": 8, "why": "피부 탄력"}],
-        },
-        "score": {"key": "skin", "label": "피부 톤 만족도 (0~10)", "max": 10, "higher_better": True},
-        "followup_weeks": [0, 5, 12],
-        "aftercare": ["자외선 차단제 매일(흐린 날도)", "충분한 수면·수분", "유지기에는 2~4주에 1회"],
-    },
-    "hangover": {
-        "name": "숙취회복", "short": "숙취", "color": "#4F9A6B", "icon": "🍶",
-        "for": "과음 다음 날 속이 불편하고 처질 때",
-        "course_options": [ONE],
-        "tiers": _two(60000, 90000, "비타민B·마그네슘·비타민C·마늘주사 + 글루타치온(따로)", c=True, b1=True,
-                      extra=[GSH(1)]),
-        "meds": ["위장약", "구토 멎는 주사"],
-        "oral": {
-            "after": [{"sup": "silymarin", "weeks": 4, "why": "간 관리"},
-                      {"sup": "bcomplex", "weeks": 4, "why": "B군 보충"}],
-        },
-        "score": {"key": "hangover", "label": "숙취 불편 (0~10)", "max": 10},
-        "followup_weeks": [],
-        "aftercare": ["물·이온음료 충분히", "오늘은 술·해장술 금지", "기름진 음식보다 죽·국물"],
-    },
-    "liver": {
-        "name": "간기능개선", "short": "간", "color": "#195C3B", "icon": "🌿",
-        "for": "간 수치 관리, 피로가 겹칠 때 (간 검사와 함께)",
-        "course_options": [{"total": 4, "per_week": 2, "label": "2주 4회"}, ONE],
-        "tiers": _two(60000, 90000, "비타민B·마그네슘 + 글루타치온(따로)", extra=[GSH(1)]),
-        "meds": ["간장약 처방"],
-        "oral": {
-            "after": [{"sup": "silymarin", "weeks": 8, "why": "간 관리"},
-                      {"sup": "bcomplex", "weeks": 8, "why": "B군 보충"}],
-        },
-        "score": {"key": "liver", "label": "피로·컨디션 (0~10)", "max": 10},
-        "followup_weeks": [0, 2, 8],
-        "aftercare": ["술 줄이기", "체중 관리", "간 검사 다시 보기 (원장님 안내)"],
-    },
     "gi": {
         "name": "장염", "short": "장염", "color": "#3B8C7A", "icon": "💧",
         "for": "설사·구토로 지치고 못 먹을 때",
         "course_options": [ONE],
         "tiers": {
-            "basic": _t(35000, "비타민B·마그네슘", [BASE()], "N/S 100 + 삐콤 + 마그네슘"),
-            "plus": _t(60000, "+ 비타민C 10g", [BASE(c=True)], "기본 + 메리트씨"),
-            "premium": _t(90000, "써프라민 아미노산 + 비타민C 10g", [PREM(c=True)],
-                          "써프라민 100 + 삐콤 + 마그네슘 + 메리트씨"),
+            "basic": _t(35000, "비타민B·마그네슘", bags_for(), "N/S 100 + 삐콤 + 마그네슘"),
+            "plus": _t(60000, "+ 비타민C", bags_for(c=True), "기본 + 메리트씨"),
+            "premium": _t(90000, "+ 비타민C + 써프라민", bags_for(c=True) + [SUP()], "플러스 + 써프라민 100 단독"),
         },
         "meds": ["탈수 교정 수액(급여) 추가", "구토 멎는 주사", "장 경련 주사", "지사제", "정장제"],
         "oral": {
@@ -397,21 +362,6 @@ PROGRAMS = {
                       "우유·기름진 음식·술은 2~3일 피하기",
                       "열이 나거나 피가 섞인 변, 하루 넘게 계속 토하면 바로 연락"],
     },
-    "cold": {
-        "name": "감기몸살", "short": "감기몸살", "color": "#4A7FB5", "icon": "🤒",
-        "for": "몸살·근육통으로 처질 때",
-        "course_options": [ONE],
-        "tiers": _two(50000, 80000, "비타민B·마그네슘·비타민C 10g + 마늘주사", c=True, b1=True),
-        "meds": ["급여 감기 수액(EMR 1870)", "해열·진통 주사", "감기약 처방"],
-        "oral": {
-            "after": [{"sup": "vitc", "weeks": 2, "why": "회복기 비타민C"},
-                      {"sup": "zinc", "weeks": 2, "why": "회복기 아연"}],
-        },
-        "score": {"key": "cold", "label": "몸살·피로 (0~10)", "max": 10},
-        "followup_weeks": [],
-        "aftercare": ["오늘은 푹 쉬고 물을 충분히", "땀 흘리는 운동·사우나·술은 오늘 피하기",
-                      "열이 3일 넘거나 숨이 차면 다시 진료"],
-    },
     # ── 준비 중: 디펩티벤 입고 뒤 PROGRAM_ORDER에 넣으면 켜짐 ──
     "gut": {
         "name": "장면역강화 (과민성장)", "short": "장면역", "color": "#7A9A3B", "icon": "🦠",
@@ -420,8 +370,8 @@ PROGRAMS = {
         "course_options": [{"total": 4, "per_week": 1, "label": "4주 4회 (주 1회)"},
                            {"total": 4, "per_week": 2, "label": "2주 4회"}],
         "tiers": {
-            "basic": _t(60000, "기본 백 + 글루타민(디펩티벤, 따로)", [BASE(), DIPEP()]),
-            "premium": _t(100000, "프리미엄 백 + 글루타민 2백", [PREM(), DIPEP(), DIPEP()]),
+            "basic": _t(60000, "기본 백 + 글루타민(디펩티벤, 써프라민에 따로)", [MAIN(), DIPEP()]),
+            "premium": _t(100000, "기본 백 + 글루타민 2백", [MAIN(), DIPEP(), DIPEP()]),
         },
         "meds": ["트리메부틴", "피나베리움", "라모세트론", "로페라마이드", "리나클로타이드",
                  "PEG(마크로골)", "산화마그네슘", "저용량 아미트립틸린", "리팍시민", "진경제"],
@@ -455,8 +405,11 @@ PROGRAMS = {
     },
 }
 
-PROGRAM_ORDER = ["immune", "vitality", "fatigue", "dizzy", "meno", "white", "hangover", "liver", "gi", "cold"]
+# 합친 처방: 면역증강+갱년기 / 피로회복+감기몸살 / 활력+숙취회복 / 백옥+간기능개선
+PROGRAM_ORDER = ["immune", "fatigue", "vitality", "white", "dizzy", "gi"]
 PROGRAMS_LATER = ["gut"]   # 재고 들어오면 PROGRAM_ORDER로 옮기기
+# 옛 이름(이미 시작한 코스용) → 합친 프로그램
+MERGED_FROM = {"meno": "immune", "cold": "fatigue", "hangover": "vitality", "liver": "white"}
 
 # ───────────────────────── 원내 판매 보충제 ─────────────────────────
 # price: 1통 값(원). None = 원장님 입력 전. days_per_pack: 1통 며칠분
@@ -488,8 +441,11 @@ def default_catalog():
     for s in sups.values():
         s.setdefault("price", None)
         s.setdefault("days_per_pack", 30)
+    progs = copy.deepcopy(PROGRAMS)
+    for old, new in MERGED_FROM.items():
+        progs[old] = dict(copy.deepcopy(PROGRAMS[new]), ready=False)
     return {
-        "programs": copy.deepcopy(PROGRAMS),
+        "programs": progs,
         "order": list(PROGRAM_ORDER),
         "later": list(PROGRAMS_LATER),
         "ingredients": copy.deepcopy(ING),

@@ -1,4 +1,4 @@
-// 웰빙내과 맞춤 영양수액 10종 구성표 (docx)
+// 웰빙내과 맞춤 영양수액 구성표 (docx)
 const fs = require("fs");
 const {
   Document, Packer, Paragraph, TextRun, Table, TableRow, TableCell, WidthType, ShadingType,
@@ -43,16 +43,16 @@ const tiersOf = p => cat.tiers.filter(x => p.tiers[x]);
 
 const children = [];
 // ── 제목 ──
-children.push(new Paragraph({ children: [t("웰빙내과 맞춤 영양수액 10종 구성표", { size: 36, bold: true, color: GREEN })], spacing: { after: 120 },
+children.push(new Paragraph({ children: [t(`웰빙내과 맞춤 영양수액 ${cat.order.length}종 구성표`, { size: 36, bold: true, color: GREEN })], spacing: { after: 120 },
   border: { bottom: { style: BorderStyle.SINGLE, size: 8, color: GREEN, space: 4 } } }));
-children.push(P("2026년 11월 20일 · 원내 수액 재고(EMR 수액 목록)로 당장 시행할 수 있게 짠 구성입니다."));
-children.push(P([t("기본 ", { bold: true }), t("= N/S 100mL + 삐콤헥사 1A + 마시주 5mL(0.5g)      "),
-  t("프리미엄 ", { bold: true }), t("= 써프라민 100mL + 삐콤헥사 1A + 마시주 5mL")]));
-children.push(P("여기에 피로 계열은 메리트씨(비타민C), 백옥·숙취·간은 비치라이트(글루타치온), 어지러움은 진코발(은행잎)을 붙입니다. 피로·활력·숙취·감기에는 푸르설타민(마늘주사), 어지러움과 일부 프리미엄에는 라노빈(B12)을 넣습니다. 라이넥은 아직 조합하지 않습니다."));
-children.push(P([t("주의: ", { bold: true, color: RED }), t("비치라이트·진코발, 그리고 비타민C나 써프라민과 함께일 때의 라노빈은 기본 백에 섞지 않고 N/S 100mL에 따로 타서 순서대로 연결합니다(03 참고). 수축기혈압 100 이하면 마시주를 빼고 조제합니다.", { color: RED })]));
+children.push(P("2026년 11월 21일 · 원내 수액 재고(EMR 수액 목록)로 당장 시행할 수 있게 짠 구성입니다. 같은 조합은 하나로 합쳤습니다."));
+children.push(P([t("기본 ", { bold: true }), t("= N/S 100mL 한 백에 삐콤헥사 1A + 마시주 5mL(0.5g) + 처방별 추가 약")]));
+children.push(P([t("프리미엄 ", { bold: true }), t("= 기본과 같은 N/S 백 + 써프라민 100mL 단독 한 백")]));
+children.push(P("추가 약: 피로·면역 계열 메리트씨(비타민C), 백옥·간·숙취 비치라이트(글루타치온), 피로·활력 푸르설타민(마늘주사), 어지러움 라노빈(B12)·진코발(은행잎). 라이넥은 아직 조합하지 않습니다."));
+children.push(P([t("섞기 규칙: ", { bold: true, color: RED }), t("N/S에 삐콤·비타민C·마그네슘 같이 가능, 삐콤·비치라이트·마그네슘 같이 가능. 비치라이트와 메리트씨는 섞지 않음 → 비타민C는 N/S 100에 따로. 진코발은 단독 백. 수축기혈압 100 이하면 마시주를 뺍니다.", { color: RED })]));
 
 // ── 01 한눈에 ──
-children.push(H1("01  한눈에 보는 10종"));
+children.push(H1(`01  한눈에 보는 ${cat.order.length}종`));
 const w1 = [500, 1700, 3200, 3200, 1038];
 const rows1 = [headRow(["No", "처방명", "기본", "프리미엄", "일정"], w1)];
 cat.order.forEach((k, i) => {
@@ -145,7 +145,7 @@ const doc = new Document({
     properties: { page: { size: { width: 11906, height: 16838 }, margin: { top: 1134, bottom: 1134, left: 1134, right: 1134 } } },
     headers: { default: new Header({ children: [new Paragraph({ alignment: AlignmentType.RIGHT, children: [t("웰빙내과 | 맞춤 영양수액 구성표", { size: 15, color: GREY })] })] }) },
     footers: { default: new Footer({ children: [new Paragraph({ alignment: AlignmentType.CENTER, children: [
-      t("원내 수액 재고 기준 · 2026.11.20 · ", { size: 15, color: GREY }),
+      t("원내 수액 재고 기준 · 2026.11.21 · ", { size: 15, color: GREY }),
       new TextRun({ children: [PageNumber.CURRENT], font: FONT, size: 15, color: GREY })] })] }) },
     children,
   }],
